@@ -1,0 +1,185 @@
+@import "assets/reset.scss";
+@import "assets/fonts.scss";
+@import "assets/vars.scss";
+@import "assets/keyframes.scss";
+
+.container {
+
+  max-width: 1200px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+body {
+  font-family: OpenSans;
+  font-weight: 400;
+}
+
+
+h1 {
+  font-size: 3em;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+h2 {
+  font-size: 2em;
+  letter-spacing: 0.01em;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+
+#root {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
+}
+
+
+.login-page {
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+  background: rgb(255,180,0);
+  background: linear-gradient(45deg, $mainLightColor 49%, $mainDarkColor 51%);
+  display: flex;
+}
+
+
+.loginForm {
+  background: #fff;
+  padding: 50px;
+  max-width: 550px;
+  margin: auto;
+  width: 100%;
+  border-radius: 6px;
+
+  &__title {
+    margin: 0 auto 20px;
+    text-align: center;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__button {
+    margin-top: 20px;
+  }
+
+}
+
+
+.loading {
+
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid $mainDarkColor;
+  margin: auto;
+  position: relative;
+
+  &:before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $mainDarkColor;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  span {
+    background: $mainDarkColor;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateY(-100%);
+    animation-name: clock_rotation;
+    animation-direction: normal;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    transform-origin: center bottom;
+    animation-iteration-count: infinite;
+  }
+
+  span:first-child {
+    animation-duration: 4s;
+    height: 45%;
+    width: 3px;
+  }
+
+  span:last-child {
+    height: 25%;
+    animation-duration: 48s;
+    width: 4px;
+  }
+
+}
+
+
+.error {
+  background: $errorOpacityColor;
+  margin: 10px 0;
+  padding: 10px 40px 10px 10px;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: 500ms transform, opacity 300ms;
+
+
+  &.enter {
+    opacity: 1;
+    transform: translateX(0%);
+  }
+
+  &.enter-done {
+    opacity: 1;
+    transform: translateX(0%);
+    pointer-events: all;
+  }
+
+  &.exit {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  &.exit-done {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  span {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      background: $mainDarkColor;
+      height: 70%;
+      width: 2px;
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+  }
+
+}
