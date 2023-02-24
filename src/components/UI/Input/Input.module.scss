@@ -34,7 +34,26 @@
   transition: .5s all;
 }
 
+.input:-webkit-autofill + .placeholder,
+.input:focus + .placeholder,
 .active_placeholder {
   top: 0%;
   transform: translateY(0%) scale(0.6);
+}
+
+.password_input_container {
+  position: relative;
+
+  input {
+    padding-right: 50px;
+  }
+
+}
+
+.eye_icon {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
 }

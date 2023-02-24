@@ -1,5 +1,5 @@
 import React from 'react';
-import {ButtonProps} from "../../../types/UIComponents";
+import {ButtonProps} from "../../../types/components/UIComponents";
 import classes from "./Button.module.scss";
 
 const Button = ({children, ...props}: ButtonProps) => {

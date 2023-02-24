@@ -16,7 +16,7 @@ const authInterceptor = (config: InternalAxiosRequestConfig) => {
     const token = getCookie('token');
 
     config.headers.authorization = `Bearer ${token}`;
-    config.withCredentials = false;
+    //config.withCredentials = false;
 
     return config;
 
@@ -24,7 +24,7 @@ const authInterceptor = (config: InternalAxiosRequestConfig) => {
 
 const interceptor = (config: InternalAxiosRequestConfig) => {
 
-    config.withCredentials = false;
+   // config.withCredentials = false;
 
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 

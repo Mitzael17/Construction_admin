@@ -1,10 +1,12 @@
-import React, {FormEvent, useEffect, useRef, useState} from 'react';
+import React, {FormEvent, useCallback, useEffect, useRef, useState} from 'react';
 import Input from "../../../components/UI/Input/Input";
 import Button from "../../../components/UI/Button/Button";
 import {$login} from "../../../api/loginAPI";
 import Loading from "../../../components/Loading";
-import {CSSTransition, Transition} from "react-transition-group";
 import {flushSync} from "react-dom";
+import Error from "../../../components/Messages/Error";
+import {PROJECTS_ROUTE} from "../../../data/paths";
+import InputPassword from "../../../components/UI/Input/InputPassword";
 
 
 const LoginForm = () => {
@@ -16,7 +18,6 @@ const LoginForm = () => {
 
     const [showError, setShowError] = useState(false);
     const error = useRef('');
-    const nodeError = useRef(null);
 
     return (
         <div className='loginForm'>
@@ -32,22 +33,19 @@ const LoginForm = () => {
                                 if(showError) setShowError(false);
 
                             }} placeholder='Login' value={login} />
-                            <Input value={password} setValue={(value: string) => {
+                            {<InputPassword value={password} setValue={(value: string) => {
 
                                 setPassword(value);
                                 if(showError) setShowError(false);
 
-                            }} placeholder='Password' />
+                            }} placeholder='Password' />}
                         </div>
-                            <CSSTransition nodeRef={nodeError} unmountOnExit timeout={500} in={showError} className='error'>
-                                <div ref={nodeError}>{error.current} <span onClick={() => setShowError(false)}></span></div>
-                            </CSSTransition>
+                        <Error value={showError} setValue={setShowError}>{error.current}</Error>
                         <div className="loginForm__button">
                             <Button>Send</Button>
                         </div>
                     </>
                 )}
-
             </form>
         </div>
     );
@@ -68,17 +66,17 @@ const LoginForm = () => {
 
         if(data.status === 'success') {
 
-            document.location.href = '/';
+            document.location.href = PROJECTS_ROUTE;
 
             return;
 
         }
 
-        error.current = data.message;
-
         flushSync(() => {
             setIsLoading(false)
         });
+
+        error.current = data.message;
 
         setShowError(true);
 
