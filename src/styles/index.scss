@@ -34,6 +34,7 @@ h2 {
 #root {
   min-height: 100vh;
   min-height: calc(var(--vh, 1vh) * 100);
+  display: flex;
 }
 
 
@@ -43,6 +44,7 @@ h2 {
   background: rgb(255,180,0);
   background: linear-gradient(45deg, $mainLightColor 49%, $mainDarkColor 51%);
   display: flex;
+  width: 100%;
 }
 
 
@@ -85,6 +87,10 @@ h2 {
   border: 2px solid $mainDarkColor;
   margin: auto;
   position: relative;
+
+  .status-response-title {
+    margin-top: 20px;
+  }
 
   &:before {
     content: '';
@@ -199,4 +205,331 @@ h2 {
 
   }
 
+}
+
+
+.profileLogo {
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  border-radius: 50%;
+  border: 1px solid #fff;
+  background: #fff;
+
+  img {
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    text-align: center;
+    line-height: 100px;
+  }
+
+}
+
+
+.sidebar {
+  flex: 0 1 300px;
+  background: $mainLightColor;
+}
+
+
+.page-content {
+  flex: 0 1 100%;
+}
+
+
+.navbar {
+  background: $mainDarkColor;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+
+  &__icon {
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+
+    .icon {
+      fill: #fff;
+      stroke: #fff;
+      transition: .2s all ease-in-out;
+
+      &:hover {
+        stroke: $mainLightColor;
+        fill: $mainLightColor;
+      }
+    }
+
+    &:hover {
+
+    }
+  }
+
+}
+
+
+.icon {
+  width: 100%;
+  height: 100%;
+}
+
+
+.main {
+  padding: 20px;
+  background: #fff;
+  min-height: 100%;
+}
+
+
+.fade-container {
+
+  transition: .3s all ease-in-out;
+  opacity: 0;
+  pointer-events: none;
+
+  &.enter {
+    opacity: 1;
+  }
+
+  &.enter-done {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &.exit {
+    opacity: 0;
+  }
+
+  &.exit-done {
+    opacity: 0;
+  }
+
+}
+
+
+.defaultForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+
+.success {
+  color: $successColor;
+}
+
+.error {
+  color: $errorColor;
+}
+
+.warning {
+  color: $warningColor;
+}
+
+
+.success-background {
+  background: #fff;
+  background: radial-gradient(circle, rgba(250,254,250,1) 90%, $successColor 100%);
+}
+
+
+.error-background {
+  background: #fff;
+  background: radial-gradient(circle, rgba(250,254,250,1) 90%, $errorColor 100%);
+}
+
+
+.warning-background {
+  background: #fff;
+  background: radial-gradient(circle, rgba(250,254,250,1) 90%, $warningColor 100%);
+}
+
+
+.status-response {
+
+  .circle-container {
+    position: relative;
+
+    span {
+      position: absolute;
+      width: 5%;
+    }
+  }
+
+  &.success {
+
+    .circle-container {
+
+      span {
+        background: $successColor;
+      }
+
+      span:first-child {
+        height: 28%;
+        transition: .2s all .5s;
+        top: 60%;
+        left: 27%;
+
+        transform: translate(-50%, -50%) rotate(-45deg) scaleY(0);
+        transform-origin: center top;
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(-45deg) scaleY(1);
+        }
+
+      }
+
+      span:nth-child(2) {
+        top: 42%;
+        height: 48%;
+        left: 44%;
+        transition: .3s all .6s;
+        transform: translate(-50%, -50%) rotate(45deg) scaleY(0);
+        transform-origin: center bottom;
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(45deg) scaleY(1);
+        }
+
+      }
+
+    }
+
+    .circle {
+      stroke: $successColor;
+    }
+
+  }
+
+  &.error {
+
+    .circle-container {
+
+      span {
+        background: $errorColor;
+        transform-origin: center center;
+      }
+
+      span:first-child {
+        height: 50%;
+        transition: .2s all .5s;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg) scaleY(0);
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(45deg) scaleY(1);
+        }
+
+      }
+
+      span:nth-child(2) {
+        top: 50%;
+        height: 50%;
+        left: 50%;
+        transition: .2s all .5s;
+        transform: translate(-50%, -50%) rotate(-45deg) scaleY(0);
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(-45deg) scaleY(1);
+        }
+
+      }
+
+    }
+
+
+    .circle {
+      stroke: $errorColor;
+    }
+
+  }
+
+
+  &.warning {
+
+    .circle-container {
+
+      span {
+        background: $warningColor;
+      }
+
+      span:first-child {
+        height: 5%;
+        transition: .2s all .5s;
+        top: 70%;
+        left: 50%;
+
+        transform: translateX(-50%) scale(0);
+        transform-origin: center top;
+
+        &.active {
+          transform: translateX(-50%) scale(1);
+        }
+
+      }
+
+      span:nth-child(2) {
+        top: 20%;
+        height: 40%;
+        left: 50%;
+        transition: .3s all .6s;
+        transform: translateX(-50%) scaleY(0);
+        transform-origin: center bottom;
+
+        &.active {
+          transform: translateX(-50%) scaleY(1);
+        }
+
+      }
+
+    }
+
+
+    .circle {
+      stroke: $warningColor;
+    }
+
+  }
+
+  .circle-container {
+    width: 105px;
+    height: 105px;
+    display: block;
+  }
+
+  .circle {
+    cx: 50%;
+    cy: 50%;
+    r: 45%;
+    transition: 1s all;
+  }
+
+  .status-response-title {
+
+    transform: scale(0);
+    transition: .3s all;
+
+    &.active {
+      transform: scale(1);
+    }
+
+  }
+
+}
+
+
+.status-response-title {
+  text-transform: uppercase;
+  font-weight: 900;
+  transition: .5s all;
+  text-align: center;
+  margin-top: 15px;
+}
+
+
+.center {
+  margin: auto;
 }

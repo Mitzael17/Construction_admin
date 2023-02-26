@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useRef} from 'react';
+import React, {memo} from 'react';
 import classes from './Input.module.scss';
 import {InputProps} from "../../../types/components/UIComponents";
 

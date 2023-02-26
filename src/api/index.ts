@@ -17,6 +17,7 @@ const authInterceptor = (config: InternalAxiosRequestConfig) => {
 
     config.headers.authorization = `Bearer ${token}`;
     //config.withCredentials = false;
+    config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
     return config;
 

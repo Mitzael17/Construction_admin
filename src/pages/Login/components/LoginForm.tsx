@@ -1,18 +1,23 @@
-import React, {FormEvent, useCallback, useEffect, useRef, useState} from 'react';
+import React, {FormEvent, useRef, useState} from 'react';
 import Input from "../../../components/UI/Input/Input";
 import Button from "../../../components/UI/Button/Button";
-import {$login} from "../../../api/loginAPI";
-import Loading from "../../../components/Loading";
+import {$login} from "../../../api/usersAPI";
+import Loading from "../../../components/Visual/Loading";
 import {flushSync} from "react-dom";
 import Error from "../../../components/Messages/Error";
 import {PROJECTS_ROUTE} from "../../../data/paths";
 import InputPassword from "../../../components/UI/Input/InputPassword";
+import {useStateCallback} from "../../../hooks/useStateCallback";
 
 
 const LoginForm = () => {
 
-    const [login, setLogin] = useState('');
-    const [password, setPassword] = useState('');
+    const callbackStates = () => {
+        if(showError) setShowError(false);
+    }
+
+    const [login, setLogin] = useStateCallback('', callbackStates);
+    const [password, setPassword] = useStateCallback('', callbackStates);
 
     const [isLoading, setIsLoading] = useState(false);
 
@@ -27,18 +32,8 @@ const LoginForm = () => {
                     <Loading/> : (
                     <>
                         <div className="loginForm__inputs">
-                            <Input setValue={(value: string) => {
-
-                                setLogin(value);
-                                if(showError) setShowError(false);
-
-                            }} placeholder='Login' value={login} />
-                            {<InputPassword value={password} setValue={(value: string) => {
-
-                                setPassword(value);
-                                if(showError) setShowError(false);
-
-                            }} placeholder='Password' />}
+                            <Input setValue={setLogin} placeholder='Login' value={login} />
+                            <InputPassword value={password} setValue={setPassword} placeholder='Password' />
                         </div>
                         <Error value={showError} setValue={setShowError}>{error.current}</Error>
                         <div className="loginForm__button">
@@ -60,6 +55,7 @@ const LoginForm = () => {
             return false;
         }
 
+        setShowError(false);
         setIsLoading(true);
 
         const data = await $login(login, password);

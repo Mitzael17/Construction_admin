@@ -1,5 +1,8 @@
-export interface stateProps<Type> {
+import {Dispatch, SetStateAction} from "react";
+
+
+export interface StateProps<Type> {
     value: Type,
-    setValue: Function
+    setValue: Dispatch<SetStateAction<Type>> | ((value: Type) => void)
 
 }
