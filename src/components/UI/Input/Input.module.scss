@@ -57,3 +57,13 @@
   transform: translateY(-50%);
   cursor: pointer;
 }
+
+.searchInput {
+
+  height: 35px;
+  padding: 0 10px;
+  border: 1px solid $mainDarkColor;
+  margin-right: -1px;
+  flex: 0 1 100%;
+
+}

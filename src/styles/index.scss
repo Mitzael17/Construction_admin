@@ -533,3 +533,77 @@ h2 {
 .center {
   margin: auto;
 }
+
+
+.kalaiIcon {
+
+  svg {
+    fill: none;
+    stroke: #000;
+
+  }
+
+  &.no_stroke {
+    svg {
+      stroke: none;
+      fill: #000;
+    }
+  }
+
+}
+
+
+.flex {
+  display: flex;
+}
+
+
+.kalaiIconDark {
+  width: 60px;
+  height: 35px;
+  background: $mainDarkColor;
+  transition: .3s all;
+  cursor: pointer;
+
+  &:active,
+  &:hover {
+    background: $mainLightColor;
+  }
+
+  &:active {
+    div {
+      transform: scale(0.9);
+    }
+  }
+
+
+  div {
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    transform: scale(1);
+  }
+
+
+  circle,
+  path {
+    stroke: #fff;
+  }
+
+  &.no_stroke {
+    svg {
+      path {
+        stroke: none;
+      }
+      fill: #fff;
+    }
+  }
+
+}
+
+
+.w-100 {
+  width: 100%;
+}

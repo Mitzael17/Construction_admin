@@ -4,16 +4,15 @@ export enum Statuses {
     error = 'error'
 }
 
-export interface ErrorResponse {
-    status: Statuses.error,
+interface Response<T> {
+
+    status: T,
     message: string
 
 }
 
-export interface PartialSuccessResponse {
-    status: Statuses.warning,
-    'not removed': string
-}
+export type ErrorResponse = Response<Statuses.error>;
+export type WarningResponse = Response<Statuses.warning>;
 
 export interface SuccessResponse {
 
@@ -39,4 +38,4 @@ export interface DecodeTokenResult {
 }
 
 
-export type PostResponse = SuccessResponse|ErrorResponse|PartialSuccessResponse;
+export type PostResponse = SuccessResponse|ErrorResponse|WarningResponse;

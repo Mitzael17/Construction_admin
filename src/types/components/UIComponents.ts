@@ -11,6 +11,13 @@ export interface InputProps extends StateProps<string>{
 export interface ButtonProps {
 
     children: any,
+    type?: 'button' | 'submit',
     onClick?: MouseEventHandler
+
+}
+
+export interface SearchInputProps extends Omit<InputProps, 'type'> {
+
+    onClick: MouseEventHandler
 
 }

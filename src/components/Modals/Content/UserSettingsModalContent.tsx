@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from 'react';
+import React, {FormEvent, useEffect, useState} from 'react';
 import {useUser} from "../../../hooks/useUser";
 import Input from "../../UI/Input/Input";
 import InputPassword from "../../UI/Input/InputPassword";
@@ -10,6 +10,8 @@ import Loading from "../../Visual/Loading";
 import {modal as modalClass} from "../Modals.module.scss";
 import {PostResponse, Statuses} from "../../../types/API";
 import StatusResponse from "../../Visual/StatusResponse";
+import FileManager from "./FileManager/FileManager";
+import {createPortal} from "react-dom";
 
 const UserSettingsModalContent = () => {
 
@@ -18,20 +20,28 @@ const UserSettingsModalContent = () => {
 
     const [name, setName] = useState(userData.name);
     const [password, setPassword] = useState(userData.password);
+    const [image, setImage] = useState({
+        inner_link: '',
+        out_link: userData.image,
+    });
 
-    const [response, setResponse] = useState({} as PostResponse);
+    const [response, setResponse] = useState<null|PostResponse>(null);
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const [showFileManager, setShowFileManager] = useState(false);
+
     return (
         <>
-            <form onSubmit={handleSubmit} className='defaultForm' action='#'>
+            <form style={{display: (showFileManager ? 'none' : 'flex')}} onSubmit={handleSubmit} className='defaultForm' action='#'>
                 <Input setValue={setName} placeholder='Name' value={name} />
                 <InputPassword placeholder='Password' value={password} setValue={setPassword} />
-                <Button>Save</Button>
-                {Object.keys(response).length > 0 && !isLoading && <StatusResponse status={response.status} />}
+                <Button type='submit'>Save</Button>
+                <Button onClick={() => setShowFileManager(true)}>Open file manager</Button>
+                {response && !isLoading && <StatusResponse status={response.status} />}
                 {isLoading && <Loading />}
             </form>
+            {showFileManager && <FileManager setVisible={setShowFileManager} setImage={setImage} />}
         </>
     );
 
@@ -40,13 +50,14 @@ const UserSettingsModalContent = () => {
         event.preventDefault();
 
 
-        let newUserData: UserUpdateData = {name, password};
+        let newUserData: UserUpdateData = {name, password, image: image.inner_link};
 
         for(let key in newUserData) {
 
             const oldValue = userData[key as keyof OwnUserAccount];
             const newValue = newUserData[key as keyof UserUpdateData];
 
+            if(key === 'image' && image.out_link === userData.image) delete newUserData[key as keyof UserUpdateData];
 
             if(newValue === oldValue) delete newUserData[key as keyof UserUpdateData];
 
@@ -80,6 +91,8 @@ const UserSettingsModalContent = () => {
             const data = await $login(name, password);
 
             if(data.status === 'success') {
+
+                if(newUserData.image) newUserData.image = image.out_link;
 
                 changeData({...userData, ...newUserData});
                 setIsLoading(false);

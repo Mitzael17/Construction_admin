@@ -37,7 +37,7 @@ const LoginForm = () => {
                         </div>
                         <Error value={showError} setValue={setShowError}>{error.current}</Error>
                         <div className="loginForm__button">
-                            <Button>Send</Button>
+                            <Button type='submit'>Send</Button>
                         </div>
                     </>
                 )}
