@@ -12,8 +12,12 @@ import {useStateCallback} from "../../../hooks/useStateCallback";
 
 const LoginForm = () => {
 
-    const callbackStates = () => {
+    const callbackStates = (state: string) => {
+
         if(showError) setShowError(false);
+
+        return state;
+
     }
 
     const [login, setLogin] = useStateCallback('', callbackStates);

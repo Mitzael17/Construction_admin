@@ -1,2 +1,2 @@
 
-export type UseStateCallback = <Type>(initialState: Type, callback: () => void) => [Type, (state: Type) => void];
+export type UseStateCallback = <Type>(initialState: Type, callback: (state: Type) => Type) => [Type, (state: Type) => void];

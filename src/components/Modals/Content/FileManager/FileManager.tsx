@@ -6,18 +6,25 @@ import AddFolderIcon from "../../../Icons/KalaiIcons/AddFolderIcon";
 import DeleteIcon from "../../../Icons/KalaiIcons/DeleteIcon";
 import SearchInput from "../../../UI/Input/SearchInput";
 import {FilesResponse} from "../../../../types/API/files";
-import {$deleteFiles, $getFiles, $uploadFiles} from "../../../../api/filesAPI";
+import {$createFolder, $deleteFiles, $getFiles, $uploadFiles} from "../../../../api/filesAPI";
 import {ErrorResponse, Statuses} from "../../../../types/API";
 import folder from "../../../../assets/folder.png";
 import Loading from "../../../Visual/Loading";
 import {FileManagerProps} from "../../../../types/components/ModalsComponents";
 import {useModal} from "../../../../hooks/useModal";
+import TinyInput from "../../../UI/Input/TinyInput";
+import Button from "../../../UI/Button/Button";
+import {useStateCallback} from "../../../../hooks/useStateCallback";
 
 const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps) => {
 
     const [modalData, setModalData] = useModal();
 
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useStateCallback('', (state) => {
+
+        return state.toLowerCase();
+
+    });
     const [arrDirectories, setArrDirectories] = useState<string[]>([]);
 
     let checkedNames: string[] = [];
@@ -29,6 +36,9 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
     const [isLoading, setIsLoading] = useState(true);
     const [isHover, setIsHover] = useState(false);
     const hoverCounter = useRef(0);
+
+    const [showNewFolderInput, setShowNewFolderInput] = useState(false);
+    const [newDirectoryName, setNewDirectoryName] = useState('');
 
     const [filteredData, setFilteredData] = useState(data.current as FilesResponse);
 
@@ -104,8 +114,38 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
                         <UploadFileIcon />
                         <input ref={inputFileRef} style={{display: 'none'}} type="file" multiple onChange={uploadFile}/>
                     </label>
-                    <div className='kalaiIconDark'>
+                    <div onClick={() => setShowNewFolderInput(prev => !prev)} className='kalaiIconDark'>
                         <AddFolderIcon />
+                        {showNewFolderInput && (
+                            <div onClick={(event) => event.stopPropagation()}>
+                                <TinyInput placeholder='Name of directory' value={newDirectoryName} setValue={setNewDirectoryName} />
+                                <Button type='button' onClick={ async () => {
+
+                                    setIsLoading(true);
+
+                                    const response = await $createFolder(directory + newDirectoryName);
+
+                                    setIsLoading(false);
+
+                                    if(response.status === Statuses.success) {
+
+                                        if(data.current) {
+
+                                            data.current.directories.push(newDirectoryName);
+
+                                            setFilteredData({...filteredData, directories: data.current.directories});
+
+                                            return;
+
+                                        }
+
+                                        alert(response.status);
+
+                                    }
+
+                                }}>Ok</Button>
+                            </div>
+                        )}
                     </div>
                     <div onClick={async () => {
 
@@ -113,13 +153,18 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
 
                         setIsLoading(true);
 
-                        const data = await $deleteFiles(checkedNames);
+                        const response = await $deleteFiles(checkedNames);
 
-                        setFilteredData(
-                            {files: filteredData.files.filter( ({name}) => checkedNames.indexOf(name) !== -1),
-                                directories: filteredData.directories.filter( name => checkedNames.indexOf(name) !== -1)
-                            }
-                        );
+                        if(data.current) {
+
+                            data.current = {
+                                files: data.current.files.filter( ({name}) => checkedNames.indexOf(directory + name) === -1),
+                                directories: data.current.directories.filter( name => checkedNames.indexOf(directory + name) === -1)
+                            };
+
+                            setFilteredData(data.current);
+
+                        }
 
                         setIsLoading(false);
 
@@ -151,6 +196,15 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
                                         <div className={classes.imageContainer}>
                                             <img src={folder} alt={dir}/>
                                         </div>
+                                        <label onClick={ event => event.stopPropagation()} className='checkbox center'>
+                                            <input onChange={(event) => {
+
+                                                if(event.target.checked) checkedNames.push(event.target.name);
+                                                else checkedNames = checkedNames.filter(name => name !== event.target.name);
+
+                                            }} type="checkbox" name={directory + dir} />
+                                            <span></span>
+                                        </label>
                                         <div className={classes.name}>{dir}</div>
                                     </div>
                                 ))}
@@ -180,7 +234,7 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
                                     </div>
                                 ))}
                             </>
-                        : <h3>Not found</h3>}
+                            : <h3>Not found</h3>}
 
                     </>
                 )}
@@ -195,8 +249,8 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
         if(data.current) {
 
             setFilteredData({
-                directories: data.current.directories.filter( (name) => name.match(searchValue) ),
-                files: data.current.files.filter( ( {name} ) => name.match(searchValue))
+                directories: data.current.directories.filter( (name) => name.toLowerCase().match(searchValue) ),
+                files: data.current.files.filter( ( {name} ) => name.toLowerCase().match(searchValue))
             });
 
         }
@@ -244,7 +298,7 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
         const data = await $uploadFiles(event.target.files as FileList, directory);
 
 
-            alert(data.status);
+        alert(data.status);
 
 
 
