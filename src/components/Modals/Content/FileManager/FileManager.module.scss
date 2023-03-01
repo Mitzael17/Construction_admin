@@ -22,7 +22,7 @@
 .item {
   width: 125px;
   overflow: hidden;
-  max-height: 145px;
+  max-height: 200px;
 
   img {
     position: absolute;
@@ -46,7 +46,7 @@
   text-overflow: ellipsis;
   font-size: 1em;
   overflow: hidden;
-
+  margin-top: 10px;
 }
 
 

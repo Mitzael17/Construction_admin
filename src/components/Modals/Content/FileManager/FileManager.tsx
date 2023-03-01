@@ -6,16 +6,21 @@ import AddFolderIcon from "../../../Icons/KalaiIcons/AddFolderIcon";
 import DeleteIcon from "../../../Icons/KalaiIcons/DeleteIcon";
 import SearchInput from "../../../UI/Input/SearchInput";
 import {FilesResponse} from "../../../../types/API/files";
-import {$getFiles, $uploadFiles} from "../../../../api/filesAPI";
+import {$deleteFiles, $getFiles, $uploadFiles} from "../../../../api/filesAPI";
 import {ErrorResponse, Statuses} from "../../../../types/API";
 import folder from "../../../../assets/folder.png";
 import Loading from "../../../Visual/Loading";
 import {FileManagerProps} from "../../../../types/components/ModalsComponents";
+import {useModal} from "../../../../hooks/useModal";
 
-const FileManager = ({setImage, setVisible}: FileManagerProps) => {
+const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps) => {
+
+    const [modalData, setModalData] = useModal();
 
     const [searchValue, setSearchValue] = useState('');
     const [arrDirectories, setArrDirectories] = useState<string[]>([]);
+
+    let checkedNames: string[] = [];
 
     const directory = arrDirectories.join('/') + '/';
     const inputFileRef = useRef<null|HTMLInputElement>(null);
@@ -26,6 +31,13 @@ const FileManager = ({setImage, setVisible}: FileManagerProps) => {
     const hoverCounter = useRef(0);
 
     const [filteredData, setFilteredData] = useState(data.current as FilesResponse);
+
+
+    useEffect(() => {
+
+        setModalData({title: 'File manager'});
+
+    }, [])
 
     useEffect( () => {
 
@@ -68,6 +80,7 @@ const FileManager = ({setImage, setVisible}: FileManagerProps) => {
                         if(!directory || directory === '/') {
 
                             setVisible(false);
+                            if(prevTitle) setModalData({title: prevTitle});
                             return;
 
                         }
@@ -94,7 +107,24 @@ const FileManager = ({setImage, setVisible}: FileManagerProps) => {
                     <div className='kalaiIconDark'>
                         <AddFolderIcon />
                     </div>
-                    <div className='kalaiIconDark'>
+                    <div onClick={async () => {
+
+                        if(checkedNames.length < 1) return;
+
+                        setIsLoading(true);
+
+                        const data = await $deleteFiles(checkedNames);
+
+                        setFilteredData(
+                            {files: filteredData.files.filter( ({name}) => checkedNames.indexOf(name) !== -1),
+                                directories: filteredData.directories.filter( name => checkedNames.indexOf(name) !== -1)
+                            }
+                        );
+
+                        setIsLoading(false);
+
+
+                    }} className='kalaiIconDark'>
                         <DeleteIcon />
                     </div>
                 </div>
@@ -137,6 +167,15 @@ const FileManager = ({setImage, setVisible}: FileManagerProps) => {
                                         <div className={classes.imageContainer}>
                                             <img src={file.link} alt={file.name} />
                                         </div>
+                                        <label onClick={ event => event.stopPropagation()} className='checkbox center'>
+                                            <input onChange={(event) => {
+
+                                                if(event.target.checked) checkedNames.push(event.target.name);
+                                                else checkedNames = checkedNames.filter(name => name !== event.target.name);
+
+                                            }} type="checkbox" name={directory + file.name} />
+                                            <span></span>
+                                        </label>
                                         <div className={classes.name}>{file.name}</div>
                                     </div>
                                 ))}

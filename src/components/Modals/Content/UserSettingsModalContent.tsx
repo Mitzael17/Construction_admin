@@ -1,4 +1,4 @@
-import React, {FormEvent, useEffect, useState} from 'react';
+import React, {FormEvent, useEffect, useRef, useState} from 'react';
 import {useUser} from "../../../hooks/useUser";
 import Input from "../../UI/Input/Input";
 import InputPassword from "../../UI/Input/InputPassword";
@@ -12,11 +12,16 @@ import {PostResponse, Statuses} from "../../../types/API";
 import StatusResponse from "../../Visual/StatusResponse";
 import FileManager from "./FileManager/FileManager";
 import {createPortal} from "react-dom";
+import {useModal} from "../../../hooks/useModal";
 
 const UserSettingsModalContent = () => {
 
     const userData = useUser();
     const changeData = useUserChange();
+
+    const [modalData, setModalData] = useModal();
+
+    const title = useRef(modalData['title']);
 
     const [name, setName] = useState(userData.name);
     const [password, setPassword] = useState(userData.password);
@@ -41,7 +46,7 @@ const UserSettingsModalContent = () => {
                 {response && !isLoading && <StatusResponse status={response.status} />}
                 {isLoading && <Loading />}
             </form>
-            {showFileManager && <FileManager setVisible={setShowFileManager} setImage={setImage} />}
+            {showFileManager && <FileManager prevTitle={title.current} setVisible={setShowFileManager} setImage={setImage} />}
         </>
     );
 
@@ -69,19 +74,17 @@ const UserSettingsModalContent = () => {
 
         }
 
-
         setIsLoading(true);
 
-
-        const modalWindow: HTMLElement|null = (event.target as HTMLFormElement).closest(`.${modalClass}`);
-
-        if(modalWindow) {
-
-            modalWindow.classList.remove('success-background');
-            modalWindow.classList.remove('error-background');
-            modalWindow.classList.remove('warning-background');
-
-        }
+        // const modalWindow: HTMLElement|null = (event.target as HTMLFormElement).closest(`.${modalClass}`);
+        //
+        // if(modalWindow) {
+        //
+        //     modalWindow.classList.remove('success-background');
+        //     modalWindow.classList.remove('error-background');
+        //     modalWindow.classList.remove('warning-background');
+        //
+        // }
 
 
         const result = await $updateUser(userData.id, newUserData);
@@ -97,7 +100,7 @@ const UserSettingsModalContent = () => {
                 changeData({...userData, ...newUserData});
                 setIsLoading(false);
 
-                if(modalWindow) modalWindow.classList.add('success-background');
+                setModalData({...modalData, class: 'success-background'})
 
                 setResponse({status: Statuses.success});
 
@@ -109,13 +112,9 @@ const UserSettingsModalContent = () => {
 
         setIsLoading(false);
 
-        if(modalWindow) {
+        setModalData({...modalData, class: `${result.status}-background`})
 
-            modalWindow.classList.add(`${result.status}-background`);
-
-            setResponse(result);
-
-        }
+        setResponse(result);
 
 
     }

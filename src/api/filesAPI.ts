@@ -1,6 +1,7 @@
 import {FilesResponse} from "../types/API/files";
 import {$authAPI} from "./index";
 import {ErrorResponse, PostResponse} from "../types/API";
+import {json} from "react-router-dom";
 
 export const $getFiles = async (dir = ''): Promise<FilesResponse | ErrorResponse> => {
 
@@ -30,6 +31,18 @@ export const $uploadFiles = async (files: FileList, directory = ''): Promise<Pos
             'Content-Type': 'multipart/form-data'
         }
     });
+
+    return data;
+
+}
+
+export const $deleteFiles = async (files: string[]): Promise<PostResponse> => {
+
+    const {data} = await $authAPI.delete('/files', {
+       data: {
+           files: JSON.stringify(files)
+       }
+    })
 
     return data;
 
