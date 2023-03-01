@@ -187,7 +187,7 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
                         {filteredData.directories.length > 0 || filteredData.files.length > 0 ?
                             <>
                                 {filteredData.directories.map( dir => (
-                                    <div key={dir} onClick={() => {
+                                    <div key={dir} onDoubleClick={() => {
 
                                         setArrDirectories([...arrDirectories, dir]);
                                         setIsLoading(true);
@@ -209,7 +209,7 @@ const FileManager = ({setImage, setVisible, prevTitle = null}: FileManagerProps)
                                     </div>
                                 ))}
                                 {filteredData.files.map(file => (
-                                    <div key={file.link} onClick={() => {
+                                    <div key={file.link} onDoubleClick={() => {
 
                                         setVisible(false);
                                         setImage({
