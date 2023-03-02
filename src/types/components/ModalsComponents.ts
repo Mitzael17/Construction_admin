@@ -16,18 +16,3 @@ export interface FileManagerProps {
     setVisible: Dispatch<SetStateAction<boolean>>,
     prevTitle?: string|null,
 }
-
-
-export interface FileManagerHeaderProps extends Omit<FileManagerProps, 'setImage'>{
-    directory: string,
-    setArrDirectories: Dispatch<SetStateAction<string[]>>,
-    setIsLoading: Dispatch<SetStateAction<boolean>>,
-    data: MutableRefObject<null|FilesResponse>,
-    filteredData: FilesResponse,
-    setFilteredData: Dispatch<SetStateAction<FilesResponse>>,
-    checkedNames: string[],
-    contentRef: MutableRefObject<null|HTMLDivElement>
-
-
-
-}
