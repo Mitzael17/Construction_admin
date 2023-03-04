@@ -29,7 +29,7 @@ const FileManagerDeleteButton = () => {
                 directories: fileManagerData.data.directories.filter( name => fileManagerData.checkedNames.indexOf(directory + name) === -1)
             };
 
-            setFileManagerData({...fileManagerData, data: data, filteredData: data, isLoading: false});
+            setFileManagerData({...fileManagerData, data: data, filteredData: data, checkedNames: [], isLoading: false});
 
             return;
 

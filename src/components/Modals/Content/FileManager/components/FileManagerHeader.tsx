@@ -10,7 +10,7 @@ const FileManagerHeader = () => {
 
     return (
         <div className={classes.header}>
-            <div className='flex'>
+            <div className='flex relative'>
                 <FileManagerBackButton />
                 <FileManagerUploadButton />
                 <FileManagerAddFolderButton />

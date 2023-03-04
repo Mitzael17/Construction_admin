@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useEffect, useRef} from 'react';
 import UploadFileIcon from "../../../../../Icons/KalaiIcons/UploadFileIcon";
-import {$uploadFiles} from "../../../../../../api/filesAPI";
 import {useFileManager} from "../../../../../../hooks/useFileManager";
 
 const FileManagerUploadButton = () => {
@@ -8,7 +7,6 @@ const FileManagerUploadButton = () => {
     const [fileManagerData, setFileManagerData] = useFileManager();
 
     const inputFileRef = useRef<null|HTMLInputElement>(null);
-    const directory = fileManagerData.arrDirectories.join('/') + '/';
 
     useEffect(() => {
 
@@ -23,17 +21,26 @@ const FileManagerUploadButton = () => {
     return (
         <label className='kalaiIconDark no_stroke'>
             <UploadFileIcon />
-            <input ref={inputFileRef} style={{display: 'none'}} type="file" multiple onChange={uploadFile}/>
+            <input
+                ref={inputFileRef}
+                style={{display: 'none'}}
+                type="file"
+                accept='image/png, image/jpg, image/jpeg, image/webp, image/svg, image/gif, video/mp4'
+                multiple
+                onChange={prepareFiles}/>
         </label>
     );
 
-    async function uploadFile(event: ChangeEvent<HTMLInputElement>) {
+    function prepareFiles(event: ChangeEvent<HTMLInputElement>) {
 
-        if(!event.target?.files) alert('You didn\'t choose any file');
+        if(!event.target?.files) {
 
-        const data = await $uploadFiles(event.target.files as FileList, directory);
+            alert('You didn\'t choose any file');
 
-        alert(data.status);
+            return;
+        }
+
+        setFileManagerData({...fileManagerData, uploadedFiles: event.target.files});
 
     }
 

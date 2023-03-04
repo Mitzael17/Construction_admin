@@ -1,4 +1,4 @@
-import React, {Dispatch, MutableRefObject, SetStateAction} from 'react';
+import React from 'react';
 import {FileManagerProps} from "../../../../types/components/ModalsComponents";
 import FileManagerProvider from "../../../Providers/FileManagerProvider";
 import FileManagerWindow from "./FileManagerWindow";
@@ -6,6 +6,10 @@ import {FileManagerContextValues} from "../../../../types/contexts/FileManagerCo
 import {FilesResponse} from "../../../../types/API/files";
 
 const FileManager = ({setImage, setVisible, prevTitle = ''}: FileManagerProps) => {
+
+    // TODO make ajax validation (for directory)
+    // TODO consider refactoring (directory constant)
+    // TODO change styles for items
 
     const contextValues: FileManagerContextValues = {
         arrDirectories: [],
@@ -18,7 +22,8 @@ const FileManager = ({setImage, setVisible, prevTitle = ''}: FileManagerProps) =
         checkedNames: [],
         setVisible: setVisible,
         inputFileRef: {current: null},
-        prevTitle: prevTitle
+        prevTitle: prevTitle,
+        uploadedFiles: null,
     };
 
     return (

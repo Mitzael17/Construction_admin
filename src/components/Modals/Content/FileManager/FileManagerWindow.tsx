@@ -7,6 +7,7 @@ import {useModal} from "../../../../hooks/useModal";
 import {useFileManager} from "../../../../hooks/useFileManager";
 import FileManagerHeader from "./components/FileManagerHeader";
 import FileManagerContent from "./components/FileManagerContent";
+import FileManagerUpload from "./components/content/FileManagerUpload";
 
 const FileManagerWindow = ({setImage}: Omit<FileManagerProps, 'setVisible'|'prevTitle'>) => {
 
@@ -60,8 +61,13 @@ const FileManagerWindow = ({setImage}: Omit<FileManagerProps, 'setVisible'|'prev
 
     return (
         <>
-            <FileManagerHeader />
-            <FileManagerContent setImage={setImage} />
+            {!fileManagerData.uploadedFiles?.length ?
+                <>
+                    <FileManagerHeader />
+                    <FileManagerContent setImage={setImage} />
+                </>
+                : <FileManagerUpload />
+            }
         </>
     );
 

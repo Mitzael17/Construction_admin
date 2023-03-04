@@ -1,7 +1,8 @@
-import React from 'react';
-import SearchInput from "../../../../../UI/Input/SearchInput";
+import React, {FormEvent} from 'react';
 import {useStateCallback} from "../../../../../../hooks/useStateCallback";
 import {useFileManager} from "../../../../../../hooks/useFileManager";
+import TinyInput from "../../../../../UI/Input/TinyInput";
+import SearchIcon from "../../../../../Icons/KalaiIcons/SearchIcon";
 
 const FileManagerSearch = () => {
 
@@ -13,10 +14,13 @@ const FileManagerSearch = () => {
     });
 
     return (
-        <SearchInput onClick={filterData} placeholder='Search...' value={searchValue} setValue={setSearchValue} />
+        <form onSubmit={filterData} className='flex w-100'>
+            <TinyInput placeholder='Search...' value={searchValue} setValue={setSearchValue} />
+            <button className='kalaiIconDark'><SearchIcon /></button>
+        </form>
     );
 
-    function filterData(event: React.MouseEvent) {
+    function filterData(event: FormEvent) {
 
         event.preventDefault();
 

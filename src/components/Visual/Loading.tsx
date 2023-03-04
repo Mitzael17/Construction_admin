@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Loading = () => {
+const Loading = ({diameter = 100, showText = true}) => {
     return (
         <div className='center'>
-            <div className='loading'>
+            <div style={{width: diameter, height: diameter}} className='loading'>
                 <span></span>
                 <span></span>
             </div>
-            <div className="status-response-title">Loading</div>
+            {showText && <div className="status-response-title">Loading</div>}
         </div>
 
     );

@@ -1,11 +1,12 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import classes from "../FileManager.module.scss";
 import Loading from "../../../../Visual/Loading";
-import folder from "../../../../../assets/folder.png";
 import {useFileManager} from "../../../../../hooks/useFileManager";
 import {FileManagerProps} from "../../../../../types/components/ModalsComponents";
+import FileManagerDirectories from "./content/FileManagerDirectories";
+import FileManagerImages from "./content/FileManagerImages";
 
-const FileManagerContent = ({setImage}: Omit<FileManagerProps, 'setVisible'|'prevTitle'>) => {
+const FileManagerContent = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
 
     const [fileManagerData, setFileManagerData] = useFileManager();
     const directory = fileManagerData.arrDirectories.join('/') + '/';
@@ -13,78 +14,44 @@ const FileManagerContent = ({setImage}: Omit<FileManagerProps, 'setVisible'|'pre
     const [isHover, setIsHover] = useState(false);
     const hoverCounter = useRef(0);
 
+    // checking for drag and drop
+    const isFile = useRef(true);
+
+    useEffect(() => {
+
+        const changeIsFileFalse = () => {
+            isFile.current = false;
+        }
+
+        const changeIsFileTrue = () => {
+            isFile.current = true;
+        }
+
+        document.addEventListener('dragstart', changeIsFileFalse);
+        document.addEventListener('dragend', changeIsFileTrue);
+
+        return () => {
+
+            document.removeEventListener('dragstart', changeIsFileFalse);
+            document.removeEventListener('dragend', changeIsFileTrue);
+
+        }
+
+    }, [])
+
     return (
-        <div className={classes.content}
+        <div className={`${classes.content} ${isHover ? classes.activeDragAndDrop : ''} `}
             onDragEnter={(event) => handlerDragAndDrop(event, 'enter')}
             onDragLeave={(event) => handlerDragAndDrop(event, 'leave')}
             onDrop={(event) => handlerDragAndDrop(event, 'drop')}
             onDragOver={(event) => handlerDragAndDrop(event, 'over')}
-            style={isHover ? {background: 'orange'} : {}}
         >
             {fileManagerData.isLoading ? <Loading /> : (
                 <>
                     {fileManagerData.filteredData.directories.length > 0 || fileManagerData.filteredData.files.length > 0 ?
                         <>
-                            {fileManagerData.filteredData.directories.map( dir => (
-                                <div key={dir} onDoubleClick={() => {
-
-                                    setFileManagerData({...fileManagerData, arrDirectories: [...fileManagerData.arrDirectories, dir], isLoading: true});
-
-                                }} className={classes.item}>
-                                    <div className={classes.imageContainer}>
-                                        <img src={folder} alt={dir}/>
-                                    </div>
-                                    <label onClick={ event => event.stopPropagation()} className='checkbox center'>
-                                        <input onChange={(event) => {
-
-                                            if(event.target.checked) {
-
-                                                setFileManagerData({...fileManagerData, checkedNames: [...fileManagerData.checkedNames, event.target.name]});
-
-                                            } else {
-
-                                                setFileManagerData({...fileManagerData, checkedNames: fileManagerData.checkedNames.filter(name => name !== event.target.name)});
-
-                                            }
-
-                                        }} type="checkbox" name={directory + dir} />
-                                        <span></span>
-                                    </label>
-                                    <div className={classes.name}>{dir}</div>
-                                </div>
-                            ))}
-                            {fileManagerData.filteredData.files.map(file => (
-                                <div key={file.link} onDoubleClick={() => {
-
-                                    fileManagerData.setVisible(false);
-                                    setImage({
-                                        inner_link: directory + file.name,
-                                        out_link: file.link
-                                    });
-
-                                }} className={classes.item}>
-                                    <div className={classes.imageContainer}>
-                                        <img src={file.link} alt={file.name} />
-                                    </div>
-                                    <label onClick={ event => event.stopPropagation()} className='checkbox center'>
-                                        <input onChange={(event) => {
-
-                                            if(event.target.checked) {
-
-                                                setFileManagerData({...fileManagerData, checkedNames: [...fileManagerData.checkedNames, event.target.name]});
-
-                                            } else {
-
-                                                setFileManagerData({...fileManagerData, checkedNames: fileManagerData.checkedNames.filter(name => name !== event.target.name)});
-
-                                            }
-
-                                        }} type="checkbox" name={directory + file.name} />
-                                        <span></span>
-                                    </label>
-                                    <div className={classes.name}>{file.name}</div>
-                                </div>
-                            ))}
+                            <FileManagerDirectories />
+                            <FileManagerImages setImage={setImage} />
                         </>
                         : <h3>Not found</h3>}
 
@@ -93,11 +60,13 @@ const FileManagerContent = ({setImage}: Omit<FileManagerProps, 'setVisible'|'pre
         </div>
     );
 
+
     function handlerDragAndDrop(event: React.DragEvent<HTMLDivElement>, type : 'enter'|'leave'|'drop'|'over') {
+
+        if(!isFile.current) return;
 
         event.preventDefault();
         event.stopPropagation();
-
 
         if(type === 'enter') {
 

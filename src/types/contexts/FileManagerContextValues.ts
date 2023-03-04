@@ -8,6 +8,7 @@ export interface FileManagerContextValues extends Omit<FileManagerProps, 'setIma
     data: FilesResponse,
     filteredData: FilesResponse,
     checkedNames: string[],
-    inputFileRef: MutableRefObject<null|HTMLInputElement>
+    inputFileRef: MutableRefObject<null|HTMLInputElement>,
+    uploadedFiles: FileList|null,
 
 }

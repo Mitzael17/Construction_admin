@@ -80,9 +80,6 @@ h2 {
 
 
 .loading {
-
-  width: 100px;
-  height: 100px;
   border-radius: 50%;
   border: 2px solid $mainDarkColor;
   margin: auto;
@@ -94,8 +91,8 @@ h2 {
 
   &:before {
     content: '';
-    width: 6px;
-    height: 6px;
+    width: 6%;
+    height: 6%;
     border-radius: 50%;
     background: $mainDarkColor;
     position: absolute;
@@ -121,13 +118,13 @@ h2 {
   span:first-child {
     animation-duration: 4s;
     height: 45%;
-    width: 3px;
+    width: 3%;
   }
 
   span:last-child {
     height: 25%;
     animation-duration: 48s;
-    width: 4px;
+    width: 4%;
   }
 
 }
@@ -326,6 +323,25 @@ h2 {
 
 .warning {
   color: $warningColor;
+}
+
+.warning-input {
+  input {
+    border-color: $warningColor;
+  }
+}
+
+
+.success-input {
+  input {
+    border-color: $successColor;
+  }
+}
+
+.error-input {
+  input {
+    border-color: $errorColor;
+  }
 }
 
 
@@ -558,6 +574,16 @@ h2 {
 }
 
 
+.flex-j-c {
+  justify-content: center;
+}
+
+
+.flex-a-c {
+  align-items: center;
+}
+
+
 .kalaiIconDark {
   width: 60px;
   height: 35px;
@@ -608,13 +634,18 @@ h2 {
   width: 100%;
 }
 
+
+.checkbox-label {
+  cursor: pointer;
+}
+
+
 .checkbox {
   width: 20px;
   height: 20px;
   display: block;
   background: $mainDarkColor;
   border: 1px solid $mainDarkColor;
-  cursor: pointer;
 
   span {
     content: '';
@@ -632,6 +663,67 @@ h2 {
 
   input:checked + span {
     clip-path: polygon(22% 45%, 41% 64%, 86% 26%, 86% 38%, 40% 78%, 15% 50%);
+  }
+
+}
+
+.ml-10 {
+  margin-left: 10px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+
+.default-cursor {
+  cursor: default;
+}
+
+
+.delete-button {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: $redColor;
+  position: relative;
+  cursor: pointer;
+
+  &.abs-del-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 10;
+    transform: translate(50%, -50%);
+  }
+
+  &:before,
+  &:after {
+
+    content: '';
+    width: 60%;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+  }
+
+  &:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
   }
 
 }

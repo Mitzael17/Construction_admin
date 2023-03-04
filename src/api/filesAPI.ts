@@ -1,6 +1,6 @@
-import {FilesResponse} from "../types/API/files";
+import {CheckNames, FilesResponse, UploadFilesResponse} from "../types/API/files";
 import {$authAPI} from "./index";
-import {ErrorResponse, PostResponse} from "../types/API";
+import {ErrorResponse, PostResponse, SuccessResponse, WarningResponse} from "../types/API";
 
 export const $getFiles = async (dir = ''): Promise<FilesResponse | ErrorResponse> => {
 
@@ -12,8 +12,18 @@ export const $getFiles = async (dir = ''): Promise<FilesResponse | ErrorResponse
 
 }
 
+export const $checkFileNames = async (names: string[], dir = ''): Promise<CheckNames> => {
 
-export const $uploadFiles = async (files: FileList, directory = ''): Promise<PostResponse> => {
+    const {data}: {data: CheckNames} = await $authAPI.get('/files', {params: {
+        check_names: names,
+        dir: dir
+    }})
+
+    return data;
+
+}
+
+export const $uploadFiles = async (files: FileList|File[], directory = '', auto_rename = false):  Promise<UploadFilesResponse> => {
 
     const formData = new FormData();
 
@@ -23,9 +33,14 @@ export const $uploadFiles = async (files: FileList, directory = ''): Promise<Pos
 
     });
 
-    formData.append('dir', directory);
+    formData.append('dir', directory)
 
-    const {data}: {data: PostResponse} = await $authAPI.post('/files', formData, {
+    if(auto_rename) {
+        formData.append('auto_rename', 'true');
+
+    }
+
+    const {data}: {data: UploadFilesResponse} = await $authAPI.post('/files', formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }

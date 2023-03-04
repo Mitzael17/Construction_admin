@@ -5,7 +5,7 @@ import classes from "./Button.module.scss";
 const Button = memo(({children, type = 'button', ...props}: ButtonProps) => {
 
     return (
-        <button type={type} className={classes.button} {...props}>{children}</button>
+        <button type={type} className={classes.button} {...props} >{children}</button>
     );
 });
 
