@@ -1,31 +1,26 @@
-import React, {ChangeEvent} from 'react';
+import React, {ChangeEvent, memo} from 'react';
 import classes from "../../FileManager.module.scss";
-import {useFileManager} from "../../../../../../hooks/useFileManager";
-import {FileManagerProps} from "../../../../../../types/components/ModalsComponents";
+import {FileManagerFilesListProps} from "../../../../../../types/components/ModalsComponents";
 import CheckBox from "../../../../../UI/CheckBox/CheckBox";
 import fileImage from "../../../../../../assets/file.png";
 
-const FileManagerFiles = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
-
-    const [fileManagerData, setFileManagerData] = useFileManager();
-    const directory = fileManagerData.arrDirectories.join('/') + '/';
-
+const FileManagerFiles = memo(({setImage, files, directory, setCheckedNames, hideFileManager}: FileManagerFilesListProps) => {
 
     return (
         <>
-            {fileManagerData.filteredData.files.map(file => (
+            {files.map(file => (
                 <div
                     title={file.name}
                     key={file.link}
                     className={classes.item}
                     onDoubleClick={() => {
 
-                        fileManagerData.setVisible(false);
-
                         setImage({
                             inner_link: directory + file.name,
                             out_link: file.link
                         });
+
+                        hideFileManager();
 
                     }}
                 >
@@ -46,24 +41,11 @@ const FileManagerFiles = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
 
     function handlerChange(event: ChangeEvent<HTMLInputElement>) {
 
-        if(event.target.checked) {
-
-            setFileManagerData({
-                ...fileManagerData,
-                checkedNames: [...fileManagerData.checkedNames, event.target.name]
-            });
-
-        } else {
-
-            setFileManagerData({
-                ...fileManagerData,
-                checkedNames: fileManagerData.checkedNames.filter(name => name !== event.target.name)
-            });
-
-        }
+        if(event.target.checked) setCheckedNames(prev => [...prev, event.target.name]);
+        else setCheckedNames(prev => prev.filter(name => name !== event.target.name))
 
     }
 
-};
+});
 
 export default FileManagerFiles;

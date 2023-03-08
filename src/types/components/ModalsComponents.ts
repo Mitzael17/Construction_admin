@@ -1,5 +1,6 @@
 import {StateProps} from "./index";
-import {Dispatch, MutableRefObject, SetStateAction} from "react";
+import {Dispatch, SetStateAction} from "react";
+import {FilesResponse} from "../API/files";
 
 
 export interface ModalProps extends StateProps<boolean> {
@@ -41,3 +42,18 @@ interface FileReducerActions {
 }
 
 export type FileReducerAction = FileReducerActionSet|FileReducerActions;
+
+export interface FileManagerDirectoriesListProps {
+
+    directory: string;
+    directories: string[];
+    setDirectory: (dir: string) => void;
+    setCheckedNames: Dispatch<SetStateAction<string[]>>;
+
+}
+
+export type FileManagerFilesListProps =
+    Omit<FileManagerDirectoriesListProps, 'directories'|'setDirectory'> &
+    Pick<FileManagerProps, 'setImage'> &
+    Pick<FilesResponse, 'files'> &
+    {hideFileManager: () => void};

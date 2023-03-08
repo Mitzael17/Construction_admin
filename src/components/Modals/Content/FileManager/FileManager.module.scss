@@ -1,6 +1,7 @@
-@import '../../../../styles/assets/functions';
-@import '../../../../styles/assets/vars.scss';
-@import "../../../../styles/assets/mixins.scss";
+@import './src/styles/assets/functions';
+@import './src/styles/assets/vars.scss';
+@import "./src/styles/assets/mixins.scss";
+
 
 .header {
   display: flex;
@@ -8,7 +9,7 @@
   gap: 30px;
   margin-bottom: 30px;
   position: relative;
-  
+
   @media screen and (max-width: 600px) {
 
     flex-direction: column;
@@ -25,6 +26,7 @@
     540px: repeat(2, 1fr),
     380px: 1fr
   );
+
   @include createGrid(repeat(4, 1fr), $gridMedias);
 
   gap: 30px;
@@ -77,6 +79,7 @@
   width: 125px;
   cursor: pointer;
   margin: 0 auto;
+  height: fit-content;
 
   img {
     @include absolutePosition(50%, 50%, -50%, -50%);
@@ -90,6 +93,7 @@
   height: 125px;
   position: relative;
   margin-bottom: 10px;
+  overflow: hidden;
 }
 
 

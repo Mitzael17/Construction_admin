@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import classes from "../FileManager.module.scss";
 import Loading from "../../../../Visual/Loading";
 import {useFileManager} from "../../../../../hooks/useFileManager";
@@ -8,10 +8,46 @@ import FileManagerFiles from "./content/FileManagerFiles";
 
 const FileManagerContent = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
 
-    const [fileManagerData] = useFileManager();
+    const [fileManagerData, setFileManagerData] = useFileManager();
 
     const [isHover, setIsHover] = useState(false);
     const hoverCounter = useRef(0);
+
+    // The state is needful to not use the property "checkedNames" from context
+    // It is necessary to avoid redundant renders
+    const [checkedNames, setCheckedNames] = useState<string[]>([]);
+
+    const directory = fileManagerData.arrDirectories.join('/') + '/';
+
+    const setDirectory = useCallback( (dir: string) => {
+
+        setFileManagerData(prevData => ({
+            ...prevData,
+            arrDirectories: [...prevData.arrDirectories, dir],
+            isLoading: true
+        }));
+
+    }, [fileManagerData.arrDirectories]);
+
+    const hideFileManager = useCallback( () => {
+        fileManagerData.setVisible(false);
+    }, []);
+
+    // transferring of checked names to context
+    useEffect( () => {
+
+        setFileManagerData(prevData => ({
+            ...prevData,
+            checkedNames: checkedNames
+        }));
+
+    }, [checkedNames]);
+
+    useEffect( () => {
+
+        setCheckedNames([]);
+
+    }, [fileManagerData.arrDirectories, fileManagerData.data.directories, fileManagerData.data.files])
 
     // checking for drag and drop
     const isFile = useRef(true);
@@ -55,8 +91,19 @@ const FileManagerContent = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
                     {fileManagerData.filteredData.directories.length > 0 || fileManagerData.filteredData.files.length > 0
                         ?
                         <>
-                            <FileManagerDirectories />
-                            <FileManagerFiles setImage={setImage} />
+                            <FileManagerDirectories
+                                directory={directory}
+                                directories={fileManagerData.filteredData.directories}
+                                setDirectory={setDirectory}
+                                setCheckedNames={setCheckedNames}
+                            />
+                            <FileManagerFiles
+                                setImage={setImage}
+                                files={fileManagerData.filteredData.files}
+                                setCheckedNames={setCheckedNames}
+                                hideFileManager={hideFileManager}
+                                directory={directory}
+                            />
                         </>
                         :
                         <h3>Not found</h3>

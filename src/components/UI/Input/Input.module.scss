@@ -1,5 +1,5 @@
-@import '../../../styles/assets/functions';
-@import '../../../styles/assets/vars.scss';
+@import './src/styles/assets/functions';
+@import './src/styles/assets/vars.scss';
 
 .input_container {
   width: 100%;
@@ -37,7 +37,7 @@
 .input:-webkit-autofill + .placeholder,
 .input:focus + .placeholder,
 .active_placeholder {
-  top: 0%;
+  top: 0;
   transform: translateY(0%) scale(0.6);
 }
 

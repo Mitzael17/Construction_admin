@@ -1,5 +1,5 @@
 import {StateProps} from "./index";
-import {ChangeEventHandler, MouseEventHandler, RefObject} from "react";
+import {ChangeEventHandler, MouseEventHandler} from "react";
 
 export interface InputProps extends StateProps<string>{
 
@@ -27,6 +27,7 @@ export interface CheckBoxProps {
 
     placeholder?: string
     name?: string
-    onChange: ChangeEventHandler<HTMLInputElement>
+    onChange: ChangeEventHandler<HTMLInputElement>,
+    checked?: boolean,
 
 }

@@ -1,7 +1,15 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import {CheckBoxProps} from "../../../types/components/UIComponents";
 
-const CheckBox = memo(({onChange, name = '', placeholder = ''}: CheckBoxProps) => {
+const CheckBox = memo(({onChange, name = '', placeholder = '', checked = false}: CheckBoxProps) => {
+
+    const nodeRef = useRef<HTMLInputElement>(null);
+
+    useEffect( () => {
+
+        if(checked && nodeRef.current) nodeRef.current.checked = true;
+
+    }, []);
 
     return (
         <label className='flex flex-a-c checkbox-label'>
