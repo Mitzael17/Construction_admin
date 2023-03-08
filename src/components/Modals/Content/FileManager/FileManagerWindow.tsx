@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {memo, useEffect} from 'react';
 import {FilesResponse} from "../../../../types/API/files";
 import {$getFiles} from "../../../../api/filesAPI";
 import {ErrorResponse} from "../../../../types/API";
@@ -9,7 +9,7 @@ import FileManagerHeader from "./components/FileManagerHeader";
 import FileManagerContent from "./components/FileManagerContent";
 import FileManagerUpload from "./components/content/FileManagerUpload";
 
-const FileManagerWindow = ({setImage}: Omit<FileManagerProps, 'setVisible'|'prevTitle'>) => {
+const FileManagerWindow = memo(({setImage}: Omit<FileManagerProps, 'setVisible'|'prevTitle'>) => {
 
     const [, setModalData] = useModal();
     const [fileManagerData, setFileManagerData] = useFileManager();
@@ -18,7 +18,15 @@ const FileManagerWindow = ({setImage}: Omit<FileManagerProps, 'setVisible'|'prev
 
     useEffect(() => {
 
-        setModalData({title: 'File manager'});
+        setModalData({
+            title: 'File manager',
+            onExit: () => {
+
+                if(typeof fileManagerData.prevTitle === 'string') {
+                    setModalData({title: fileManagerData.prevTitle});
+                }
+
+            }});
 
     }, [])
 
@@ -71,6 +79,6 @@ const FileManagerWindow = ({setImage}: Omit<FileManagerProps, 'setVisible'|'prev
         </>
     );
 
-};
+});
 
 export default FileManagerWindow;

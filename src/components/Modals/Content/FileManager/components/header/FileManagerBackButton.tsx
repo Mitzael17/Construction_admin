@@ -1,39 +1,39 @@
-import React, {memo} from 'react';
+import React from 'react';
 import BendArrowLeftIcon from "../../../../../Icons/KalaiIcons/BendArrowLeftIcon";
 import {useFileManager} from "../../../../../../hooks/useFileManager";
 import {useModal} from "../../../../../../hooks/useModal";
 
-const FileManagerBackButton = memo(() => {
+const FileManagerBackButton = () => {
 
     const [fileManagerData, setFileManagerData] = useFileManager();
     const [, setModalData] = useModal();
 
-    const directory = fileManagerData.arrDirectories.join('/') + '/';
-
     return (
-        <div onClick={handleClick} className='kalaiIconDark'>
+        <div onClick={handlerClick} className='kalaiIconDark'>
             <BendArrowLeftIcon />
         </div>
     );
 
-    function handleClick() {
+    function handlerClick() {
 
-        if(!directory || directory === '/') {
+        if(fileManagerData.arrDirectories.length === 0) {
 
             fileManagerData.setVisible(false);
+
             if(fileManagerData.prevTitle) setModalData({title: fileManagerData.prevTitle});
+
             return;
 
         }
 
-        const newArrDirectories = JSON.parse(JSON.stringify(fileManagerData.arrDirectories));
-
-        newArrDirectories.pop();
-
-        setFileManagerData({...fileManagerData, arrDirectories: newArrDirectories, isLoading: true});
+        setFileManagerData({
+            ...fileManagerData,
+            arrDirectories: fileManagerData.arrDirectories.slice(0, fileManagerData.arrDirectories.length - 1),
+            isLoading: true
+        });
 
     }
 
-});
+};
 
 export default FileManagerBackButton;

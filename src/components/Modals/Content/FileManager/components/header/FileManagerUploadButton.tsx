@@ -8,12 +8,12 @@ const FileManagerUploadButton = () => {
 
     const inputFileRef = useRef<null|HTMLInputElement>(null);
 
+    // setting the input ref in the fileManager context to transfer files from other components
     useEffect(() => {
 
-        if(inputFileRef.current) {
+        if(!inputFileRef.current) return;
 
-            setFileManagerData(prevData => ({...prevData, inputFileRef: inputFileRef}));
-        }
+        setFileManagerData(prevData => ({...prevData, inputFileRef: inputFileRef}));
 
     }, [inputFileRef.current]);
 
@@ -25,7 +25,7 @@ const FileManagerUploadButton = () => {
                 ref={inputFileRef}
                 style={{display: 'none'}}
                 type="file"
-                accept='image/png, image/jpg, image/jpeg, image/webp, image/svg, image/gif, video/mp4'
+                accept='image/png, image/jpg, image/jpeg, image/webp, image/svg+xml, image/gif, video/mp4'
                 multiple
                 onChange={prepareFiles}/>
         </label>
@@ -33,12 +33,7 @@ const FileManagerUploadButton = () => {
 
     function prepareFiles(event: ChangeEvent<HTMLInputElement>) {
 
-        if(!event.target?.files) {
-
-            alert('You didn\'t choose any file');
-
-            return;
-        }
+        if(!event.target?.files) return;
 
         setFileManagerData({...fileManagerData, uploadedFiles: event.target.files});
 

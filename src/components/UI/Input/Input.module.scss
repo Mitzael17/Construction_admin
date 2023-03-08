@@ -1,4 +1,4 @@
-@import '../../../styles/assets/mixins.scss';
+@import '../../../styles/assets/functions';
 @import '../../../styles/assets/vars.scss';
 
 .input_container {
@@ -64,8 +64,7 @@
   padding: 0 10px;
   border: 1px solid $mainDarkColor;
   margin-right: -1px;
-  flex: 0 1 100%;
-  max-width: 100%;
+  width: 100%;
 
 
 }

@@ -2,7 +2,7 @@ import {ErrorResponse, SuccessResponse, WarningResponse} from "./index";
 
 export interface FilesResponse {
     directories: string[],
-    files: {name: string, link: string}[]
+    files: {name: string, link: string, isImage: boolean}[]
 }
 
 

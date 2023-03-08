@@ -1,5 +1,4 @@
-import React, {FormEvent} from 'react';
-import {useStateCallback} from "../../../../../../hooks/useStateCallback";
+import React, {FormEvent, useState} from 'react';
 import {useFileManager} from "../../../../../../hooks/useFileManager";
 import TinyInput from "../../../../../UI/Input/TinyInput";
 import SearchIcon from "../../../../../Icons/KalaiIcons/SearchIcon";
@@ -7,11 +6,7 @@ import SearchIcon from "../../../../../Icons/KalaiIcons/SearchIcon";
 const FileManagerSearch = () => {
 
     const [fileManagerData, setFileManagerData] = useFileManager();
-    const [searchValue, setSearchValue] = useStateCallback('', (state) => {
-
-        return state.toLowerCase();
-
-    });
+    const [searchValue, setSearchValue] = useState('');
 
     return (
         <form onSubmit={filterData} className='flex w-100'>
@@ -24,16 +19,21 @@ const FileManagerSearch = () => {
 
         event.preventDefault();
 
-        if(fileManagerData.data) {
+        const searchValueInLowerCase = searchValue.toLowerCase();
 
-            const filteredData = {
-                directories: fileManagerData.data.directories.filter( (name) => name.toLowerCase().match(searchValue) ),
-                files: fileManagerData.data.files.filter( ( {name} ) => name.toLowerCase().match(searchValue))
-            };
+        const filteredData = {
 
-            setFileManagerData({...fileManagerData, filteredData: filteredData});
+            directories: fileManagerData.data.directories.filter(
+                (name) => name.toLowerCase().match(searchValueInLowerCase)
+            ),
 
-        }
+            files: fileManagerData.data.files.filter(
+                ( {name} ) => name.toLowerCase().match(searchValueInLowerCase)
+            )
+
+        };
+
+        setFileManagerData({...fileManagerData, filteredData: filteredData});
 
     }
 

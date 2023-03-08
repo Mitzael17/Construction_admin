@@ -1,14 +1,13 @@
-@import '../../styles/assets/mixins.scss';
+@import '../../styles/assets/functions';
 @import '../../styles/assets/vars.scss';
+@import "../../styles/assets/mixins.scss";
 
 
 .modalContainer {
 
   width: 100%;
   height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
+  @include absolutePosition();
   background: $mainDarkOpacityColor;
   display: flex;
   overflow: auto;
@@ -62,10 +61,8 @@
   span {
     width: 60%;
     height: 4px;
-    top: 50%;
-    left: 50%;
     background: $redColor;
-    position: absolute;
+    @include absolutePosition(50%, 50%);
   }
 
   &:before {

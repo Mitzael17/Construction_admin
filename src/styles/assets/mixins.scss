@@ -1,15 +1,26 @@
-@use 'sass:math';
-@function rem($px) {
-  $result : math.div($px, 16);
-  @return math.div(round($result * 100), 100) + rem;
+@mixin vh100() {
+  min-height: 100vh;
+  min-height: calc(var(--vh, 1vh) * 100);
 }
 
-@function em($px, $del) {
-  $result : math.div($px, $del);
-  @return math.div(round($result * 100), 100) + em;
+@mixin createGrid($initColumns, $gridArr) {
+
+  display: grid;
+  grid-template-columns: $initColumns;
+
+  @each $media, $columns in $gridArr {
+    @media screen and (max-width: $media) {
+      grid-template-columns: $columns;
+    }
+  }
+
 }
 
-@function lh($lh, $fz) {
-  $result : math.div($lh, $fz);
-  @return math.div(round($result * 100), 100);
+@mixin absolutePosition($left: 0, $top: 0, $transformX: 0, $transformY: 0) {
+  position: absolute;
+  left: $left;
+  top: $top;
+  @if($transformX != 0 OR $transformY != 0) {
+    transform: translate($transformX, $transformY);
+  }
 }

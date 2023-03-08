@@ -2,6 +2,7 @@ import React from 'react';
 import {$deleteFiles} from "../../../../../../api/filesAPI";
 import DeleteIcon from "../../../../../Icons/KalaiIcons/DeleteIcon";
 import {useFileManager} from "../../../../../../hooks/useFileManager";
+import {Statuses} from "../../../../../../types/API";
 
 const FileManagerDeleteButton = () => {
 
@@ -9,33 +10,47 @@ const FileManagerDeleteButton = () => {
     const directory = fileManagerData.arrDirectories.join('/')  + '/';
 
     return (
-        <div onClick={handleClick} className='kalaiIconDark'>
+        <div onClick={handlerClick} className='kalaiIconDark'>
             <DeleteIcon />
         </div>
     );
 
-    async function handleClick() {
+    async function handlerClick() {
 
-        if(fileManagerData.checkedNames.length < 1) return;
+        if(fileManagerData.checkedNames.length === 0) return;
 
         setFileManagerData({...fileManagerData, isLoading: true});
 
         const response = await $deleteFiles(fileManagerData.checkedNames);
 
-        if(fileManagerData.data) {
 
-            const data = {
-                files: fileManagerData.data.files.filter( ({name}) => fileManagerData.checkedNames.indexOf(directory + name) === -1),
-                directories: fileManagerData.data.directories.filter( name => fileManagerData.checkedNames.indexOf(directory + name) === -1)
-            };
+        if(response.status !== Statuses.success) {
 
-            setFileManagerData({...fileManagerData, data: data, filteredData: data, checkedNames: [], isLoading: false});
+            setFileManagerData({...fileManagerData, isLoading: false});
+
+            alert(response.status);
 
             return;
 
         }
 
-        setFileManagerData({...fileManagerData, isLoading: false});
+        // cleaning initial data from deleted directories and files
+        const data = {
+            files: fileManagerData.data.files.filter(
+                ({name}) => fileManagerData.checkedNames.indexOf(directory + name) === -1
+            ),
+            directories: fileManagerData.data.directories.filter(
+                name => fileManagerData.checkedNames.indexOf(directory + name) === -1
+            )
+        };
+
+        setFileManagerData({
+            ...fileManagerData,
+            data: data,
+            filteredData: data,
+            checkedNames: [],
+            isLoading: false
+        });
 
     }
 

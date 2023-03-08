@@ -2,9 +2,8 @@ import React, {useEffect, useReducer, useState} from 'react';
 import {useFileManager} from "../../../../../../hooks/useFileManager";
 import classes from "../../FileManager.module.scss";
 import {FilePreview, FileReducerAction} from "../../../../../../types/components/ModalsComponents";
-import videoImage from "../../../../../../assets/videoFile.png";
+import fileImage from "../../../../../../assets/file.png";
 import Loading from "../../../../../Visual/Loading";
-import {generatorId} from "../../../../../../utils/generatorId";
 import TinyInput from "../../../../../UI/Input/TinyInput";
 import CheckBox from "../../../../../UI/CheckBox/CheckBox";
 import Button from "../../../../../UI/Button/Button";
@@ -31,17 +30,34 @@ const FileManagerUpload = () => {
 
     const isAvailableToSubmit = (files.length === uniqueNames.length || autoRenameMode) && !loadingNames.length;
 
+    // The checking file names
     useEffect(() => {
 
-        if(!files.length && !isLoading) setFileManagerData(prevData => ({...prevData, uploadedFiles: null}));
+        // close the window if all files are removed
+        if(!files.length && !isLoading) {
+
+            setFileManagerData(prevData => ({...prevData, uploadedFiles: null}));
+
+            return;
+
+        }
 
         let ignore = false;
 
+        // The async checking of file names for uniqueness
         const timer = setTimeout( async () => {
 
             const names = files.map( file => file.name + file.extension);
-            const sameNames = names.filter(name => uniqueNames.indexOf(name) !== -1);
-            const changedNames = names.filter(name => uniqueNames.indexOf(name) === -1);
+
+            const sameNames: string[] = [];
+            const changedNames: string[] = [];
+
+            names.forEach( name => {
+
+                if(uniqueNames.indexOf(name) === -1) changedNames.push(name);
+                else sameNames.push(name);
+
+            });
 
             setUniqueNames(sameNames);
             setLoadingNames(changedNames);
@@ -52,6 +68,7 @@ const FileManagerUpload = () => {
 
             if(response.status === Statuses.success) {
 
+                // skip files, which don't have a name to create an error/warning
                 setUniqueNames(names.filter(name => !name.trim().match(/^\.\w+$/)));
                 setLoadingNames([]);
 
@@ -59,10 +76,12 @@ const FileManagerUpload = () => {
 
             }
 
+            // skip files, which don't have a name or files, which name is busy to create an error/warning
             setUniqueNames(names.filter( name => response.busy_names.indexOf(name) === -1 && !name.trim().match(/^\.\w+$/)));
             setLoadingNames([]);
 
         }, 500);
+
 
         return () => {
             clearTimeout(timer);
@@ -71,15 +90,54 @@ const FileManagerUpload = () => {
 
     }, [files]);
 
+    // The initialization of files after uploading (creating preview, preparation of another information for the layout)
     useEffect(() => {
 
         if(!fileManagerData.uploadedFiles) throw new Error('Files weren\'t provided');
 
         const bufferFiles: FilePreview[] = [];
+        let quantityLoadedFiles = 0;
 
-        const instanceGeneratorId = generatorId();
+        const pushBuffer = (preview: string, index: number): void => {
+
+            if(!fileManagerData.uploadedFiles || !fileManagerData.uploadedFiles[index]) return;
+
+            let name = fileManagerData.uploadedFiles[index].name;
+            const extension = name.substring(name.lastIndexOf('.'));
+
+            name = name.replace(new RegExp(`${extension}$`), '');
+
+
+            bufferFiles.push({
+                id: index,
+                preview: preview,
+                fileData: fileManagerData.uploadedFiles[index],
+                name: name,
+                extension: extension
+            });
+
+
+            if(quantityLoadedFiles === fileManagerData.uploadedFiles.length) {
+
+                dispatchFiles({type: 'set', data: bufferFiles});
+
+                setIsLoading(false);
+
+            }
+
+        }
 
         [...fileManagerData.uploadedFiles].forEach( (file, index) => {
+
+            if(!file.type.match(/^image/)) {
+
+                quantityLoadedFiles++;
+
+                pushBuffer(fileImage, index);
+
+                return;
+
+            }
 
             const reader = new FileReader();
 
@@ -89,34 +147,11 @@ const FileManagerUpload = () => {
 
                 let result = event.target?.result;
 
-                result = typeof result === 'string' ? result : `${videoImage}`;
+                result = typeof result === 'string' ? result : `${fileImage}`;
 
-                if(fileManagerData?.uploadedFiles && fileManagerData.uploadedFiles[index]) {
+                quantityLoadedFiles++;
 
-                    let name = fileManagerData.uploadedFiles[index].name;
-
-                    let extension = name.substring(name.lastIndexOf('.'));
-
-                    name = name.replace(new RegExp(`${extension}$`), '');
-
-                    bufferFiles.push({
-                        id: instanceGeneratorId.next().value,
-                        preview: result,
-                        fileData: fileManagerData.uploadedFiles[index],
-                        name: name,
-                        extension: extension
-                    });
-
-                    if(index === fileManagerData.uploadedFiles.length - 1) {
-
-                        dispatchFiles({type: 'set', data: bufferFiles});
-
-                        setIsLoading(false);
-
-                    }
-
-                }
-
+                pushBuffer(result, index);
 
             }
 
@@ -128,14 +163,15 @@ const FileManagerUpload = () => {
         <>
             <div className={`${classes.header} flex-a-c`}>
                 <div>
-                    <CheckBox placeholder='Auto rename mode' onChange={(event) => {
-
-                        setAutoRenameMode(event.target.checked);
-
-                    }} />
+                    <CheckBox
+                        placeholder='Auto rename mode'
+                        onChange={ event => { setAutoRenameMode(event.target.checked); }}
+                    />
                 </div>
                 <div>
-                    <Button disabled={!isAvailableToSubmit} onClick={uploadFile}>{loadingNames.length ? <Loading showText={false} diameter={20} /> : 'Save'}</Button>
+                    <Button disabled={!isAvailableToSubmit} onClick={uploadFile}>
+                        {loadingNames.length ? <Loading showText={false} diameter={20} /> : 'Save'}
+                    </Button>
                 </div>
             </div>
             <div className={classes.content}>
@@ -151,15 +187,21 @@ const FileManagerUpload = () => {
                                     ${loadingNames.indexOf(file.name + file.extension) === -1 
                                     && (uniqueNames.indexOf(file.name + file.extension) !== -1 ? 'success-input' : duplicatedClass)}
                                     `}>
-                                    <div onClick={() => {dispatchFiles({type: 'delete', data: file})}} className='delete-button center mb-10'></div>
-                                    <TinyInput placeholder='Write file name' value={file.name} setValue={(name: string) => {
-                                        dispatchFiles({type: 'change', data: {...file, name} })
-                                    }} />
+                                    <div
+                                        onClick={() => { dispatchFiles({type: 'delete', data: file}); }}
+                                        className='delete-button center mb-10'
+                                    ></div>
+                                    <TinyInput
+                                        placeholder='Write file name'
+                                        value={file.name}
+                                        setValue={(name: string) => { dispatchFiles({type: 'change', data: {...file, name} }); }}
+                                    />
                                 </div>
                             </div>
                         ))}
                     </>
-                    : <Loading />}
+                    : <div className='pos-abs-center'><Loading /></div>
+                }
             </div>
         </>
     );
@@ -215,15 +257,16 @@ const FileManagerUpload = () => {
 
         if(response.status === Statuses.success) {
 
+            // add new files to old ones and clean uploadedFiles
             setFileManagerData(prevData => (
-                {...prevData,
+                {
+                    ...prevData,
                     isLoading: false,
                     data: {...prevData.data, files: [...response.files, ...prevData.data.files]},
                     filteredData: {...prevData.data, files: [...response.files, ...prevData.data.files]},
                     uploadedFiles: null,
                 })
             );
-
 
             return;
 

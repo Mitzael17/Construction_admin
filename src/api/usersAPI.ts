@@ -12,6 +12,7 @@ import {ErrorResponse, SuccessResponse} from "../types/API";
 
 export const $login = async (name: string, password: string): Promise<LoginResponse> => {
 
+
     const {data}: {data: LoginResponse} = await $API.post('/login', {name, password});
 
     if(data.status === 'success') {
