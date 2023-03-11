@@ -9,7 +9,7 @@ import FileManagerHeader from "./components/FileManagerHeader";
 import FileManagerContent from "./components/FileManagerContent";
 import FileManagerUpload from "./components/content/FileManagerUpload";
 
-const FileManagerWindow = memo(({setImage}: Omit<FileManagerProps, 'setVisible'|'prevTitle'>) => {
+const FileManagerWindow = memo(({setFile}: Omit<FileManagerProps, 'setVisible'|'prevTitle'>) => {
 
     const [, setModalData] = useModal();
     const [fileManagerData, setFileManagerData] = useFileManager();
@@ -72,7 +72,7 @@ const FileManagerWindow = memo(({setImage}: Omit<FileManagerProps, 'setVisible'|
             {!fileManagerData.uploadedFiles?.length ?
                 <>
                     <FileManagerHeader />
-                    <FileManagerContent setImage={setImage} />
+                    <FileManagerContent setFile={setFile} />
                 </>
                 : <FileManagerUpload />
             }

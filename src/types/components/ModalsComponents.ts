@@ -13,7 +13,7 @@ export interface ModalProps extends StateProps<boolean> {
 
 
 export interface FileManagerProps {
-    setImage: Dispatch<SetStateAction<{inner_link: string, out_link: string}>>,
+    setFile: Dispatch<SetStateAction<{inner_link: string, out_link: string}>>,
     setVisible: Dispatch<SetStateAction<boolean>>,
     prevTitle?: string|null,
 }
@@ -54,6 +54,7 @@ export interface FileManagerDirectoriesListProps {
 
 export type FileManagerFilesListProps =
     Omit<FileManagerDirectoriesListProps, 'directories'|'setDirectory'> &
-    Pick<FileManagerProps, 'setImage'> &
+    Pick<FileManagerProps, 'setFile'> &
     Pick<FilesResponse, 'files'> &
     {hideFileManager: () => void};
+

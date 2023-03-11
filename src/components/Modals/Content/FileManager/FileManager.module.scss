@@ -112,3 +112,30 @@
 }
 
 
+.breadCrumbs {
+
+  display: flex;
+  flex-wrap: wrap;
+  color: $linkColor;
+  font-size: 1em;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  margin-top: -15px;
+
+  li:not(:last-child) {
+    cursor: pointer;
+    &:after {
+      content: '/';
+      color: $mainDarkColor;
+      margin: 0 .5em;
+    }
+  }
+
+
+  li:last-child {
+    pointer-events: none;
+    color: $mainDarkColor;
+  }
+
+
+}

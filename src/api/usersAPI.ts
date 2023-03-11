@@ -51,3 +51,14 @@ export const $createUser = async (args: UserCreateData): Promise<ErrorResponse|S
     return data;
 
 }
+
+
+export const $checkUserName = async (name: string): Promise<ErrorResponse|SuccessResponse> => {
+
+    const {data} = await $authAPI.get('/admins', {
+        params: {check_name: name}
+    })
+
+    return data;
+
+}

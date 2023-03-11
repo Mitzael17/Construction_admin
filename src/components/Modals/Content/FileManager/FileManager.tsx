@@ -5,11 +5,7 @@ import FileManagerWindow from "./FileManagerWindow";
 import {FileManagerContextValues} from "../../../../types/contexts/FileManagerContextValues";
 import {FilesResponse} from "../../../../types/API/files";
 
-const FileManager = ({setImage, setVisible, prevTitle = ''}: FileManagerProps) => {
-
-    // TODO make ajax validation (for directory)
-    // TODO consider refactoring (directory constant)
-    // TODO change styles for items
+const FileManager = ({setFile, setVisible, prevTitle = ''}: FileManagerProps) => {
 
     const contextValues: FileManagerContextValues = {
         arrDirectories: [],
@@ -28,7 +24,7 @@ const FileManager = ({setImage, setVisible, prevTitle = ''}: FileManagerProps) =
 
     return (
         <FileManagerProvider values={contextValues}>
-            <FileManagerWindow setImage={setImage}  />
+            <FileManagerWindow setFile={setFile}  />
         </FileManagerProvider>
     );
 };

@@ -5,10 +5,15 @@ import FileManagerUploadButton from "./header/FileManagerUploadButton";
 import FileManagerAddFolderButton from "./header/FileManagerAddFolderButton";
 import FileManagerDeleteButton from "./header/FileManagerDeleteButton";
 import FileManagerSearch from "./header/FileManagerSearch";
+import FileManagerBreadCrumbs from "./header/FileManagerBreadCrumbs";
+import {useFileManager} from "../../../../../hooks/useFileManager";
 
 const FileManagerHeader = () => {
 
+    const [{arrDirectories}] = useFileManager();
+
     return (
+        <>
         <div className={classes.header}>
             <div className='flex relative'>
                 <FileManagerBackButton />
@@ -18,6 +23,8 @@ const FileManagerHeader = () => {
             </div>
             <FileManagerSearch />
         </div>
+        {arrDirectories.length > 0 && <FileManagerBreadCrumbs />}
+        </>
     );
 
 };

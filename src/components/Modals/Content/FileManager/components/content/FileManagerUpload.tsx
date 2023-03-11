@@ -189,7 +189,7 @@ const FileManagerUpload = () => {
                                     `}>
                                     <div
                                         onClick={() => { dispatchFiles({type: 'delete', data: file}); }}
-                                        className='delete-button center mb-10'
+                                        className='delete-button center-x mb-10px'
                                     ></div>
                                     <TinyInput
                                         placeholder='Write file name'
@@ -272,8 +272,8 @@ const FileManagerUpload = () => {
 
         }
 
-        alert(response.status);
-
+        alert(response.status ?? 'One or more files can\'t be uploaded');
+        
         setIsLoading(false);
 
         return;

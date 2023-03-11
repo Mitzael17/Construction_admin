@@ -19,6 +19,7 @@ const FileManagerAddFolderButton = () => {
     const [newDirectoryName, setNewDirectoryName] = useState('');
     const [isUniqueName, setIsUniqueName] = useState(false);
 
+    // loading for async validation
     const [isLoading, setIsLoading] = useState(false);
     
     const inputRef = useRef<HTMLInputElement>(null);
@@ -71,8 +72,8 @@ const FileManagerAddFolderButton = () => {
                 onClick={(event) => event.stopPropagation()}
             >
                 <TinyInput ref={inputRef} placeholder='Name of directory' value={newDirectoryName} setValue={setNewDirectoryName} />
-                <button disabled={isLoading || !isUniqueName} className='kalaiIconDark'>
-                    {isLoading ? <Loading diameter={10} showText={false} /> : <CheckIcon />}
+                <button disabled={isLoading || !isUniqueName || fileManagerData.isLoading} className='kalaiIconDark'>
+                    {isLoading || fileManagerData.isLoading ? <Loading diameter={10} showText={false} /> : <CheckIcon />}
                 </button>
             </form>
         </>
@@ -97,8 +98,7 @@ const FileManagerAddFolderButton = () => {
 
         event.preventDefault();
 
-        if(!isUniqueName || isLoading) return;
-
+        if(!isUniqueName || isLoading || fileManagerData.isLoading) return;
 
         setFileManagerData({...fileManagerData, isLoading: true});
 

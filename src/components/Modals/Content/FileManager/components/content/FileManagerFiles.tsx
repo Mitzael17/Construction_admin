@@ -4,7 +4,7 @@ import {FileManagerFilesListProps} from "../../../../../../types/components/Moda
 import CheckBox from "../../../../../UI/CheckBox/CheckBox";
 import fileImage from "../../../../../../assets/file.png";
 
-const FileManagerFiles = memo(({setImage, files, directory, setCheckedNames, hideFileManager}: FileManagerFilesListProps) => {
+const FileManagerFiles = memo(({setFile, files, directory, setCheckedNames, hideFileManager}: FileManagerFilesListProps) => {
 
     return (
         <>
@@ -15,7 +15,7 @@ const FileManagerFiles = memo(({setImage, files, directory, setCheckedNames, hid
                     className={classes.item}
                     onDoubleClick={() => {
 
-                        setImage({
+                        setFile({
                             inner_link: directory + file.name,
                             out_link: file.link
                         });

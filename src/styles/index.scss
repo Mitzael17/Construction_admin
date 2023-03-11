@@ -3,6 +3,8 @@
 @import "assets/vars.scss";
 @import "assets/keyframes.scss";
 @import "assets/mixins.scss";
+@import "basic.scss";
+
 
 .container {
 
@@ -197,17 +199,19 @@ h2 {
 
 
 .profileLogo {
-  width: 50px;
-  height: 50px;
-  overflow: hidden;
+  width: 100%;
+  padding-top: 100%;
   border-radius: 50%;
   border: 1px solid #fff;
   background: #fff;
+  position: relative;
+  overflow: hidden;
 
   img {
+    @include absolutePosition(50%, 50%, -50%, -50%);
     min-width: 100%;
     min-height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     text-align: center;
     line-height: 100px;
   }
@@ -514,6 +518,7 @@ h2 {
     transition: 1s all;
   }
 
+  .status-response-message,
   .status-response-title {
 
     transform: scale(0);
@@ -524,6 +529,8 @@ h2 {
     }
 
   }
+
+
 
 }
 
@@ -537,8 +544,11 @@ h2 {
 }
 
 
-.center {
-  margin: auto;
+.status-response-message {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1em;
+  font-weight: 500;
 }
 
 
@@ -557,21 +567,6 @@ h2 {
     }
   }
 
-}
-
-
-.flex {
-  display: flex;
-}
-
-
-.flex-j-c {
-  justify-content: center;
-}
-
-
-.flex-a-c {
-  align-items: center;
 }
 
 
@@ -598,7 +593,7 @@ h2 {
   }
 
   &:disabled {
-    background: $mainDarkOpacityColor;
+    background: $disabledColor;
     cursor: default;
   }
 
@@ -632,11 +627,6 @@ h2 {
 }
 
 
-.w-100 {
-  width: 100%;
-}
-
-
 .checkbox-label {
   cursor: pointer;
 }
@@ -667,22 +657,6 @@ h2 {
     clip-path: polygon(22% 45%, 41% 64%, 86% 26%, 86% 38%, 40% 78%, 15% 50%);
   }
 
-}
-
-.ml-10 {
-  margin-left: 10px;
-}
-
-.mb-10 {
-  margin-bottom: 10px;
-}
-
-.mr-10 {
-  margin-right: 10px;
-}
-
-.mt-10 {
-  margin-top: 10px;
 }
 
 
@@ -730,4 +704,18 @@ h2 {
 
 .pos-abs-center {
   @include absolutePosition(50%, 50%, -50%, -50%);
+}
+
+
+.profileSettingsLogo {
+  &__image {
+    border: 5px solid $mainDarkColor;
+    flex: 0 0 100px;
+  }
+  &__button {
+    flex: 0 1 100%;
+    button {
+      height: 100%;
+    }
+  }
 }

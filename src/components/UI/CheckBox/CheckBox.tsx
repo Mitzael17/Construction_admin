@@ -18,7 +18,7 @@ const CheckBox = memo(({onChange, name = '', placeholder = '', checked = false}:
                 <span></span>
             </div>
             {placeholder && (
-                <div className='ml-10'>{placeholder}</div>
+                <div className='ml-10px'>{placeholder}</div>
             )}
         </label>
 

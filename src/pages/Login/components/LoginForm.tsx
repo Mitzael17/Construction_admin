@@ -12,6 +12,9 @@ import {useStateCallback} from "../../../hooks/useStateCallback";
 
 const LoginForm = () => {
 
+    const [showError, setShowError] = useState(false);
+    const error = useRef('');
+
     const callbackStates = (state: string) => {
 
         if(showError) setShowError(false);
@@ -20,13 +23,11 @@ const LoginForm = () => {
 
     }
 
-    const [login, setLogin] = useStateCallback('', callbackStates);
-    const [password, setPassword] = useStateCallback('', callbackStates);
+    const [login, setLogin] = useStateCallback('', callbackStates, [showError]);
+    const [password, setPassword] = useStateCallback('', callbackStates, [showError]);
 
     const [isLoading, setIsLoading] = useState(false);
 
-    const [showError, setShowError] = useState(false);
-    const error = useRef('');
 
     return (
         <div className='loginForm'>

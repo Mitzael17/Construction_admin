@@ -1,5 +1,7 @@
-import {useContext} from "react";
-import {userContext} from "../context/userContext";
+import {Dispatch, SetStateAction, useContext} from "react";
+import {userChangeContext, userContext} from "../context/userContext";
+import {OwnUserAccount} from "../types/API/usersAPI";
 
 
-export const useUser = () => useContext(userContext);
+export const useUser = (): [OwnUserAccount, Dispatch<SetStateAction<OwnUserAccount>>] =>
+    [useContext(userContext), (function () { return useContext(userChangeContext)})()];

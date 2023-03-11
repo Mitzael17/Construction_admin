@@ -10,8 +10,24 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
 
     const [modalData, setModalData] = useModal();
 
+    // The ref is necessary to block an accident click on the back area
+    const blockedClick = useRef(false);
+
     useEffect( () => {
         setModalData({title});
+
+        const unblockClick = () => {
+
+            setTimeout(() => blockedClick.current = false, 10);
+
+        }
+
+        document.addEventListener('pointerup', unblockClick);
+
+        return () => {
+            document.removeEventListener('pointerup', unblockClick);
+        }
+
     }, []);
 
     return (
@@ -19,23 +35,23 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
             <CSSTransition nodeRef={nodeRef} in={value} unmountOnExit timeout={300}>
                 <div style={{zIndex: zIndex}} ref={nodeRef} onClick={(event) => {
 
-                    if(event.target === event.currentTarget) {
+                    if(event.target === event.currentTarget && !blockedClick.current) {
 
-                        setValue(false);
-                        if(modalData.onExit) modalData.onExit();
+                        onExit();
 
                     }
 
                 } } className={`${classes.modalContainer} fade-container`}>
-                    <div className={`${classes.modal} ${modalData.class ? modalData.class : ''}`}>
+                    <div
+                        onPointerDown={() => {
+
+                            blockedClick.current = true;
+
+                        }}
+                         className={`${classes.modal} ${modalData.class ? modalData.class : ''}`}>
                         <div className={classes.header}>
                             <h2>{modalData.title}</h2>
-                            <div onClick={() => {
-
-                                setValue(false);
-                                if(modalData.onExit) modalData.onExit();
-
-                            }} className={classes.exitIcon}><span></span></div>
+                            <div onClick={onExit} className={classes.exitIcon}><span></span></div>
                         </div>
                         <div className={classes.content}>
                             {children}
@@ -45,6 +61,17 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
             </CSSTransition>
             , document.body)
     );
+
+    function onExit() {
+
+        setValue(false);
+        if(modalData.onExit) modalData.onExit();
+        setModalData(prev => ({
+            ...prev,
+            class: undefined
+        }));
+
+    }
 
 };
 

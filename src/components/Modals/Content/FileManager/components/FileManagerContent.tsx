@@ -5,10 +5,12 @@ import {useFileManager} from "../../../../../hooks/useFileManager";
 import {FileManagerProps} from "../../../../../types/components/ModalsComponents";
 import FileManagerDirectories from "./content/FileManagerDirectories";
 import FileManagerFiles from "./content/FileManagerFiles";
+import {useModal} from "../../../../../hooks/useModal";
 
-const FileManagerContent = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
+const FileManagerContent = ({setFile}: Pick<FileManagerProps, 'setFile'>) => {
 
     const [fileManagerData, setFileManagerData] = useFileManager();
+    const [, setModalData] = useModal();
 
     const [isHover, setIsHover] = useState(false);
     const hoverCounter = useRef(0);
@@ -30,7 +32,10 @@ const FileManagerContent = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
     }, [fileManagerData.arrDirectories]);
 
     const hideFileManager = useCallback( () => {
+
         fileManagerData.setVisible(false);
+        if(fileManagerData.prevTitle) setModalData({title: fileManagerData.prevTitle});
+
     }, []);
 
     // transferring of checked names to context
@@ -98,7 +103,7 @@ const FileManagerContent = ({setImage}: Pick<FileManagerProps, 'setImage'>) => {
                                 setCheckedNames={setCheckedNames}
                             />
                             <FileManagerFiles
-                                setImage={setImage}
+                                setFile={setFile}
                                 files={fileManagerData.filteredData.files}
                                 setCheckedNames={setCheckedNames}
                                 hideFileManager={hideFileManager}

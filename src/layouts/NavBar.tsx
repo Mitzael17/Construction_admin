@@ -9,12 +9,14 @@ import UserSettingsModalContent from "../components/Modals/Content/UserSettingsM
 
 const NavBar = () => {
 
-    const userData = useUser();
+    const [userData] = useUser();
     const [showSettingsModal, setShowSettingsModal] = useState(false);
 
     return (
         <div className='navbar'>
-            <ProfileLogo src={userData.image} alt='logo'/>
+            <div className='w-50px h-50px'>
+                <ProfileLogo src={userData.image} alt='logo'/>
+            </div>
             <div onClick={() => setShowSettingsModal(true)} className="navbar__icon">
                 <SettingsIcon />
             </div>

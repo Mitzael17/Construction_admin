@@ -6,10 +6,12 @@
   font-size: em(18, 16);
   height: em(55, 18);
   background: #fff;
-  border: 1px solid $mainDarkColor;
   position: relative;
   overflow: hidden;
-  border-radius: 5px;
+  input {
+    border: 1px solid $mainDarkColor;
+    border-radius: 5px;
+  }
 }
 
 .input {
