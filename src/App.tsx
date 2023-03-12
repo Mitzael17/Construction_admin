@@ -3,6 +3,7 @@ import {getCookie} from "./utils/cookie";
 import AppRouter from "./components/AppRouter";
 import Login from "./pages/Login/Login";
 import {setRightVh} from "./utils/setRightVh";
+import UserAndRoutesProvider from "./components/Providers/UserAndRoutesProvider";
 
 const App = () => {
 
@@ -12,7 +13,7 @@ const App = () => {
 
     return (
         <>
-            { token !== undefined ? <AppRouter/> : <Login/>}
+            { token !== undefined ? <UserAndRoutesProvider><AppRouter/></UserAndRoutesProvider> : <Login/>}
         </>
     );
 };

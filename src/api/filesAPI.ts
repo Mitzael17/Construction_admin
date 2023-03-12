@@ -1,6 +1,6 @@
 import {CheckNames, FilesResponse, UploadFilesResponse} from "../types/API/files";
 import {$authAPI} from "./index";
-import {ErrorResponse, PostResponse, SuccessResponse, WarningResponse} from "../types/API";
+import {ErrorResponse, PostResponse} from "../types/API";
 
 export const $getFiles = async (dir = ''): Promise<FilesResponse | ErrorResponse> => {
 

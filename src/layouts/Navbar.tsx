@@ -7,7 +7,7 @@ import {deleteCookie} from "../utils/cookie";
 import Modal from "../components/Modals/Modal";
 import UserSettingsModalContent from "../components/Modals/Content/UserSettingsModalContent";
 
-const NavBar = () => {
+const Navbar = () => {
 
     const [userData] = useUser();
     const [showSettingsModal, setShowSettingsModal] = useState(false);
@@ -39,4 +39,4 @@ const NavBar = () => {
 
 };
 
-export default NavBar;
+export default Navbar;

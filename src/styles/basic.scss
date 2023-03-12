@@ -1,3 +1,5 @@
+@import 'assets/vars.scss';
+@import 'assets/mixins.scss';
 
 // styles of size
 
@@ -54,6 +56,7 @@
   margin-bottom: auto;
 }
 
+
 // flex styles
 
 .flex {
@@ -68,3 +71,48 @@
   align-items: center;
 }
 
+
+// position styles
+
+.relative {
+  position: relative;
+}
+
+.pos-abs-center {
+  @include absolutePosition(50%, 50%, -50%, -50%);
+}
+
+
+// statuses styles
+
+$statuses: (success: $successColor, warning: $warningColor, error: $errorColor);
+
+@each $status, $color in $statuses {
+
+  .#{$status} {
+    color: $color;
+  }
+
+  .#{$status}-input {
+    input {
+      border-color: $color;
+    }
+  }
+
+  .#{$status}-background {
+    background: #fff;
+    background: radial-gradient(circle, rgba(250,254,250,1) 90%, $color 100%);
+  }
+
+}
+
+
+// rest
+
+.default-cursor {
+  cursor: default;
+}
+
+.pointer-cursor {
+  cursor: pointer;
+}

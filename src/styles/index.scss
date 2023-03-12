@@ -7,14 +7,14 @@
 
 
 .container {
-
   max-width: 1200px;
   padding: 0 15px;
   margin: 0 auto;
 }
 
+
 body {
-  font-family: OpenSans;
+  font-family: OpenSans, serif;
   font-weight: 400;
 }
 
@@ -25,6 +25,7 @@ h1 {
   font-weight: 600;
   line-height: 1.25;
 }
+
 
 h2 {
   font-size: 2em;
@@ -46,11 +47,6 @@ h2 {
   background: linear-gradient(45deg, $mainLightColor 49%, $mainDarkColor 51%);
   display: flex;
   width: 100%;
-}
-
-
-.relative {
-  position: relative;
 }
 
 
@@ -132,7 +128,7 @@ h2 {
   transform: translateX(-100%);
   overflow: hidden;
   transition: all .3s;
-  max-height: 0px;
+  max-height: 0;
 
   .error-content {
     padding: 10px 40px 10px 10px;
@@ -199,20 +195,13 @@ h2 {
 
 
 .profileLogo {
-  width: 100%;
-  padding-top: 100%;
+
+  @include imageContainer();
   border-radius: 50%;
   border: 1px solid #fff;
   background: #fff;
-  position: relative;
-  overflow: hidden;
 
   img {
-    @include absolutePosition(50%, 50%, -50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    object-fit: contain;
-    text-align: center;
     line-height: 100px;
   }
 
@@ -254,9 +243,6 @@ h2 {
       }
     }
 
-    &:hover {
-
-    }
   }
 
 }
@@ -305,56 +291,6 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-
-.success {
-  color: $successColor;
-}
-
-.error {
-  color: $errorColor;
-}
-
-.warning {
-  color: $warningColor;
-}
-
-.warning-input {
-  input {
-    border-color: $warningColor;
-  }
-}
-
-
-.success-input {
-  input {
-    border-color: $successColor;
-  }
-}
-
-.error-input {
-  input {
-    border-color: $errorColor;
-  }
-}
-
-
-.success-background {
-  background: #fff;
-  background: radial-gradient(circle, rgba(250,254,250,1) 90%, $successColor 100%);
-}
-
-
-.error-background {
-  background: #fff;
-  background: radial-gradient(circle, rgba(250,254,250,1) 90%, $errorColor 100%);
-}
-
-
-.warning-background {
-  background: #fff;
-  background: radial-gradient(circle, rgba(250,254,250,1) 90%, $warningColor 100%);
 }
 
 
@@ -504,6 +440,7 @@ h2 {
     }
 
   }
+
 
   .circle-container {
     width: 105px;
@@ -660,11 +597,6 @@ h2 {
 }
 
 
-.default-cursor {
-  cursor: default;
-}
-
-
 .delete-button {
   width: 20px;
   height: 20px;
@@ -702,11 +634,6 @@ h2 {
 }
 
 
-.pos-abs-center {
-  @include absolutePosition(50%, 50%, -50%, -50%);
-}
-
-
 .profileSettingsLogo {
   &__image {
     border: 5px solid $mainDarkColor;
@@ -717,5 +644,156 @@ h2 {
     button {
       height: 100%;
     }
+  }
+}
+
+
+.sidebar {
+
+  box-sizing: border-box;
+  padding: 20px;
+  font-size: 1.3em;
+  color: $mainDarkColor;
+
+  .active {
+    color: #fff;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  img {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.3em;
+    height: 1.3em;
+  }
+
+  &__item {
+    margin-bottom: 1em;
+
+    a, .sidebarList__title {
+      transition: .4s color;
+    }
+
+    &:hover > a, &:hover > .sidebarList__title {
+      color: #fff;
+    }
+
+    &:hover .sidebarList__list {
+      border-color: #fff;
+    }
+
+
+    img {
+      margin-right: .5em;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    span {
+      display: block;
+    }
+
+    span:first-letter {
+      text-transform: uppercase;
+    }
+  }
+
+}
+
+
+.sidebarList {
+
+  &.active-list {
+
+    .sidebarList__title {
+      img {
+        transform: scaleY(-1);
+      }
+    }
+
+  }
+
+  &__title {
+    img {
+      transition: .5s transform;
+    }
+  }
+
+  &__wrapper {
+    height: 0;
+    overflow: hidden;
+    transition: .5s height;
+  }
+
+  &__list {
+    margin-top: 1em;
+    transition: .4s border-color;
+    border-left: 2px solid $mainDarkOpacityColor;
+    padding-left: .5em;
+    margin-left: .5em;
+  }
+}
+
+
+.sidebarCube {
+  width: 100px;
+  height: 100px;
+  background: $mainDarkColor;
+  border-radius: 15px;
+  margin: 50px auto;
+  perspective: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective-origin: center center;
+
+  &__container {
+    width: 50%;
+    height: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+
+    animation-name: cube_rotation;
+    animation-direction: normal;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-duration: 40s;
+    transform-origin: center;
+
+  }
+
+  &__side {
+    width:  100%;
+    border: 2px solid #fff;
+    height: 100%;
+    position: absolute;
+  }
+
+  &__top {
+    transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, 0px, 25px);
+  }
+
+  &__bottom {
+    transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 25px);
+  }
+
+  &__left {
+    transform: rotate3d(0, 1, 0, -90deg) translate3d(0px, 0px, 25px);
+  }
+
+  &__right {
+    transform: rotate3d(0, 1, 0, 90deg) translate3d(0px, 0px, 25px);
+  }
+
+  &__front {
+    transform: rotate3d(0, 0, 1, 90deg) translate3d(0px, 0px, 25px);
+  }
+
+  &__back {
+    transform: rotate3d(0, 0, 1, -90deg) translate3d(0px, 0px, 25px);
   }
 }

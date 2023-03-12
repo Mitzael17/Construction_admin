@@ -3,6 +3,7 @@
   min-height: calc(var(--vh, 1vh) * 100);
 }
 
+
 @mixin createGrid($initColumns, $gridArr) {
 
   display: grid;
@@ -16,6 +17,7 @@
 
 }
 
+
 @mixin absolutePosition($left: 0, $top: 0, $transformX: 0, $transformY: 0) {
   position: absolute;
   left: $left;
@@ -23,4 +25,30 @@
   @if($transformX != 0 OR $transformY != 0) {
     transform: translate($transformX, $transformY);
   }
+}
+
+
+@mixin imageContainer($object-fit: contain, $x: 50%, $y: 50%) {
+
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+  overflow: hidden;
+
+  img {
+    @if $x == 50% AND $y == 50% {
+
+      @include absolutePosition($x, $y, -50%, -50%);
+
+    } @else {
+
+      @include absolutePosition($x, $y);
+
+    }
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: $object-fit;
+    text-align: center;
+  }
+
 }
