@@ -208,12 +208,6 @@ h2 {
 }
 
 
-.sidebar {
-  flex: 0 1 300px;
-  background: $mainLightColor;
-}
-
-
 .page-content {
   flex: 0 1 100%;
 }
@@ -255,9 +249,15 @@ h2 {
 
 
 .main {
-  padding: 20px;
+  //padding: 20px;
   background: #fff;
   min-height: 100%;
+
+  &__header {
+    background: $mainDarkColor;
+    border-top: 1px solid $mainLightColor;
+    color: #fff;
+  }
 }
 
 
@@ -530,7 +530,7 @@ h2 {
   }
 
   &:disabled {
-    background: $disabledColor;
+    background: $disabledDarkColor;
     cursor: default;
   }
 
@@ -649,42 +649,79 @@ h2 {
 
 
 .sidebar {
-
+  background: $mainDarkColor;
+  flex: 0 0 250px;
+  overflow: hidden;
   box-sizing: border-box;
   padding: 20px;
-  font-size: 1.3em;
-  color: $mainDarkColor;
+  font-size: 1.2em;
+  color: #fff;
 
   .active {
-    color: #fff;
+    color: $linkColor;
     cursor: default;
     pointer-events: none;
+    .kalaiIcon {
+      svg {
+        stroke: $linkColor;
+        circle {
+          fill: $linkColor;
+        }
+      }
+    }
   }
 
-  img {
+  .kalaiIcon {
     display: inline-block;
     vertical-align: middle;
-    width: 1.3em;
-    height: 1.3em;
+    width: 1em;
+    height: 1em;
+
+    svg {
+      transition: .4s stroke;
+      stroke: #fff;
+      circle {
+        transition: .4s stroke;
+        fill: #fff;
+      }
+    }
   }
 
   &__item {
-    margin-bottom: 1em;
+    margin-bottom: 1.2em;
 
-    a, .sidebarList__title {
+    a, .spoilerList__title {
       transition: .4s color;
     }
 
-    &:hover > a, &:hover > .sidebarList__title {
-      color: #fff;
+    &:hover > a, &:hover > .spoilerList__title {
+      color: $linkColor;
+      .kalaiIcon {
+        svg {
+          stroke: $linkColor;
+          circle {
+            fill: $linkColor;
+          }
+        }
+      }
     }
 
-    &:hover .sidebarList__list {
-      border-color: #fff;
+    .spoilerList__title span,
+    & > a span {
+      transition: .4s transform;
+      transform: translateX(0px);
+    }
+
+    &:hover > a:not(.active) span, &:hover > .spoilerList__title span {
+        transform: translateX(5px);
+    }
+
+    &:hover .spoilerList__list {
+      border-color: $linkColor;
     }
 
 
-    img {
+    .kalaiIcon {
       margin-right: .5em;
     }
 
@@ -704,12 +741,12 @@ h2 {
 }
 
 
-.sidebarList {
+.spoilerList {
 
   &.active-list {
 
-    .sidebarList__title {
-      img {
+    .spoilerList__title {
+      .kalaiIcon {
         transform: scaleY(-1);
       }
     }
@@ -717,7 +754,7 @@ h2 {
   }
 
   &__title {
-    img {
+    .kalaiIcon {
       transition: .5s transform;
     }
   }
@@ -729,9 +766,9 @@ h2 {
   }
 
   &__list {
-    margin-top: 1em;
+    margin-top: 1.2em;
     transition: .4s border-color;
-    border-left: 2px solid $mainDarkOpacityColor;
+    border-left: 2px solid #fff;
     padding-left: .5em;
     margin-left: .5em;
   }

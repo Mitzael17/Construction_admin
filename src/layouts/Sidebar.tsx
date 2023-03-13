@@ -3,6 +3,7 @@ import {useInternalRoutes} from "../hooks/useInternalRoutes";
 import {sidebarData} from "../data/sidebarData";
 import {SidebarLink, SidebarStructure} from "../types/components/LayoutsComponents";
 import {NavLink} from "react-router-dom";
+import Spoiler from "../components/UI/Spoiler/Spoiler";
 
 const Sidebar = () => {
 
@@ -10,8 +11,10 @@ const Sidebar = () => {
 
     const structure: SidebarStructure = [];
 
+    // The filter skip links, which are not available for user
     for(let alias of links) {
 
+        // if alias is an object, then it is a list (spoiler)
         if(typeof alias === 'object') {
 
             let bufferList: SidebarLink[] = [];
@@ -87,34 +90,36 @@ const Sidebar = () => {
                     if('values' in item) {
 
                         return (
-                          <div onClick={toggleList} key={item.name} className='sidebar__list sidebarList sidebar__item'>
-                              <div className='pointer-cursor flex sidebarList__title'>
-                                  <img src={item.icon} alt='' />
-                                  <span>{item.name}</span>
-                              </div>
-                              <div onTransitionEnd={handleTransitionEnd} className="sidebarList__wrapper">
-                                  <ul className='sidebarList__list'>
-                                      {item.values.map( sub_item => (
-                                          <li className='sidebar__item' key={sub_item.name}>
-                                              <NavLink to={sub_item.link} >
-                                                  <div className='flex'>
-                                                      <img src={sub_item.icon} alt='' />
-                                                      <span>{sub_item.name}</span>
-                                                  </div>
-                                              </NavLink>
-                                          </li>
-                                      ))}
-                                  </ul>
-                              </div>
-                          </div>
+                            <Spoiler
+                                key={item.name}
+                                title={
+                                <>
+                                    {item.icon}
+                                    <span>{item.name}</span>
+                                </>
+                                }
+                                items={
+                                    <ul className='spoilerList__list'>
+                                        {item.values.map( sub_item => (
+                                            <li className='sidebar__item' key={sub_item.name}>
+                                                <NavLink to={sub_item.link} >
+                                                    <div className='flex'>
+                                                        {sub_item.icon}
+                                                        <span>{sub_item.name}</span>
+                                                    </div>
+                                                </NavLink>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                }
+                            />
                         );
-
                     }
 
                     return <div className='sidebar__item' key={item.name}>
                         <NavLink to={item.link} >
                             <div className='flex'>
-                                <img src={item.icon} alt='' />
+                                {item.icon}
                                 <span>{item.name}</span>
                             </div>
                         </NavLink>
@@ -125,46 +130,6 @@ const Sidebar = () => {
         </div>
     );
 
-
-    function toggleList(event: React.MouseEvent<HTMLDivElement>) {
-
-        if((event.target as HTMLDivElement).closest('.sidebarList__wrapper') &&
-            !(event.target as HTMLDivElement).closest('a')) return;
-
-        const list = event.currentTarget.querySelector('.sidebarList__wrapper') as HTMLDivElement;
-
-        list.dataset.heightTranstion = 'true';
-
-        if(event.currentTarget.classList.contains('active-list')) {
-
-            event.currentTarget.classList.remove('active-list');
-            list.style.height = list.offsetHeight + 'px';
-
-            setTimeout(() => {
-                list.style.height = '0px';
-            }, 20);
-
-        }
-        else {
-
-            event.currentTarget.classList.add('active-list');
-            list.style.height = list.scrollHeight + 'px';
-
-        }
-
-    }
-
-    function handleTransitionEnd(event: React.TransitionEvent<HTMLDivElement>) {
-
-        if(!event.currentTarget.dataset.heightTransition) return;
-
-        event.currentTarget.dataset.heightTransition = undefined;
-
-        if(!(event.currentTarget.closest('.sidebarList') as HTMLDivElement).classList.contains('active-list')) return;
-
-        event.currentTarget.style.height = 'auto';
-
-    }
 
 };
 

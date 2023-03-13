@@ -2,7 +2,7 @@ export interface SidebarLink {
 
     name: string,
     link: string,
-    icon: string
+    icon: JSX.Element
 
 }
 

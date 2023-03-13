@@ -5,20 +5,28 @@
 
 
 .button {
-  color: #fff;
-  background: $mainDarkColor;
   transition: .5s all;
   width: 100%;
   padding: 15px 20px;
   border: 1px solid transparent;
   cursor: default;
 
+  &.dark {
+    color: #fff;
+    background: $mainDarkColor;
+  }
+
+  &.light {
+    color: #fff;
+    background: $mainLightColor;
+  }
+
   &:not(:disabled) {
 
     cursor: pointer;
 
-    &:active,
-    &:hover {
+    &.dark:active,
+    &.dark:hover {
       background: #fff;
       color: $mainDarkColor;
       border: 1px solid $mainDarkColor;
@@ -30,8 +38,12 @@
 
   }
 
-  &:disabled {
-    background: $mainDarkOpacityColor;
+  &.dark:disabled {
+    background: $disabledDarkColor;
+  }
+
+  &.light:disabled {
+    background: $disabledLightColor;
   }
 
 }

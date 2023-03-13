@@ -14,6 +14,7 @@ export interface ButtonProps {
     type?: 'button' | 'submit',
     onClick?: MouseEventHandler,
     disabled?: boolean,
+    theme?: 'light'|'dark';
 
 }
 
