@@ -1,0 +1,74 @@
+@import "../assets/mixins.scss";
+@import "../assets/vars.scss";
+
+.error-container {
+  background: $errorOpacityColor;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-100%);
+  overflow: hidden;
+  transition: all .3s;
+  max-height: 0;
+
+  .error-content {
+    padding: 10px 40px 10px 10px;
+  }
+
+  &.enter {
+    opacity: 1;
+    transform: translateX(0%);
+    max-height: 200px;
+    margin: 10px 0;
+
+  }
+
+  &.enter-done {
+    max-height: 200px;
+    opacity: 1;
+    margin: 10px 0;
+
+    transform: translateX(0%);
+    pointer-events: all;
+  }
+
+  &.exit {
+    opacity: 0;
+    max-height: 0;
+    margin: 0;
+    transform: translateX(0%) scaleY(0);
+    transition: all .3s;
+  }
+
+  &.exit-done {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+
+  span {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 10px;
+    top: 10px;
+    cursor: pointer;
+
+    &:before,
+    &:after {
+      content: '';
+      @include absolutePosition(50%, 50%);
+      background: var(--mainColor);
+      height: 70%;
+      width: 2px;
+    }
+
+    &:before {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+
+    &:after {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+
+  }
+
+}

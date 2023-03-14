@@ -1,0 +1,73 @@
+@keyframes cube_rotation {
+
+  0% {
+    transform: rotate3d(1, 1, 1, 0deg);
+  }
+
+  100% {
+    transform: rotate3d(1, 1, 1, 360deg);
+
+  }
+
+}
+
+.cube {
+  width: 100px;
+  height: 100px;
+  margin: 50px auto;
+  perspective: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective-origin: center center;
+
+  .container {
+    width: 50%;
+    height: 50%;
+    position: relative;
+    transform-style: preserve-3d;
+
+    animation-name: cube_rotation;
+    animation-direction: normal;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-duration: 40s;
+    transform-origin: center;
+
+  }
+
+  .side {
+    width:  100%;
+    border: 2px solid var(--secondMainColor);
+    height: 100%;
+    position: absolute;
+    box-shadow: 0 0 100px 1px var(--secondMainColor);
+
+  }
+
+  .top {
+    transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, 0px, 25px);
+  }
+
+  .bottom {
+    transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 25px);
+  }
+
+  .left {
+    transform: rotate3d(0, 1, 0, -90deg) translate3d(0px, 0px, 25px);
+  }
+
+  .right {
+    transform: rotate3d(0, 1, 0, 90deg) translate3d(0px, 0px, 25px);
+  }
+
+  .front {
+    transform: rotate3d(0, 0, 1, 90deg) translate3d(0px, 0px, -25px);
+  }
+
+  .back {
+    transform: rotate3d(0, 0, 1, -90deg) translate3d(0px, 0px, 25px);
+  }
+}
+

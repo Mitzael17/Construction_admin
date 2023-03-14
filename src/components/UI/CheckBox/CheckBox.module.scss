@@ -1,0 +1,30 @@
+@import './src/styles/assets/mixins.scss';
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  display: block;
+  background: var(--checkboxBackground);
+  border: 1px solid var(--mainColor);
+  position: relative;
+
+  span {
+    content: '';
+    display: block;
+    width: 95%;
+    height: 95%;
+    @include absolutePosition(50%, 50%, -50%, -50%);
+    background: var(--checkboxMarkColor);
+    clip-path: polygon(0 0, 50% 0, 100% 0, 100% 100%, 50% 100%, 0 100%);
+    transition: .2s clip-path;
+  }
+
+  input {
+    display: none;
+  }
+
+  input:checked + span {
+    clip-path: polygon(22% 45%, 41% 64%, 86% 26%, 86% 38%, 40% 78%, 15% 50%);
+  }
+
+}

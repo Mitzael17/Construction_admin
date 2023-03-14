@@ -1,0 +1,192 @@
+@import "../assets/vars.scss";
+
+.status-response {
+
+  .circle-container {
+    position: relative;
+
+    span {
+      position: absolute;
+      width: 5%;
+    }
+  }
+
+  &.success {
+
+    .circle-container {
+
+      span {
+        background: $successColor;
+      }
+
+      span:first-child {
+        height: 28%;
+        transition: .2s all .5s;
+        top: 60%;
+        left: 27%;
+
+        transform: translate(-50%, -50%) rotate(-45deg) scaleY(0);
+        transform-origin: center top;
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(-45deg) scaleY(1);
+        }
+
+      }
+
+      span:nth-child(2) {
+        top: 42%;
+        height: 48%;
+        left: 44%;
+        transition: .3s all .6s;
+        transform: translate(-50%, -50%) rotate(45deg) scaleY(0);
+        transform-origin: center bottom;
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(45deg) scaleY(1);
+        }
+
+      }
+
+    }
+    .circle {
+      stroke: $successColor;
+    }
+
+  }
+
+  &.error {
+
+    .circle-container {
+
+      span {
+        background: $errorColor;
+        transform-origin: center center;
+      }
+
+      span:first-child {
+        height: 50%;
+        transition: .2s all .5s;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(45deg) scaleY(0);
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(45deg) scaleY(1);
+        }
+
+      }
+
+      span:nth-child(2) {
+        top: 50%;
+        height: 50%;
+        left: 50%;
+        transition: .2s all .5s;
+        transform: translate(-50%, -50%) rotate(-45deg) scaleY(0);
+
+        &.active {
+          transform: translate(-50%, -50%) rotate(-45deg) scaleY(1);
+        }
+
+      }
+
+    }
+
+
+    .circle {
+      stroke: $errorColor;
+    }
+
+  }
+
+
+  &.warning {
+
+    .circle-container {
+
+      span {
+        background: $warningColor;
+      }
+
+      span:first-child {
+        height: 5%;
+        transition: .2s all .5s;
+        top: 70%;
+        left: 50%;
+
+        transform: translateX(-50%) scale(0);
+        transform-origin: center top;
+
+        &.active {
+          transform: translateX(-50%) scale(1);
+        }
+
+      }
+
+      span:nth-child(2) {
+        top: 20%;
+        height: 40%;
+        left: 50%;
+        transition: .3s all .6s;
+        transform: translateX(-50%) scaleY(0);
+        transform-origin: center bottom;
+
+        &.active {
+          transform: translateX(-50%) scaleY(1);
+        }
+
+      }
+
+    }
+
+
+    .circle {
+      stroke: $warningColor;
+    }
+
+  }
+
+
+  .circle-container {
+    width: 105px;
+    height: 105px;
+    display: block;
+  }
+
+  .circle {
+    cx: 50%;
+    cy: 50%;
+    r: 45%;
+    transition: 1s all;
+  }
+
+  .status-response-message,
+  .status-response-title {
+
+    transform: scale(0);
+    transition: .3s all;
+
+    &.active {
+      transform: scale(1);
+    }
+
+  }
+
+}
+
+
+.status-response-title {
+  text-transform: uppercase;
+  font-weight: 900;
+  transition: .5s all;
+  text-align: center;
+  margin-top: 15px;
+}
+
+
+.status-response-message {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 1em;
+  font-weight: 500;
+}

@@ -12,9 +12,10 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
 
         let ignore = false;
 
+        setIsLoading(true);
+
         const timer = setTimeout( async () => {
 
-            setIsLoading(true);
 
             const arrToCheck: UseValidation[] = [];
 

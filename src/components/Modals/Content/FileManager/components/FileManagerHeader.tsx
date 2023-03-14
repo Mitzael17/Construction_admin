@@ -15,7 +15,7 @@ const FileManagerHeader = () => {
     return (
         <>
         <div className={classes.header}>
-            <div className='flex relative'>
+            <div className='flex relative kalaiIcon-container'>
                 <FileManagerBackButton />
                 <FileManagerUploadButton />
                 <FileManagerAddFolderButton />

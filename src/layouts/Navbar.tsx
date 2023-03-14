@@ -6,14 +6,19 @@ import SettingsIcon from "../components/Icons/SettingsIcon";
 import {deleteCookie} from "../utils/cookie";
 import Modal from "../components/Modals/Modal";
 import UserSettingsModalContent from "../components/Modals/Content/UserSettingsModalContent";
+import ThemeToggle from "../components/UI/ThemeToggle/ThemeToggle";
 
 const Navbar = () => {
 
     const [userData] = useUser();
     const [showSettingsModal, setShowSettingsModal] = useState(false);
 
+
     return (
         <div className='navbar'>
+            <div className='mr-auto'>
+                <ThemeToggle />
+            </div>
             <div className='w-50px h-50px'>
                 <ProfileLogo src={userData.image} alt='logo'/>
             </div>
@@ -36,6 +41,7 @@ const Navbar = () => {
         document.location.href = '/';
 
     }
+
 
 };
 

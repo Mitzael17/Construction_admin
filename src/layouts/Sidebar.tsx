@@ -4,6 +4,7 @@ import {sidebarData} from "../data/sidebarData";
 import {SidebarLink, SidebarStructure} from "../types/components/LayoutsComponents";
 import {NavLink} from "react-router-dom";
 import Spoiler from "../components/UI/Spoiler/Spoiler";
+import Cube3D from "../components/Visual/Cube3D/Cube3D";
 
 const Sidebar = () => {
 
@@ -74,16 +75,7 @@ const Sidebar = () => {
 
     return (
         <div className="sidebar">
-            <div className="sidebarCube">
-                <div className='sidebarCube__container'>
-                    <div className='sidebarCube__top sidebarCube__side'></div>
-                    <div className='sidebarCube__bottom sidebarCube__side'></div>
-                    <div className='sidebarCube__left sidebarCube__side'></div>
-                    <div className='sidebarCube__right sidebarCube__side'></div>
-                    <div className='sidebarCube__front sidebarCube__side'></div>
-                    <div className='sidebarCube__back sidebarCube__side'></div>
-                </div>
-            </div>
+            <Cube3D />
             <nav className='sidebar__list'>
                 {structure.map( item => {
 

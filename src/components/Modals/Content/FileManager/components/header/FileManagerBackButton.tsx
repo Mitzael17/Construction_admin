@@ -9,7 +9,7 @@ const FileManagerBackButton = () => {
     const [, setModalData] = useModal();
 
     return (
-        <div onClick={handlerClick} className='kalaiIconDark'>
+        <div onClick={handlerClick} className='kalaiIcon--box'>
             <BendArrowLeftIcon />
         </div>
     );

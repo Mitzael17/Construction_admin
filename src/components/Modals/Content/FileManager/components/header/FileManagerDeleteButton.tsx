@@ -10,7 +10,7 @@ const FileManagerDeleteButton = () => {
     const directory = fileManagerData.arrDirectories.join('/')  + '/';
 
     return (
-        <div onClick={handlerClick} className='kalaiIconDark'>
+        <div onClick={handlerClick} className='kalaiIcon--box'>
             <DeleteIcon />
         </div>
     );

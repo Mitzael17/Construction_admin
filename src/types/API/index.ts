@@ -39,3 +39,19 @@ export interface DecodeTokenResult {
 
 
 export type PostResponse = SuccessResponse|ErrorResponse|WarningResponse;
+
+export interface BaseData {
+
+    id: number;
+    name: string;
+
+}
+
+export interface GetRequestDefaultParameters {
+
+    search?: string,
+    limit?: number,
+    page?: number,
+    sort?: string,
+
+}

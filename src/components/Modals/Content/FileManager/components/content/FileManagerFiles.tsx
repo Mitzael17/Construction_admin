@@ -2,7 +2,7 @@ import React, {ChangeEvent, memo} from 'react';
 import classes from "../../FileManager.module.scss";
 import {FileManagerFilesListProps} from "../../../../../../types/components/ModalsComponents";
 import CheckBox from "../../../../../UI/CheckBox/CheckBox";
-import fileImage from "../../../../../../assets/file.png";
+import fileImage from "../../../../../../assets/icons/File.svg";
 
 const FileManagerFiles = memo(({setFile, files, directory, setCheckedNames, hideFileManager}: FileManagerFilesListProps) => {
 

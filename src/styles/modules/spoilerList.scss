@@ -1,0 +1,32 @@
+.spoilerList {
+
+  &.active-list {
+
+    .spoilerList__title {
+      .kalaiIcon {
+        transform: scaleY(-1);
+      }
+    }
+
+  }
+
+  &__title {
+    .kalaiIcon {
+      transition: .5s transform;
+    }
+  }
+
+  &__wrapper {
+    height: 0;
+    overflow: hidden;
+    transition: .5s height;
+  }
+
+  &__list {
+    margin-top: 1.2em;
+    transition: .4s border-color;
+    border-left: 2px solid var(--textColor);
+    padding-left: .5em;
+    margin-left: .5em;
+  }
+}

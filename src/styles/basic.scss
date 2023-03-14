@@ -11,6 +11,14 @@
   height: 100%;
 }
 
+.w-25px {
+  width: 25px;
+}
+
+.h-25px {
+  height: 25px;
+}
+
 @for $index from 1 through 10 {
 
   .w-#{$index * 50}px {
@@ -104,6 +112,9 @@
   align-items: center;
 }
 
+.flex-wrap {
+  flex-wrap: wrap;
+}
 
 // position styles
 
@@ -126,15 +137,26 @@ $statuses: (success: $successColor, warning: $warningColor, error: $errorColor);
     color: $color;
   }
 
-  .#{$status}-input {
-    input {
-      border-color: $color;
+  :root[data-theme='dark'] {
+    .#{$status}-input {
+      input {
+        @include highlighting(10px, $color);
+      }
     }
   }
 
+  :root[data-theme='light'] {
+    .#{$status}-input {
+      input {
+        border: 2px solid $color;
+      }
+    }
+  }
+
+
   .#{$status}-background {
-    background: #fff;
-    background: radial-gradient(circle, rgba(250,254,250,1) 90%, $color 100%);
+    background: var(--mainColor);
+    background: radial-gradient(circle, var(--mainColor) 90%, $color 100%);
   }
 
 }

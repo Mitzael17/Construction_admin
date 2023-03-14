@@ -1,6 +1,6 @@
 @import './src/styles/assets/functions';
 @import './src/styles/assets/vars.scss';
-
+@import './src/styles/assets/mixins.scss';
 
 
 
@@ -10,16 +10,30 @@
   padding: 15px 20px;
   border: 1px solid transparent;
   cursor: default;
+  border-radius: 5px;
+  font-weight: 500;
+  background: var(--mainColor);
+  color: var(--textColor);
+  position: relative;
+  overflow: hidden;
+
+  span {
+    position: relative;
+    z-index: 1;
+  }
 
   &.dark {
-    color: #fff;
-    background: $mainDarkColor;
+    @include highlighting();
+  }
+  &.light {
+    border: 1px solid var(--textColor);
   }
 
-  &.light {
-    color: #fff;
-    background: $mainLightColor;
+  &.tiny {
+    border-radius: 0;
+    padding: 7px;
   }
+
 
   &:not(:disabled) {
 
@@ -27,9 +41,13 @@
 
     &.dark:active,
     &.dark:hover {
-      background: #fff;
-      color: $mainDarkColor;
-      border: 1px solid $mainDarkColor;
+      @include highlighting(10px, #fff);
+    }
+
+    &.light:hover,
+    &.light:active {
+      color: #fff;
+      background: var(--textColor);
     }
 
     &:active {
@@ -38,12 +56,15 @@
 
   }
 
-  &.dark:disabled {
+  &:disabled {
     background: $disabledDarkColor;
-  }
+    box-shadow: none;
+    border-color: transparent;
 
-  &.light:disabled {
-    background: $disabledLightColor;
+    &.light:before {
+      display: none;
+    }
+
   }
 
 }

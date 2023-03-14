@@ -1,18 +1,28 @@
-@import './src/styles/assets/functions';
+@import './src/styles/assets/functions.scss';
 @import './src/styles/assets/vars.scss';
+@import './src/styles/assets/mixins.scss';
 
 .input_container {
   width: 100%;
   font-size: em(18, 16);
   height: em(55, 18);
-  background: #fff;
+  background: transparent;
   position: relative;
-  overflow: hidden;
-  color: $mainDarkColor;
-  border-radius: 5px;
+  color: var(--textColor);
   input {
-    border: 1px solid $mainDarkColor;
     border-radius: 5px;
+    background: var(--mainColor);
+    color: var(--textColor);
+
+    &.dark {
+      @include highlighting();
+
+    }
+
+    &.light {
+      border: 1px solid #000;
+    }
+
   }
 }
 
@@ -35,6 +45,7 @@
   font-weight: 400;
   z-index: 0;
   transform-origin: left center;
+  color: var(--textColor);
   transition: .5s all;
 }
 
@@ -60,15 +71,31 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+  svg {
+    path {
+      fill: var(--textColor);
+    }
+  }
 }
 
 .searchInput {
 
   height: 35px;
-  padding: 0 10px;
-  border: 1px solid $mainDarkColor;
-  margin-right: -1px;
+  padding: 0 15px 0 10px;
+  border: 1px solid var(--mainColor);
+  margin-right: -5px;
   width: 100%;
+  border-radius: 5px;
+  background: var(--mainColor);
+  color: var(--textColor);
+
+  &.dark {
+    @include highlighting();
+  }
+
+  &.light {
+    border: 1px solid #000;
+  }
 
 
 }

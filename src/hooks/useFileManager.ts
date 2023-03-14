@@ -3,4 +3,4 @@ import {fileManagerChangeContext, fileManagerContext} from "../context/fileManag
 import {FileManagerContextValues} from "../types/contexts/FileManagerContextValues";
 
 export const useFileManager = (): [FileManagerContextValues, Dispatch<SetStateAction<FileManagerContextValues>>] =>
-    [useContext(fileManagerContext), (function () { return useContext(fileManagerChangeContext)})()];
+    [useContext(fileManagerContext), useContext(fileManagerChangeContext)];

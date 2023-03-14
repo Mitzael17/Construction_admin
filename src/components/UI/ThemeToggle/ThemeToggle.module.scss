@@ -1,0 +1,46 @@
+@import "./src/styles/assets/mixins.scss";
+
+.container {
+  background: var(--textColor);
+  border-radius: 20px;
+  width: 50px;
+  height: 25px;
+  position: relative;
+  cursor: pointer;
+
+  &.light {
+    background: #fff;
+    border: 1px solid var(--textColor);
+  }
+
+  &.dark {
+    background: #000;
+  }
+
+}
+
+.item {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  @include absolutePosition(calc(100% - 5px), 50%, -100%, -50%);
+  transition: .3s all;
+
+  position: relative;
+
+
+
+}
+
+.item.light {
+  @include highlighting();
+  background: var(--secondMainColor);
+}
+
+
+.item.dark {
+  left: 5px;
+  transform: translate(0, -50%);
+  @include highlighting();
+  background: #000;
+}

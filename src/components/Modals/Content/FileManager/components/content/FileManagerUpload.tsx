@@ -2,7 +2,7 @@ import React, {useEffect, useReducer, useState} from 'react';
 import {useFileManager} from "../../../../../../hooks/useFileManager";
 import classes from "../../FileManager.module.scss";
 import {FilePreview, FileReducerAction} from "../../../../../../types/components/ModalsComponents";
-import fileImage from "../../../../../../assets/file.png";
+import fileImage from "../../../../../../assets/icons/File.svg";
 import Loading from "../../../../../Visual/Loading";
 import TinyInput from "../../../../../UI/Input/TinyInput";
 import CheckBox from "../../../../../UI/CheckBox/CheckBox";

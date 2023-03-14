@@ -89,7 +89,7 @@ const UserSettingsModalContent = () => {
     const nameError = hasError(errors, 'name');
     const passwordError = hasError(errors, 'password');
 
-    const isAvailableToSubmit = Object.keys(newUserData).length > 0 && !errors.length;
+    const isAvailableToSubmit = Object.keys(newUserData).length > 0 && !errors.length && !isLoadingValidation;
 
     return (
         <>
@@ -114,7 +114,7 @@ const UserSettingsModalContent = () => {
                     </div>
                 </div>
                 <Button
-                    disabled={!isAvailableToSubmit || isLoading || isLoadingValidation}
+                    disabled={!isAvailableToSubmit || isLoading}
                     type='submit'
                 >
                     {isLoadingValidation ? <Loading showText={false} diameter={20} /> : 'Save'}

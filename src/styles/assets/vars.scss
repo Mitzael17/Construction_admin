@@ -1,6 +1,6 @@
 // -------- Colors ----------
 
-$mainLightColor: #FFB400;
+$mainLightColor: #1fc1ff;
 $mainDarkColor: #2A2A2A;
 
 $errorColor: #ff4b4b;
@@ -8,14 +8,17 @@ $successColor: #30e130;
 $warningColor: #FFB400;
 
 $redColor: #ff4b4b;
-$linkColor: #1fc1ff;
+$blueColor: #3700fd;
 
 $disabledDarkColor: #7e7e7e;
-$disabledLightColor: #8f6900;
+$disabledLightColor: #7e7e7e;
 
 // -------- Opacity colors ----------
 
 $errorOpacityColor: rgba(255, 75, 75, 0.6);
-$mainLightOpacityColor: rgba(255, 180, 0, 0.6);
-$mainDarkOpacityColor: rgba(42, 42, 42, 0.6);
+
 $successOpacityColor: rgba(48, 225, 48, 0.6);
+
+$mainLightSuperOpacityColor: rgba(31, 193, 255, 0.15);
+$mainLightOpacityColor: rgba(31, 193, 255, 0.6);
+$mainDarkOpacityColor: rgba(42, 42, 42, 0.6);

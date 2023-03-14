@@ -62,7 +62,7 @@ const FileManagerAddFolderButton = () => {
 
     return (
         <>
-            <div onClick={toggleVisibleStatus} className='kalaiIconDark'>
+            <div onClick={toggleVisibleStatus} className='kalaiIcon--box'>
                 <AddFolderIcon />
             </div>
             <form
@@ -72,7 +72,7 @@ const FileManagerAddFolderButton = () => {
                 onClick={(event) => event.stopPropagation()}
             >
                 <TinyInput ref={inputRef} placeholder='Name of directory' value={newDirectoryName} setValue={setNewDirectoryName} />
-                <button disabled={isLoading || !isUniqueName || fileManagerData.isLoading} className='kalaiIconDark'>
+                <button disabled={isLoading || !isUniqueName || fileManagerData.isLoading} className='kalaiIcon--box'>
                     {isLoading || fileManagerData.isLoading ? <Loading diameter={10} showText={false} /> : <CheckIcon />}
                 </button>
             </form>

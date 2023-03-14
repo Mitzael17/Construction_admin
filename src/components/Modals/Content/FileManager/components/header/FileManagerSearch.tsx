@@ -11,7 +11,7 @@ const FileManagerSearch = () => {
     return (
         <form onSubmit={filterData} className='flex w-100'>
             <TinyInput placeholder='Search...' value={searchValue} setValue={setSearchValue} />
-            <button className='kalaiIconDark'><SearchIcon /></button>
+            <button className='kalaiIcon--box'><SearchIcon /></button>
         </form>
     );
 

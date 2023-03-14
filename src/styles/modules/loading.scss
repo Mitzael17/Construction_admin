@@ -1,0 +1,56 @@
+@import '../assets/mixins.scss';
+
+:root[data-theme='dark'] {
+  .loading {
+    @include highlighting(20px, var(--textColor));
+  }
+}
+
+:root[data-theme='light'] {
+  .loading {
+    border: 2px solid $mainDarkColor;
+  }
+}
+
+.loading {
+  border-radius: 50%;
+  margin: auto;
+  position: relative;
+
+  .status-response-title {
+    margin-top: 20px;
+  }
+
+  &:before {
+    content: '';
+    width: 6%;
+    height: 6%;
+    border-radius: 50%;
+    background: var(--textColor);
+    @include absolutePosition(50%, 50%, -50%, -50%);
+  }
+
+  span {
+    background: var(--textColor);
+    @include absolutePosition(50%, 50%, 0%, -100%);
+    animation-name: clock_rotation;
+    animation-direction: normal;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    transform-origin: center bottom;
+    animation-iteration-count: infinite;
+  }
+
+  span:first-child {
+    animation-duration: 4s;
+    height: 45%;
+    width: 3%;
+  }
+
+  span:last-child {
+    height: 25%;
+    animation-duration: 48s;
+    width: 4%;
+  }
+
+}

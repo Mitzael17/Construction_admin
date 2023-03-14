@@ -1,0 +1,211 @@
+@import "../assets/mixins.scss";
+
+
+:root[data-theme='dark'] {
+
+  .kalaiIcon {
+
+    &--box {
+
+      &:not(:disabled) {
+        @include highlighting();
+      }
+
+    }
+
+  }
+
+  .kalaiIcon-container {
+    @include highlighting();
+
+    & > .kalaiIcon--box {
+      box-shadow: none;
+      border: none;
+    }
+
+  }
+
+}
+
+:root[data-theme='light'] {
+
+  .kalaiIcon--box {
+
+    &:not(:disabled) {
+      border: 1px solid var(--textColor);
+
+      &:active,
+      &:hover {
+        background: var(--textColor);
+
+        svg {
+          fill: none;
+          stroke: #fff;
+        }
+
+        &.no_stroke {
+          svg {
+            stroke: none;
+            fill: #fff;
+          }
+        }
+
+        circle,
+        path {
+          stroke: #fff;
+        }
+
+        &.no_stroke {
+          svg {
+            path {
+              stroke: none;
+            }
+            fill: #fff;
+          }
+        }
+
+
+      }
+
+    }
+
+
+  }
+
+  .kalaiIcon-container {
+    border: 1px solid var(--textColor);
+
+    & > .kalaiIcon--box {
+      border: none;
+    }
+
+  }
+
+}
+
+.kalaiIcon {
+
+  svg {
+    fill: none;
+    stroke: var(--textColor);
+    transition: .15s fill, .15s stroke;
+  }
+
+  &.no_stroke {
+    svg {
+      stroke: none;
+      fill: var(--textColor);
+    }
+  }
+
+  &--box {
+    width: 60px;
+    height: 35px;
+    cursor: pointer;
+    transition: .3s all;
+
+    background: var(--mainColor);
+
+    &:not(:disabled) {
+
+      &:active,
+      &:hover {
+        background: var(--secondMainColor);
+      }
+
+    }
+
+    &:disabled {
+      background: $disabledDarkColor;
+    }
+
+    &:active {
+      div {
+        transform: scale(0.9);
+      }
+    }
+
+    &:disabled {
+      cursor: default;
+    }
+
+    div {
+      width: 100%;
+      height: 100%;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      transform: scale(1);
+    }
+
+    circle,
+    path {
+      stroke: var(--textColor);
+      transition: .15s fill, .15s stroke;
+    }
+
+    &.no_stroke {
+      svg {
+        path {
+          stroke: none;
+        }
+        fill: var(--textColor);
+      }
+    }
+
+  }
+
+
+}
+
+
+.sidebar {
+
+  .active {
+    .kalaiIcon {
+      svg {
+        stroke: var(--secondMainColor);
+        circle {
+          fill: var(--secondMainColor);
+        }
+      }
+    }
+  }
+
+  .kalaiIcon {
+    display: inline-block;
+    vertical-align: middle;
+    width: 1em;
+    height: 1em;
+
+    svg {
+      transition: .4s stroke;
+      stroke: var(--textColor);
+      circle {
+        transition: .4s stroke;
+        fill: var(--textColor);
+      }
+    }
+  }
+
+  &__item {
+
+    &:hover > a, &:hover > .spoilerList__title {
+      .kalaiIcon {
+        svg {
+          stroke: var(--secondMainColor);
+          circle {
+            fill: var(--secondMainColor);
+          }
+        }
+      }
+    }
+
+
+    .kalaiIcon {
+      margin-right: .5em;
+    }
+
+  }
+
+}

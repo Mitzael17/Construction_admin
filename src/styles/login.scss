@@ -1,0 +1,36 @@
+@import "assets/mixins.scss";
+
+.login-page {
+  @include vh100;
+  background: var(--mainColor);
+  background: linear-gradient(45deg, var(--secondMainColor) 49%, var(--mainColor) 51%);
+  display: flex;
+  width: 100%;
+}
+
+
+.loginForm {
+  background: var(--mainColor);
+  @include highlighting(10px, var(--secondMainColor));
+  padding: 50px;
+  max-width: 550px;
+  margin: auto;
+  width: 100%;
+  border-radius: 6px;
+
+  &__title {
+    margin: 0 auto 20px;
+    text-align: center;
+  }
+
+  &__inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  &__button {
+    margin-top: 20px;
+  }
+
+}

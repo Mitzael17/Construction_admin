@@ -4,10 +4,14 @@ import {ModalProps} from "../../types/components/ModalsComponents";
 import {CSSTransition} from "react-transition-group";
 import {createPortal} from "react-dom";
 import {useModal} from "../../hooks/useModal";
+import {useTheme} from "../../hooks/useTheme";
+import {Themes} from "../../types/contexts/Themes";
+
 const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProps) => {
 
     const nodeRef = useRef(null);
 
+    const [theme] = useTheme();
     const [modalData, setModalData] = useModal();
 
     // The ref is necessary to block an accident click on the back area
@@ -41,7 +45,7 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
 
                     }
 
-                } } className={`${classes.modalContainer} fade-container`}>
+                } } className={`${classes.modalContainer} ${theme === Themes.light ? classes.light : classes.dark} fade-container`}>
                     <div
                         onPointerDown={() => {
 
@@ -49,7 +53,7 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
 
                         }}
                          className={`${classes.modal} ${modalData.class ? modalData.class : ''}`}>
-                        <div className={classes.header}>
+                        <div className={`${classes.header} ${theme === Themes.light ? classes.light : classes.dark}`}>
                             <h2>{modalData.title}</h2>
                             <div onClick={onExit} className={classes.exitIcon}><span></span></div>
                         </div>

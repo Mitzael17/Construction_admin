@@ -4,4 +4,4 @@ import {OwnUserAccount} from "../types/API/usersAPI";
 
 
 export const useUser = (): [OwnUserAccount, Dispatch<SetStateAction<OwnUserAccount>>] =>
-    [useContext(userContext), (function () { return useContext(userChangeContext)})()];
+    [useContext(userContext), useContext(userChangeContext)];

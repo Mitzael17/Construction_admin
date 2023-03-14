@@ -5,6 +5,19 @@
 @import "assets/mixins.scss";
 @import "basic.scss";
 
+@import "themes/dark.scss";
+@import "themes/light.scss";
+
+@import "modules/kalaiIcons.scss";
+@import "modules/profileLogo.scss";
+@import "modules/loading.scss";
+@import "modules/error-container.scss";
+@import "modules/status-response.scss";
+@import "modules/spoilerList.scss";
+
+@import "login.scss";
+@import "projects.scss";
+
 
 .container {
   max-width: 1200px;
@@ -16,6 +29,12 @@
 body {
   font-family: OpenSans, serif;
   font-weight: 400;
+  background: var(--mainColor);
+  color: var(--textColor);
+}
+
+svg {
+  stroke: var(--textColor);
 }
 
 
@@ -41,185 +60,28 @@ h2 {
 }
 
 
-.login-page {
-  @include vh100;
-  background: rgb(255,180,0);
-  background: linear-gradient(45deg, $mainLightColor 49%, $mainDarkColor 51%);
-  display: flex;
-  width: 100%;
-}
-
-
-.loginForm {
-  background: #fff;
-  padding: 50px;
-  max-width: 550px;
-  margin: auto;
-  width: 100%;
-  border-radius: 6px;
-
-  &__title {
-    margin: 0 auto 20px;
-    text-align: center;
-  }
-
-  &__inputs {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  &__button {
-    margin-top: 20px;
-  }
-
-}
-
-
-.loading {
-  border-radius: 50%;
-  border: 2px solid $mainDarkColor;
-  margin: auto;
-  position: relative;
-
-  .status-response-title {
-    margin-top: 20px;
-  }
-
-  &:before {
-    content: '';
-    width: 6%;
-    height: 6%;
-    border-radius: 50%;
-    background: $mainDarkColor;
-    @include absolutePosition(50%, 50%, -50%, -50%);
-  }
-
-  span {
-    background: $mainDarkColor;
-    @include absolutePosition(50%, 50%, 0%, -100%);
-    animation-name: clock_rotation;
-    animation-direction: normal;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    transform-origin: center bottom;
-    animation-iteration-count: infinite;
-  }
-
-  span:first-child {
-    animation-duration: 4s;
-    height: 45%;
-    width: 3%;
-  }
-
-  span:last-child {
-    height: 25%;
-    animation-duration: 48s;
-    width: 4%;
-  }
-
-}
-
-
-.error-container {
-  background: $errorOpacityColor;
-  position: relative;
-  opacity: 0;
-  transform: translateX(-100%);
-  overflow: hidden;
-  transition: all .3s;
-  max-height: 0;
-
-  .error-content {
-    padding: 10px 40px 10px 10px;
-  }
-
-  &.enter {
-    opacity: 1;
-    transform: translateX(0%);
-    max-height: 200px;
-    margin: 10px 0;
-
-  }
-
-  &.enter-done {
-    max-height: 200px;
-    opacity: 1;
-    margin: 10px 0;
-
-    transform: translateX(0%);
-    pointer-events: all;
-  }
-
-  &.exit {
-    opacity: 0;
-    max-height: 0;
-    margin: 0;
-    transform: translateX(0%) scaleY(0);
-    transition: all .3s;
-  }
-
-  &.exit-done {
-    opacity: 0;
-    transform: translateX(-100%);
-  }
-
-  span {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    right: 10px;
-    top: 10px;
-    cursor: pointer;
-
-    &:before,
-    &:after {
-      content: '';
-      @include absolutePosition(50%, 50%);
-      background: $mainDarkColor;
-      height: 70%;
-      width: 2px;
-    }
-
-    &:before {
-      transform: translate(-50%, -50%) rotate(-45deg);
-    }
-
-    &:after {
-      transform: translate(-50%, -50%) rotate(45deg);
-    }
-
-  }
-
-}
-
-
-.profileLogo {
-
-  @include imageContainer();
-  border-radius: 50%;
-  border: 1px solid #fff;
-  background: #fff;
-
-  img {
-    line-height: 100px;
-  }
-
-}
-
-
 .page-content {
   flex: 0 1 100%;
 }
 
 
 .navbar {
-  background: $mainDarkColor;
-  padding: 10px 20px;
+  background: var(--mainColor);
+  padding: 15px 20px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  position: relative;
+
+  &:before {
+    content: '';
+    @include absolutePosition(0, 100%, 0, -100%);
+    box-shadow: 0 0 10px 1px var(--secondMainColor);
+    width: 100%;
+    height: 1px;
+    background: var(--secondMainColor);;
+  }
 
   &__icon {
     width: 25px;
@@ -227,13 +89,13 @@ h2 {
     cursor: pointer;
 
     .icon {
-      fill: #fff;
-      stroke: #fff;
+      fill: var(--textColor);
+      stroke: var(--textColor);
       transition: .2s all ease-in-out;
 
       &:hover {
-        stroke: $mainLightColor;
-        fill: $mainLightColor;
+        stroke: var(--secondMainColor);
+        fill: var(--secondMainColor);
       }
     }
 
@@ -249,14 +111,12 @@ h2 {
 
 
 .main {
-  //padding: 20px;
-  background: #fff;
+  background: var(--textColor);
   min-height: 100%;
+  background: var(--mainColor);
 
   &__header {
-    background: $mainDarkColor;
-    border-top: 1px solid $mainLightColor;
-    color: #fff;
+    color: var(--textColor);
   }
 }
 
@@ -291,309 +151,6 @@ h2 {
   display: flex;
   flex-direction: column;
   gap: 20px;
-}
-
-
-.status-response {
-
-  .circle-container {
-    position: relative;
-
-    span {
-      position: absolute;
-      width: 5%;
-    }
-  }
-
-  &.success {
-
-    .circle-container {
-
-      span {
-        background: $successColor;
-      }
-
-      span:first-child {
-        height: 28%;
-        transition: .2s all .5s;
-        top: 60%;
-        left: 27%;
-
-        transform: translate(-50%, -50%) rotate(-45deg) scaleY(0);
-        transform-origin: center top;
-
-        &.active {
-          transform: translate(-50%, -50%) rotate(-45deg) scaleY(1);
-        }
-
-      }
-
-      span:nth-child(2) {
-        top: 42%;
-        height: 48%;
-        left: 44%;
-        transition: .3s all .6s;
-        transform: translate(-50%, -50%) rotate(45deg) scaleY(0);
-        transform-origin: center bottom;
-
-        &.active {
-          transform: translate(-50%, -50%) rotate(45deg) scaleY(1);
-        }
-
-      }
-
-    }
-
-    .circle {
-      stroke: $successColor;
-    }
-
-  }
-
-  &.error {
-
-    .circle-container {
-
-      span {
-        background: $errorColor;
-        transform-origin: center center;
-      }
-
-      span:first-child {
-        height: 50%;
-        transition: .2s all .5s;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%) rotate(45deg) scaleY(0);
-
-        &.active {
-          transform: translate(-50%, -50%) rotate(45deg) scaleY(1);
-        }
-
-      }
-
-      span:nth-child(2) {
-        top: 50%;
-        height: 50%;
-        left: 50%;
-        transition: .2s all .5s;
-        transform: translate(-50%, -50%) rotate(-45deg) scaleY(0);
-
-        &.active {
-          transform: translate(-50%, -50%) rotate(-45deg) scaleY(1);
-        }
-
-      }
-
-    }
-
-
-    .circle {
-      stroke: $errorColor;
-    }
-
-  }
-
-
-  &.warning {
-
-    .circle-container {
-
-      span {
-        background: $warningColor;
-      }
-
-      span:first-child {
-        height: 5%;
-        transition: .2s all .5s;
-        top: 70%;
-        left: 50%;
-
-        transform: translateX(-50%) scale(0);
-        transform-origin: center top;
-
-        &.active {
-          transform: translateX(-50%) scale(1);
-        }
-
-      }
-
-      span:nth-child(2) {
-        top: 20%;
-        height: 40%;
-        left: 50%;
-        transition: .3s all .6s;
-        transform: translateX(-50%) scaleY(0);
-        transform-origin: center bottom;
-
-        &.active {
-          transform: translateX(-50%) scaleY(1);
-        }
-
-      }
-
-    }
-
-
-    .circle {
-      stroke: $warningColor;
-    }
-
-  }
-
-
-  .circle-container {
-    width: 105px;
-    height: 105px;
-    display: block;
-  }
-
-  .circle {
-    cx: 50%;
-    cy: 50%;
-    r: 45%;
-    transition: 1s all;
-  }
-
-  .status-response-message,
-  .status-response-title {
-
-    transform: scale(0);
-    transition: .3s all;
-
-    &.active {
-      transform: scale(1);
-    }
-
-  }
-
-
-
-}
-
-
-.status-response-title {
-  text-transform: uppercase;
-  font-weight: 900;
-  transition: .5s all;
-  text-align: center;
-  margin-top: 15px;
-}
-
-
-.status-response-message {
-  text-align: center;
-  margin-top: 10px;
-  font-size: 1em;
-  font-weight: 500;
-}
-
-
-.kalaiIcon {
-
-  svg {
-    fill: none;
-    stroke: #000;
-
-  }
-
-  &.no_stroke {
-    svg {
-      stroke: none;
-      fill: #000;
-    }
-  }
-
-}
-
-
-.kalaiIconDark {
-  width: 60px;
-  height: 35px;
-  background: $mainDarkColor;
-  transition: .3s all;
-  cursor: pointer;
-
-  &:not(:disabled) {
-
-    &:active,
-    &:hover {
-      background: $mainLightColor;
-    }
-
-    &:active {
-      div {
-        transform: scale(0.9);
-      }
-    }
-
-  }
-
-  &:disabled {
-    background: $disabledDarkColor;
-    cursor: default;
-  }
-
-
-
-
-  div {
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
-    transform: scale(1);
-  }
-
-
-  circle,
-  path {
-    stroke: #fff;
-  }
-
-  &.no_stroke {
-    svg {
-      path {
-        stroke: none;
-      }
-      fill: #fff;
-    }
-  }
-
-}
-
-
-.checkbox-label {
-  cursor: pointer;
-}
-
-
-.checkbox {
-  width: 20px;
-  height: 20px;
-  display: block;
-  background: $mainDarkColor;
-  border: 1px solid $mainDarkColor;
-
-  span {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 100%;
-    background: #fff;
-    clip-path: polygon(0 0, 50% 0, 100% 0, 100% 100%, 50% 100%, 0 100%);
-    transition: .2s clip-path;
-  }
-
-  input {
-    display: none;
-  }
-
-  input:checked + span {
-    clip-path: polygon(22% 45%, 41% 64%, 86% 26%, 86% 38%, 40% 78%, 15% 50%);
-  }
-
 }
 
 
@@ -636,7 +193,7 @@ h2 {
 
 .profileSettingsLogo {
   &__image {
-    border: 5px solid $mainDarkColor;
+    border: 5px solid var(--mainColor);
     flex: 0 0 100px;
   }
   &__button {
@@ -649,42 +206,27 @@ h2 {
 
 
 .sidebar {
-  background: $mainDarkColor;
+  background: var(--mainColor);
   flex: 0 0 250px;
-  overflow: hidden;
   box-sizing: border-box;
   padding: 20px;
   font-size: 1.2em;
-  color: #fff;
+  color: var(--textColor);
+  position: relative;
 
-  .active {
-    color: $linkColor;
-    cursor: default;
-    pointer-events: none;
-    .kalaiIcon {
-      svg {
-        stroke: $linkColor;
-        circle {
-          fill: $linkColor;
-        }
-      }
-    }
+  &:after {
+    content: '';
+    @include absolutePosition(100%, 0, -200%);
+    box-shadow: 0 0 10px 1px var(--secondMainColor);
+    width: 1px;
+    height: 100%;
+    background: var(--secondMainColor);
   }
 
-  .kalaiIcon {
-    display: inline-block;
-    vertical-align: middle;
-    width: 1em;
-    height: 1em;
-
-    svg {
-      transition: .4s stroke;
-      stroke: #fff;
-      circle {
-        transition: .4s stroke;
-        fill: #fff;
-      }
-    }
+  .active {
+    color: var(--secondMainColor);
+    cursor: default;
+    pointer-events: none;
   }
 
   &__item {
@@ -695,15 +237,7 @@ h2 {
     }
 
     &:hover > a, &:hover > .spoilerList__title {
-      color: $linkColor;
-      .kalaiIcon {
-        svg {
-          stroke: $linkColor;
-          circle {
-            fill: $linkColor;
-          }
-        }
-      }
+      color: var(--secondMainColor);
     }
 
     .spoilerList__title span,
@@ -717,12 +251,7 @@ h2 {
     }
 
     &:hover .spoilerList__list {
-      border-color: $linkColor;
-    }
-
-
-    .kalaiIcon {
-      margin-right: .5em;
+      border-color: var(--secondMainColor);
     }
 
     &:last-child {
@@ -741,96 +270,3 @@ h2 {
 }
 
 
-.spoilerList {
-
-  &.active-list {
-
-    .spoilerList__title {
-      .kalaiIcon {
-        transform: scaleY(-1);
-      }
-    }
-
-  }
-
-  &__title {
-    .kalaiIcon {
-      transition: .5s transform;
-    }
-  }
-
-  &__wrapper {
-    height: 0;
-    overflow: hidden;
-    transition: .5s height;
-  }
-
-  &__list {
-    margin-top: 1.2em;
-    transition: .4s border-color;
-    border-left: 2px solid #fff;
-    padding-left: .5em;
-    margin-left: .5em;
-  }
-}
-
-
-.sidebarCube {
-  width: 100px;
-  height: 100px;
-  background: $mainDarkColor;
-  border-radius: 15px;
-  margin: 50px auto;
-  perspective: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  perspective-origin: center center;
-
-  &__container {
-    width: 50%;
-    height: 50%;
-    position: relative;
-    transform-style: preserve-3d;
-
-    animation-name: cube_rotation;
-    animation-direction: normal;
-    animation-timing-function: linear;
-    animation-delay: 0s;
-    animation-iteration-count: infinite;
-    animation-duration: 40s;
-    transform-origin: center;
-
-  }
-
-  &__side {
-    width:  100%;
-    border: 2px solid #fff;
-    height: 100%;
-    position: absolute;
-  }
-
-  &__top {
-    transform: rotate3d(1, 0, 0, 90deg) translate3d(0px, 0px, 25px);
-  }
-
-  &__bottom {
-    transform: rotate3d(1, 0, 0, -90deg) translate3d(0px, 0px, 25px);
-  }
-
-  &__left {
-    transform: rotate3d(0, 1, 0, -90deg) translate3d(0px, 0px, 25px);
-  }
-
-  &__right {
-    transform: rotate3d(0, 1, 0, 90deg) translate3d(0px, 0px, 25px);
-  }
-
-  &__front {
-    transform: rotate3d(0, 0, 1, 90deg) translate3d(0px, 0px, 25px);
-  }
-
-  &__back {
-    transform: rotate3d(0, 0, 1, -90deg) translate3d(0px, 0px, 25px);
-  }
-}

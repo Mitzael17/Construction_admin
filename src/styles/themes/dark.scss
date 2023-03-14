@@ -1,0 +1,18 @@
+@import "../assets/vars.scss";
+
+:root[data-theme="dark"] {
+  --mainColor: #2A2A2A;
+  --mainOpacityColor: rgba(42, 42, 42, 0.6);
+
+  --secondMainColor: #1fc1ff;
+  --secondMainOpacityColor: rgba(31, 193, 255, 0.6);
+  --secondMainSuperOpacityColor: rgba(31, 193, 255, 0.15);
+
+  --modalContainerBackground:rgba(31, 193, 255, 0.15);
+
+  --textColor: #fff;
+
+  --checkboxMarkColor: #fff;
+  --checkboxBackground: #2A2A2A;
+
+}

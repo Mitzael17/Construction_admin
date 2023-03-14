@@ -19,7 +19,7 @@ const FileManagerUploadButton = () => {
 
 
     return (
-        <label className='kalaiIconDark no_stroke'>
+        <label className='kalaiIcon--box no_stroke'>
             <UploadFileIcon />
             <input
                 ref={inputFileRef}
