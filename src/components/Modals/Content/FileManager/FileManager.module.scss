@@ -11,9 +11,7 @@
   position: relative;
 
   @media screen and (max-width: 600px) {
-
     flex-direction: column;
-
   }
   
 }
@@ -108,7 +106,6 @@
   @include absolutePosition(0, calc(100% + 5px));
   width: 100%;
   z-index: 20;
-  box-shadow: 0 10px 15px -5px $mainDarkOpacityColor;
 }
 
 

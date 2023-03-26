@@ -1,5 +1,17 @@
 @import '../assets/mixins.scss';
 
+@keyframes clock_rotation {
+
+  0% {
+    transform: translate(-50%, -100%) rotate(0deg);
+  }
+
+  100% {
+    transform: translate(-50%, -100%) rotate(360deg);
+  }
+
+}
+
 :root[data-theme='dark'] {
   .loading {
     @include highlighting(20px, var(--textColor));

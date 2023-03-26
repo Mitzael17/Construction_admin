@@ -1,7 +1,6 @@
 @import "assets/reset.scss";
 @import "assets/fonts.scss";
 @import "assets/vars.scss";
-@import "assets/keyframes.scss";
 @import "assets/mixins.scss";
 @import "basic.scss";
 
@@ -14,6 +13,9 @@
 @import "modules/error-container.scss";
 @import "modules/status-response.scss";
 @import "modules/spoilerList.scss";
+@import "modules/deleteIcon.scss";
+@import "modules/groupTransitions.scss";
+@import "modules/projectStatuses.scss";
 
 @import "login.scss";
 @import "projects.scss";
@@ -25,6 +27,21 @@
   margin: 0 auto;
 }
 
+
+.customScroll {
+  @include scrollBar();
+
+}
+
+
+.blocked-scroll {
+  overflow: hidden;
+}
+
+
+html {
+  @include scrollBar();
+}
 
 body {
   font-family: OpenSans, serif;
@@ -43,6 +60,12 @@ h1 {
   letter-spacing: 0.01em;
   font-weight: 600;
   line-height: 1.25;
+}
+
+.label-paddings {
+  label {
+    padding: 20px;
+  }
 }
 
 
@@ -118,6 +141,12 @@ h2 {
   &__header {
     color: var(--textColor);
   }
+
+  &__content {
+    position: relative;
+    padding: 10px 20px;
+  }
+
 }
 
 
@@ -270,3 +299,53 @@ h2 {
 }
 
 
+.endLine {
+
+  width: 50%;
+  margin: 30px auto 0;
+  position: relative;
+  border-radius: 50%;
+  @include highlighting();
+}
+
+
+
+.list {
+  background: var(--mainColor);
+  z-index: 10;
+  @include absolutePosition(50%, calc(100% + $borderSize * 2), -50%, 0);
+  opacity: 0;
+  transition: .5s opacity;
+  pointer-events: none;
+  width: 100%;
+  text-align: center;
+  cursor: default;
+
+  &.active {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  &__item {
+    padding: 20px;
+    background: var(--mainColor);
+    transition: .5s all;
+    border: $borderSize solid var(--borderColor);
+    cursor: pointer;
+
+    &.active {
+      background: var(--activeBackgroundColor);
+      pointer-events: none;
+      color: var(--activeColor);
+    }
+
+    &:nth-child(even) {
+      border-top: 0;
+    }
+
+    &:hover {
+      background: var(--hoverBackgroundColorOpacity);
+      color: var(--hoverTextColor);
+    }
+  }
+}

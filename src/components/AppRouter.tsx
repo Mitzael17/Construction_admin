@@ -11,8 +11,6 @@ const AppRouter = () => {
     const routes = allRoutes.filter( route => availableRoutes.indexOf(route.name_path) !== -1);
 
     return (
-
-
             <BrowserRouter>
                 <Sidebar />
                 <div className="page-content">
@@ -23,9 +21,7 @@ const AppRouter = () => {
                         })}
                 </Routes>
                 </div>
-
             </BrowserRouter>
-
     );
 };
 

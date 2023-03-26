@@ -2,6 +2,7 @@ import axios from "axios";
 import {URL} from "../data/config";
 import {getCookie} from "../utils/cookie";
 import {InternalAxiosRequestConfig} from "axios/index";
+import {BaseData, EndPoints, ErrorResponse, SearchParameters} from "../types/API";
 
 export const $API = axios.create({
     baseURL: URL,
@@ -35,3 +36,13 @@ const interceptor = (config: InternalAxiosRequestConfig) => {
 
 $authAPI.interceptors.request.use(authInterceptor);
 $API.interceptors.request.use(interceptor);
+
+
+export const $search = async (parameters: SearchParameters&{value:string}): Promise<BaseData[]|ErrorResponse> => {
+
+    const {data} = await $authAPI.get(EndPoints.search, {
+        params: parameters
+    })
+
+    return data;
+}

@@ -1,0 +1,60 @@
+@import './src/styles/assets/functions';
+@import './src/styles/assets/vars.scss';
+@import './src/styles/assets/mixins.scss';
+
+.container {
+  border: $borderSize solid var(--borderColor);
+
+  .title {
+    svg {
+      transition: .5s all;
+    }
+  }
+
+  &.active {
+    .title {
+      svg {
+        transform: scaleY(-1);
+      }
+    }
+  }
+
+}
+
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  transition: .5s all;
+
+  &:hover {
+    background: var(--hoverBackgroundColor);
+    color: var(--hoverTextColor);
+    svg {
+      stroke: var(--hoverTextColor);
+    }
+  }
+}
+
+
+.wrapper {
+  transition: .5s height;
+  overflow: hidden;
+  height: 0;
+}
+
+
+.item {
+  padding: 11px 20px;
+  transition: .5s all;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hoverBackgroundColor);
+    color: var(--hoverTextColor);
+  }
+
+}

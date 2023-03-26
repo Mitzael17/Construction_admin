@@ -1,88 +1,6 @@
 @import "../assets/mixins.scss";
 
 
-:root[data-theme='dark'] {
-
-  .kalaiIcon {
-
-    &--box {
-
-      &:not(:disabled) {
-        @include highlighting();
-      }
-
-    }
-
-  }
-
-  .kalaiIcon-container {
-    @include highlighting();
-
-    & > .kalaiIcon--box {
-      box-shadow: none;
-      border: none;
-    }
-
-  }
-
-}
-
-:root[data-theme='light'] {
-
-  .kalaiIcon--box {
-
-    &:not(:disabled) {
-      border: 1px solid var(--textColor);
-
-      &:active,
-      &:hover {
-        background: var(--textColor);
-
-        svg {
-          fill: none;
-          stroke: #fff;
-        }
-
-        &.no_stroke {
-          svg {
-            stroke: none;
-            fill: #fff;
-          }
-        }
-
-        circle,
-        path {
-          stroke: #fff;
-        }
-
-        &.no_stroke {
-          svg {
-            path {
-              stroke: none;
-            }
-            fill: #fff;
-          }
-        }
-
-
-      }
-
-    }
-
-
-  }
-
-  .kalaiIcon-container {
-    border: 1px solid var(--textColor);
-
-    & > .kalaiIcon--box {
-      border: none;
-    }
-
-  }
-
-}
-
 .kalaiIcon {
 
   svg {
@@ -103,26 +21,58 @@
     height: 35px;
     cursor: pointer;
     transition: .3s all;
-
     background: var(--mainColor);
 
     &:not(:disabled) {
 
-      &:active,
-      &:hover {
-        background: var(--secondMainColor);
+      &:not(:disabled) {
+        border: $borderSize solid var(--borderColor);
+
+        &:active,
+        &:hover {
+          background: var(--hoverBackgroundColor);
+
+          svg {
+            fill: none;
+            stroke: var(--hoverTextColor);
+          }
+
+          &.no_stroke {
+            svg {
+              stroke: none;
+              fill: var(--hoverTextColor);
+            }
+          }
+
+          circle,
+          path {
+            stroke: var(--hoverTextColor);
+          }
+
+          &.no_stroke {
+            svg {
+              path {
+                stroke: none;
+              }
+              fill: var(--hoverTextColor);
+            }
+          }
+
+
+        }
+
+      }
+
+      &:active {
+        div {
+          transform: scale(0.9);
+        }
       }
 
     }
 
     &:disabled {
       background: $disabledDarkColor;
-    }
-
-    &:active {
-      div {
-        transform: scale(0.9);
-      }
     }
 
     &:disabled {
@@ -155,6 +105,17 @@
 
   }
 
+}
+
+
+.kalaiIcon-container {
+  border: $borderSize solid var(--borderColor);
+
+  & > .kalaiIcon--box:not(:disabled),
+  & > .kalaiIcon--box
+  {
+    border: none;
+  }
 
 }
 

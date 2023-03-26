@@ -1,0 +1,84 @@
+.scaleHeightTransitionGroup {
+
+  &__item {
+    transition: .3s all;
+    margin-bottom: 15px;
+    max-height: 100px;
+    overflow: hidden;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &-enter {
+    transform: scaleY(0);
+  }
+
+  &-enter-active {
+    transform: scaleY(1);
+    max-height: 100px;
+  }
+
+  &-exit {
+    transform: scaleY(0);
+    max-height: 0;
+    margin-bottom: 0;
+  }
+
+  &-exit-active {
+    transform: scaleY(0);
+    max-height: 0;
+    margin-bottom: 0;
+
+  }
+
+}
+
+.opacityTransitionGroup {
+
+  &__item {
+    transition: .5s all;
+  }
+
+  &-enter {
+    opacity: 0;
+
+    &:nth-child(odd) {
+      transform: translate(-100%);
+    }
+
+    &:nth-child(even) {
+      transform: translate(100%);
+    }
+
+  }
+
+  &-enter-active {
+    opacity: 1;
+    transform: translate(0%);
+  }
+
+  &-exit {
+    opacity: 0;
+    &:nth-child(odd) {
+      transform: translate(-100%);
+    }
+
+    &:nth-child(even) {
+      transform: translate(100%);
+    }
+  }
+
+  &-exit-active {
+    opacity: 0;
+
+    &:nth-child(odd) {
+      transform: translate(-100%);
+    }
+
+    &:nth-child(even) {
+      transform: translate(100%);
+    }
+  }
+
+}

@@ -1,6 +1,7 @@
 import {StateProps} from "./index";
 import {Dispatch, SetStateAction} from "react";
 import {FilesResponse} from "../API/files";
+import {BaseData} from "../API";
 
 
 export interface ModalProps extends StateProps<boolean> {
@@ -58,3 +59,15 @@ export type FileManagerFilesListProps =
     Pick<FilesResponse, 'files'> &
     {hideFileManager: () => void};
 
+
+
+export interface FilterProjectProps {
+
+    statuses: BaseData[],
+    setStatus: Dispatch<SetStateAction<BaseData[]>>;
+    clients: BaseData[],
+    setClient: Dispatch<SetStateAction<BaseData[]>>;
+    service: BaseData[];
+    setService: Dispatch<SetStateAction<BaseData[]>>;
+
+}

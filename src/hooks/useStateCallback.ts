@@ -1,17 +1,19 @@
 import {useCallback, useState} from "react";
-import {UseStateCallback} from "../types/hooks";
 
-export const useStateCallback: UseStateCallback = <Type>(initialState: Type, callback: (state: Type) => Type, dependencies: any[] = []) => {
+export const useStateCallback =
+    <Type>(initialState: Type,
+                             callback: (value: Type, state: Type) => Type, dependencies: any[] = []
+    ): [Type, (value: Type) => void] => {
 
     const [state, setState] = useState(initialState);
 
-    const setStateCallback = useCallback((state: Type) =>  {
+    const setStateCallback = useCallback((value: Type) =>  {
 
-        const nextState = callback(state);
+        const nextState = callback(value, state);
 
         setState(nextState);
 
-    }, dependencies);
+    }, [state, ...dependencies]);
 
     return [state, setStateCallback];
 }

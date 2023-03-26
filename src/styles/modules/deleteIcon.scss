@@ -1,0 +1,30 @@
+@import "../assets/mixins.scss";
+
+.deleteIcon {
+  min-width: 20px;
+  min-height: 20px;
+  max-width: 20px;
+  max-height: 20px;
+  border-radius: 50%;
+  background: var(--deleteIconBackground);
+  position: relative;
+  cursor: pointer;
+
+  &:before,
+  &:after {
+    content: '';
+    width: 70%;
+    height: 2px;
+    background: var(--deleteIconStickBackground);
+    @include absolutePosition(50%, 50%);
+  }
+
+  &:before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  &:after {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+}

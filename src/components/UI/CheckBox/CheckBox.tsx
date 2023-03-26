@@ -8,14 +8,14 @@ const CheckBox = memo(({onChange, name = '', placeholder = '', checked = false}:
 
     useEffect( () => {
 
-        if(checked && nodeRef.current) nodeRef.current.checked = true;
+        if(nodeRef.current) nodeRef.current.checked = checked;
 
-    }, []);
+    }, [checked]);
 
     return (
         <label className='flex flex-a-c pointer-cursor'>
             <div onClick={ event => event.stopPropagation()} className={classes.checkbox}>
-                <input onChange={onChange} type="checkbox" name={name} />
+                <input ref={nodeRef} onChange={onChange} type="checkbox" name={name} />
                 <span></span>
             </div>
             {placeholder && (

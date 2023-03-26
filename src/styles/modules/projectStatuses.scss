@@ -1,0 +1,19 @@
+.projectStatus {
+
+  &-cancelled {
+    background: var(--cancelledBackground);
+  }
+
+  &-finished {
+    background: var(--finishedBackground);
+  }
+
+  &-withoutPage {
+    background: var(--finishedWithoutPageBackground);
+  }
+
+  &-inProcess {
+
+  }
+
+}

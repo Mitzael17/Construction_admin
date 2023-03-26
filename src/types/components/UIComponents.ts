@@ -1,5 +1,6 @@
 import {StateProps} from "./index";
-import {ChangeEventHandler, MouseEventHandler} from "react";
+import {ChangeEventHandler, Dispatch, MouseEventHandler, SetStateAction} from "react";
+import {BaseData} from "../API";
 
 export interface InputProps extends StateProps<string>{
 
@@ -32,3 +33,20 @@ export interface CheckBoxProps {
     checked?: boolean,
 
 }
+
+
+export interface SelectProps extends StateProps<BaseData> {
+    items: BaseData[]
+}
+
+export interface SearchBoxInterface<T extends BaseData|BaseData[]> {
+
+    placeholder: string,
+    chosenValue: T,
+    setChosenValue: Dispatch<SetStateAction<T>>,
+    table: string
+
+}
+
+//export type SearchBoxProps = SearchBoxInterface<BaseData|BaseData[]>;
+export type SearchBoxProps = SearchBoxInterface<BaseData> | SearchBoxInterface<BaseData[]>;

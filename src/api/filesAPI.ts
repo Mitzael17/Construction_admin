@@ -1,10 +1,10 @@
 import {CheckNames, FilesResponse, UploadFilesResponse} from "../types/API/files";
 import {$authAPI} from "./index";
-import {ErrorResponse, PostResponse} from "../types/API";
+import {EndPoints, ErrorResponse, PostResponse} from "../types/API";
 
 export const $getFiles = async (dir = ''): Promise<FilesResponse | ErrorResponse> => {
 
-    const {data}: {data: FilesResponse} = await $authAPI.get('/files', {params: {
+    const {data}: {data: FilesResponse} = await $authAPI.get(EndPoints.files, {params: {
         dir: dir
     }});
 
@@ -14,7 +14,7 @@ export const $getFiles = async (dir = ''): Promise<FilesResponse | ErrorResponse
 
 export const $checkFileNames = async (names: string[], dir = ''): Promise<CheckNames> => {
 
-    const {data}: {data: CheckNames} = await $authAPI.get('/files', {params: {
+    const {data}: {data: CheckNames} = await $authAPI.get(EndPoints.files, {params: {
         check_names: names,
         dir: dir
     }})
@@ -40,7 +40,7 @@ export const $uploadFiles = async (files: FileList|File[], directory = '', auto_
 
     }
 
-    const {data}: {data: UploadFilesResponse} = await $authAPI.post('/files', formData, {
+    const {data}: {data: UploadFilesResponse} = await $authAPI.post(EndPoints.files, formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
@@ -52,7 +52,7 @@ export const $uploadFiles = async (files: FileList|File[], directory = '', auto_
 
 export const $createFolder = async (new_directory: string): Promise<PostResponse> => {
 
-    const {data} = await $authAPI.post('/files', {new_directory});
+    const {data} = await $authAPI.post(EndPoints.files, {new_directory});
 
     return data;
 
@@ -60,7 +60,7 @@ export const $createFolder = async (new_directory: string): Promise<PostResponse
 
 export const $deleteFiles = async (files: string[]): Promise<PostResponse> => {
 
-    const {data} = await $authAPI.delete('/files', {
+    const {data} = await $authAPI.delete(EndPoints.files, {
        data: {
            files: files
        }

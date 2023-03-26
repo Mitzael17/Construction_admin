@@ -7,13 +7,13 @@ import {
     UserCreateData,
     UserUpdateData
 } from "../types/API/usersAPI";
-import {ErrorResponse, SuccessResponse} from "../types/API";
+import {EndPoints, ErrorResponse, SuccessResponse} from "../types/API";
 
 
 export const $login = async (name: string, password: string): Promise<LoginResponse> => {
 
 
-    const {data}: {data: LoginResponse} = await $API.post('/login', {name, password});
+    const {data}: {data: LoginResponse} = await $API.post(EndPoints.login, {name, password});
 
     if(data.status === 'success') {
 
@@ -28,7 +28,7 @@ export const $login = async (name: string, password: string): Promise<LoginRespo
 
 export const $getUser = async (id: number): Promise<OwnUserAccount|UserAccountResponse> => {
 
-    const {data} = await $authAPI.get(`/admins/${id}`);
+    const {data} = await $authAPI.get(`${EndPoints.admins}/${id}`);
 
     return data;
 
@@ -37,7 +37,7 @@ export const $getUser = async (id: number): Promise<OwnUserAccount|UserAccountRe
 
 export const $updateUser = async (id: number, args: UserUpdateData): Promise<ErrorResponse|SuccessResponse> => {
 
-    const {data} = await $authAPI.post(`/admins/${id}`, {...args});
+    const {data} = await $authAPI.post(`${EndPoints.admins}/${id}`, {...args});
 
     return data;
 
@@ -46,7 +46,7 @@ export const $updateUser = async (id: number, args: UserUpdateData): Promise<Err
 
 export const $createUser = async (args: UserCreateData): Promise<ErrorResponse|SuccessResponse> => {
 
-    const {data} = await $authAPI.post('admins', {...args});
+    const {data} = await $authAPI.post(EndPoints.admins, {...args});
 
     return data;
 
@@ -55,7 +55,7 @@ export const $createUser = async (args: UserCreateData): Promise<ErrorResponse|S
 
 export const $checkUserName = async (name: string): Promise<ErrorResponse|SuccessResponse> => {
 
-    const {data} = await $authAPI.get('/admins', {
+    const {data} = await $authAPI.get(EndPoints.admins, {
         params: {check_name: name}
     })
 

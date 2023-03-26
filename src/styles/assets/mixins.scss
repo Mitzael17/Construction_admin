@@ -56,7 +56,33 @@
 }
 
 
-@mixin highlighting($radius: 10px, $color: var(--secondMainColor)) {
+@mixin highlighting($radius: 10px, $color: var(--highlightingColor)) {
   box-shadow: 0 0 $radius 1px $color;
-  border: 1px solid $color;
+  border: $borderSize solid $color;
+}
+
+
+@mixin scrollBar() {
+
+  overflow: auto;
+  @supports (overflow: overlay) {
+    overflow: overlay;
+  }
+  @supports (scrollbar-width: thin) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondMainColor) transparent;
+  }
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--secondMainColor);
+    border-radius: 5px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
 }

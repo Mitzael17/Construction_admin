@@ -13,15 +13,7 @@
     border-radius: 5px;
     background: var(--mainColor);
     color: var(--textColor);
-
-    &.dark {
-      @include highlighting();
-
-    }
-
-    &.light {
-      border: 1px solid #000;
-    }
+    border: $borderSize solid var(--borderColor);
 
   }
 }
@@ -79,23 +71,12 @@
 }
 
 .searchInput {
-
   height: 35px;
   padding: 0 15px 0 10px;
-  border: 1px solid var(--mainColor);
   margin-right: -5px;
   width: 100%;
   border-radius: 5px;
   background: var(--mainColor);
   color: var(--textColor);
-
-  &.dark {
-    @include highlighting();
-  }
-
-  &.light {
-    border: 1px solid #000;
-  }
-
-
+  border: $borderSize solid var(--borderColor);
 }

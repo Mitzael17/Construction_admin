@@ -32,7 +32,7 @@
 }
 
 
-// style of margin and paddings
+// style of margin, paddings and gaps
 
 @for $index from 1 through 10 {
 
@@ -66,6 +66,10 @@
 
   .pb-#{$index * 5}px {
     padding-bottom: $index * 5 + px;
+  }
+
+  .gap-#{$index * 5}px {
+    gap: $index * 5 + px;
   }
 
 }
@@ -137,21 +141,12 @@ $statuses: (success: $successColor, warning: $warningColor, error: $errorColor);
     color: $color;
   }
 
-  :root[data-theme='dark'] {
-    .#{$status}-input {
-      input {
-        @include highlighting(10px, $color);
-      }
-    }
-  }
 
-  :root[data-theme='light'] {
     .#{$status}-input {
       input {
-        border: 2px solid $color;
+        border-color: $color;
       }
     }
-  }
 
 
   .#{$status}-background {
@@ -170,4 +165,16 @@ $statuses: (success: $successColor, warning: $warningColor, error: $errorColor);
 
 .pointer-cursor {
   cursor: pointer;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
 }

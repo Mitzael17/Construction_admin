@@ -1,31 +1,14 @@
 @import "../assets/vars.scss";
 @import "../assets/mixins.scss";
 
-:root[data-theme='dark'] {
-
-  .profileLogo {
-    @include highlighting(10px);
-  }
-
-}
-
-
-:root[data-theme='light'] {
-
-  .profileLogo {
-    border: 2px solid $mainDarkColor;
-  }
-
-}
-
-
 .profileLogo {
-
+  border: $borderSize solid var(--borderColor);
   @include imageContainer();
   border-radius: 50%;
   background: var(--mainColor);
 
   img {
+    object-fit: cover;
     line-height: 100px;
   }
 

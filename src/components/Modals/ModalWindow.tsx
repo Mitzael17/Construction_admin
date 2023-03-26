@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {memo, useEffect, useRef} from 'react';
 import classes from "./Modals.module.scss";
 import {ModalProps} from "../../types/components/ModalsComponents";
 import {CSSTransition} from "react-transition-group";
@@ -7,7 +7,7 @@ import {useModal} from "../../hooks/useModal";
 import {useTheme} from "../../hooks/useTheme";
 import {Themes} from "../../types/contexts/Themes";
 
-const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProps) => {
+const ModalWindow = memo(({value, title, setValue, children, zIndex = 100}: ModalProps) => {
 
     const nodeRef = useRef(null);
 
@@ -16,6 +16,9 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
 
     // The ref is necessary to block an accident click on the back area
     const blockedClick = useRef(false);
+
+    if(value) document.documentElement.classList.add('blocked-scroll');
+    else document.documentElement.classList.remove('blocked-scroll');
 
     useEffect( () => {
         setModalData({title});
@@ -45,7 +48,9 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
 
                     }
 
-                } } className={`${classes.modalContainer} ${theme === Themes.light ? classes.light : classes.dark} fade-container`}>
+                }}
+                     className={`${classes.modalContainer} ${theme === Themes.light ? classes.light : classes.dark} fade-container customScroll`}
+                >
                     <div
                         onPointerDown={() => {
 
@@ -77,6 +82,6 @@ const ModalWindow = ({value, title, setValue, children, zIndex = 100}: ModalProp
 
     }
 
-};
+});
 
 export default ModalWindow;

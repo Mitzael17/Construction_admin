@@ -1,0 +1,49 @@
+@import "../../../styles/assets/mixins";
+@import "../../../styles/assets/functions";
+
+.list {
+  border: 2px solid var(--borderColor);
+  overflow: hidden;
+  transition: .5s all;
+  &.empty {
+    border-color: transparent;
+  }
+}
+
+.item {
+  width: 100%;
+  padding: 20px;
+  position: relative;
+  line-height: 1.25;
+  letter-spacing: 0.05em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &:before {
+    content: '';
+    @include absolutePosition(0, 100%);
+    border: 1px solid var(--borderColor);
+    width: calc(100% - 2px);
+  }
+
+}
+
+.title {
+  font-weight: 700;
+  font-size: em(20, 16);
+}
+
+.subtitle {
+  font-size: em(13, 16);
+}
+
+
+.hover {
+  transition: .5s all;
+
+  &:hover {
+    background: var(--hoverBackgroundColor);
+    color: var(--hoverTextColor);
+  }
+}

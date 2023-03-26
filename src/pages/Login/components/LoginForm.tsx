@@ -1,9 +1,8 @@
-import React, {FormEvent, useRef, useState} from 'react';
+import React, {FormEvent, useRef, useState, useTransition} from 'react';
 import Input from "../../../components/UI/Input/Input";
 import Button from "../../../components/UI/Button/Button";
 import {$login} from "../../../api/usersAPI";
 import Loading from "../../../components/Visual/Loading";
-import {flushSync} from "react-dom";
 import Error from "../../../components/Messages/Error";
 import {PROJECTS_ROUTE} from "../../../data/paths";
 import InputPassword from "../../../components/UI/Input/InputPassword";
@@ -28,6 +27,7 @@ const LoginForm = () => {
 
     const [isLoading, setIsLoading] = useState(false);
 
+    const [, startErrorTransition] = useTransition();
 
     return (
         <div className='loginForm'>
@@ -73,13 +73,13 @@ const LoginForm = () => {
 
         }
 
-        flushSync(() => {
-            setIsLoading(false)
-        });
-
         error.current = data.message;
 
-        setShowError(true);
+        setIsLoading(false)
+
+        startErrorTransition(() => {
+            setShowError(true);
+        });
 
     }
 

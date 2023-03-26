@@ -1,0 +1,45 @@
+@import './src/styles/assets/functions';
+@import './src/styles/assets/vars.scss';
+@import './src/styles/assets/mixins.scss';
+
+.searchBox {
+  border: $borderSize solid var(--borderColor);
+
+  input {
+    border: none !important;
+  }
+}
+
+.box {
+  position: relative;
+  height: 212px;
+  overflow: auto;
+
+  &:before {
+    content: '';
+    @include absolutePosition();
+    width: 100%;
+    height: 2px;
+    background: var(--borderColor);
+  }
+
+}
+
+
+.item {
+  padding: 12px;
+  cursor: pointer;
+  transition: .5s all;
+
+  &:hover {
+    background: var(--hoverBackgroundColorOpacity);
+    color: var(--hoverTextColor);
+  }
+
+  &.active {
+    background: var(--activeBackgroundColor);
+    color: var(--hoverTextColor);
+  }
+
+}
+

@@ -1,9 +1,10 @@
 import {UseValidation, ValidationErrors} from "../types/hooks";
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import {isEqual} from "../utils/isEqual";
 
 export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[], isLoading: boolean] => {
 
-    const copyData: UseValidation[] = [...data];
+    const copyData = useRef( [...data]);
 
     const [errors, setErrors] = useState<ValidationErrors[]>([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -16,12 +17,14 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
 
         const timer = setTimeout( async () => {
 
-
             const arrToCheck: UseValidation[] = [];
 
-            copyData.forEach( (obj, index) => {
+            copyData.current.forEach( (obj, index) => {
 
-                if(obj.value === data[index].value) arrToCheck.push(obj);
+                if(!isEqual(obj.value, data[index].value)) {
+                    obj.value = data[index].value;
+                    arrToCheck.push(obj);
+                }
 
             });
 
@@ -54,7 +57,6 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
                         );
 
                         continue;
-
 
                     }
 
@@ -92,11 +94,10 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
 
                 }
 
+                if(typeof obj.callbackChecker !== 'undefined') {
 
-                if(obj.callbackChecker) {
-
-
-                    const result = await obj.callbackChecker();
+                    // @ts-ignore
+                    const result = await obj.callbackChecker(obj.value);
 
                     if(!result.isValid) {
 
@@ -107,16 +108,17 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
                             }
                         );
 
-
                     }
 
                 }
 
-                if(ignore) return;
-
-                setErrors(newErrors);
-
             }
+
+            if(ignore) return;
+
+            copyData.current = [...data];
+
+            setErrors(newErrors);
 
             setIsLoading(false);
 

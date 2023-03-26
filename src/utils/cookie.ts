@@ -1,4 +1,4 @@
-import {cookie_options} from "../types/cookie";
+import {cookie_options} from "../types/utils/cookie";
 
 export function setCookie(name: string, value: string, options: cookie_options = {}): void {
 

@@ -8,7 +8,7 @@
   transition: .5s all;
   width: 100%;
   padding: 15px 20px;
-  border: 1px solid transparent;
+  border: $borderSize solid var(--borderColor);
   cursor: default;
   border-radius: 5px;
   font-weight: 500;
@@ -22,12 +22,6 @@
     z-index: 1;
   }
 
-  &.dark {
-    @include highlighting();
-  }
-  &.light {
-    border: 1px solid var(--textColor);
-  }
 
   &.tiny {
     border-radius: 0;
@@ -46,8 +40,8 @@
 
     &.light:hover,
     &.light:active {
-      color: #fff;
-      background: var(--textColor);
+      color: var(--hoverTextColor);
+      background: var(--hoverBackgroundColor);
     }
 
     &:active {
@@ -57,9 +51,9 @@
   }
 
   &:disabled {
-    background: $disabledDarkColor;
-    box-shadow: none;
+    background: var(--disabledButtonColor);
     border-color: transparent;
+    color: var(--disabledTextColor);
 
     &.light:before {
       display: none;

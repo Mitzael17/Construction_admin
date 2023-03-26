@@ -4,10 +4,29 @@ export enum Statuses {
     error = 'error'
 }
 
+export enum Sorts {
+    newest = 'newest',
+    oldest = 'oldest'
+}
+
+export enum EndPoints {
+
+    files = '/files',
+    clients = '/clients',
+    projects = '/projects',
+    route = '/route',
+    admins = '/admins',
+    login = '/login',
+    services = '/services',
+    search = '/search',
+
+}
+
 interface Response<T> {
 
     status: T,
-    message: string
+    message: string,
+    arr_id?: number[]
 
 }
 
@@ -55,3 +74,23 @@ export interface GetRequestDefaultParameters {
     sort?: string,
 
 }
+
+export interface SearchParameters {
+
+    table: string,
+    limit?: number,
+    field?: string
+
+}
+
+
+export interface DefaultGetListParameters {
+
+    search?: string,
+    sort?: string,
+    limit?: number,
+    page?: number
+
+}
+
+export type ProjectSorts = Sorts.newest|Sorts.oldest;

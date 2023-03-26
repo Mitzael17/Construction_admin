@@ -72,9 +72,9 @@ const UserSettingsModalContent = () => {
 
     // memorizing options to avoid infinite rendering in the useValidation hook
     const validationOptions = useMemo<UseValidation[]>(() => ([
-        {name: 'name', value: name, min: 1, max: 50, callbackChecker: async() => {
+        {name: 'name', value: name, min: 1, max: 50, callbackChecker: async(value) => {
 
-            const response = await $checkUserName(name);
+            const response = await $checkUserName(value);
 
             if(response.status === Statuses.success) return {isValid: true, message: ''};
 
@@ -83,6 +83,7 @@ const UserSettingsModalContent = () => {
         }},
         {name: 'password', value: password, min: 1, max: 50}
     ]), [name, password]);
+
     const [errors, isLoadingValidation] = useValidation(validationOptions);
 
     // checking for errors
