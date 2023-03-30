@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {themeChangeContext, themeContext} from '../../context/themeContext';
+import {ThemeChangeContext, ThemeContext} from '../../context/ThemeContext';
 import {Theme, Themes} from "../../types/contexts/Themes";
 import {getCookie, setCookie} from "../../utils/cookie";
 
@@ -20,11 +20,11 @@ const ThemeProvider = ({children}: {children: JSX.Element}) => {
     document.documentElement.dataset.theme = theme
 
     return (
-        <themeContext.Provider value={theme}>
-            <themeChangeContext.Provider value={setThemeFunction}>
+        <ThemeContext.Provider value={theme}>
+            <ThemeChangeContext.Provider value={setThemeFunction}>
                 {children}
-            </themeChangeContext.Provider>
-        </themeContext.Provider>
+            </ThemeChangeContext.Provider>
+        </ThemeContext.Provider>
     );
 
     function getTheme(): Theme {

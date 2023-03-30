@@ -25,7 +25,7 @@ const FileManagerFiles = memo(({setFile, files, directory, setCheckedNames, hide
                     }}
                 >
                     <div className={classes.imageContainer}>
-                        <img src={file.isImage ? file.link : fileImage} alt={file.name} />
+                        <img loading='lazy' src={file.isImage ? file.link : fileImage} alt={file.name} />
                     </div>
                     <div className="flex flex-j-c">
                         <CheckBox onChange={handlerChange} name={directory + file.name} />

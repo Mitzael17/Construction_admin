@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {fileManagerChangeContext, fileManagerContext} from "../../context/fileManagerContext";
+import {FileManagerChangeContext, FileManagerContext} from "../../context/FileManagerContext";
 import {FileManagerContextValues} from "../../types/contexts/FileManagerContextValues";
 
 const FileManagerProvider = ({values, children}: {values: FileManagerContextValues, children: JSX.Element}) => {
@@ -7,11 +7,11 @@ const FileManagerProvider = ({values, children}: {values: FileManagerContextValu
     const [data, setData] = useState(values);
 
     return (
-        <fileManagerContext.Provider value={data}>
-        <fileManagerChangeContext.Provider value={setData}>
+        <FileManagerContext.Provider value={data}>
+        <FileManagerChangeContext.Provider value={setData}>
             {children}
-        </fileManagerChangeContext.Provider>
-        </fileManagerContext.Provider>
+        </FileManagerChangeContext.Provider>
+        </FileManagerContext.Provider>
     );
 };
 

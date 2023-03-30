@@ -84,10 +84,10 @@ export interface SearchParameters {
 }
 
 
-export interface DefaultGetListParameters {
+export interface DefaultGetListParameters<Sort extends string = string> {
 
     search?: string,
-    sort?: string,
+    sort?: Sort,
     limit?: number,
     page?: number
 

@@ -5,9 +5,8 @@ import {CSSTransition, TransitionGroup} from "react-transition-group";
 
 const ChosenValuesList = memo(({value, setValue}: StateProps<BaseData[]>) => {
 
-    const items = value.map(item => {
-        return {...item, nodeRef: createRef<HTMLLIElement>()}
-    });
+    // NodeRef for CSSTransition
+    const items = value.map(item => ( {...item, nodeRef: createRef<HTMLLIElement>()} ));
 
     return (
         <ul>
@@ -19,7 +18,11 @@ const ChosenValuesList = memo(({value, setValue}: StateProps<BaseData[]>) => {
                             key={item.id}
                             ref={item.nodeRef}
                         >
-                            {item.name} <div onClick={() => setValue(items.filter( value => item.id !== value.id))} className='deleteIcon ml-auto'></div>
+                            {item.name}
+                            <div
+                                onClick={ () => setValue(items.filter( value => item.id !== value.id)) }
+                                className='deleteIcon ml-auto'
+                            ></div>
                         </li>
                     </CSSTransition>
 

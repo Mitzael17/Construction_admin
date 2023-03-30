@@ -1,11 +1,11 @@
 import {CLIENTS_ROUTE, MESSAGES_ROUTE, PROJECTS_ROUTE} from "./paths";
-import Projects from "../pages/Projects/Projects";
 import Project from "../pages/Project/Project";
+import ProjectsPage from "../pages/Projects/ProjectsPage";
 
 export const routes = [
     {
         path: PROJECTS_ROUTE,
-        element: <Projects />,
+        element: <ProjectsPage />,
         name_path: 'projects',
     },
     {

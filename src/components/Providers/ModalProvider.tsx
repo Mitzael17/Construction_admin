@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {modalChangeContext, modalContext } from '../../context/modalContext';
+import {ModalChangeContext, ModalContext } from '../../context/ModalContext';
 import {ModalContextValues} from "../../types/contexts/ModalContextValues";
 
 const ModalProvider = ({children}: {children: any}) => {
@@ -7,11 +7,11 @@ const ModalProvider = ({children}: {children: any}) => {
     const [data, setData] = useState<ModalContextValues>({});
 
     return (
-        <modalContext.Provider value={data}>
-        <modalChangeContext.Provider value={setData}>
+        <ModalContext.Provider value={data}>
+        <ModalChangeContext.Provider value={setData}>
             {children}
-        </modalChangeContext.Provider>
-        </modalContext.Provider>
+        </ModalChangeContext.Provider>
+        </ModalContext.Provider>
     );
 };
 

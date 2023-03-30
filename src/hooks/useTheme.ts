@@ -1,6 +1,6 @@
 import {useContext} from "react";
 import {Theme} from "../types/contexts/Themes";
-import {themeChangeContext, themeContext} from "../context/themeContext";
+import {ThemeChangeContext, ThemeContext} from "../context/ThemeContext";
 
 export const useTheme = (): [Theme, (theme: Theme) => void] =>
-    [useContext(themeContext), useContext(themeChangeContext)];
+    [useContext(ThemeContext), useContext(ThemeChangeContext)];

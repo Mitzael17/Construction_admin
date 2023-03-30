@@ -1,4 +1,4 @@
 import {useContext} from "react";
-import {routesContext} from "../context/routesContext";
+import {RoutesContext} from "../context/RoutesContext";
 
-export const useInternalRoutes = () => useContext(routesContext);
+export const useInternalRoutes = () => useContext(RoutesContext);

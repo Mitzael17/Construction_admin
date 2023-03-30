@@ -48,5 +48,5 @@ export interface SearchBoxInterface<T extends BaseData|BaseData[]> {
 
 }
 
-//export type SearchBoxProps = SearchBoxInterface<BaseData|BaseData[]>;
+
 export type SearchBoxProps = SearchBoxInterface<BaseData> | SearchBoxInterface<BaseData[]>;

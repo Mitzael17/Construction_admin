@@ -1,10 +1,9 @@
 import {CheckBoxProps} from "./UIComponents";
-import {Dispatch} from "react";
-import {CheckedItemsActions} from "../index";
+import {RefObject} from "react";
 
-export interface ListProps<S = string> {
+export interface ListProps {
 
-    items: ListItem<S>[],
+    items: ListItem[],
     statusClasses?: Map<string, string>
     onChecked?: CheckBoxProps['onChange'],
     checkedItems?: string[]
@@ -12,22 +11,25 @@ export interface ListProps<S = string> {
 
 }
 
-export interface ListItem<S = string> {
+export interface ListItem {
 
     id: number,
     title: string|JSX.Element,
     subtitle?: string|JSX.Element,
     date?: string,
-    status?: S,
+    status?: string,
     link?: string
 
 }
 
 
-export interface ProjectListProps {
+export type ListItemWithNode = ListItem&{nodeRef: RefObject<HTMLLIElement>};
 
-    checkedProjects: string[],
-    dispatchCheckedProjects: Dispatch<CheckedItemsActions>,
-    projects: ListItem[]
+export interface ListItemsItemProps {
+
+    isChecked?: boolean,
+    item: ListItemWithNode
+    onChecked?: ListProps['onChecked'],
+    status?: string
 
 }

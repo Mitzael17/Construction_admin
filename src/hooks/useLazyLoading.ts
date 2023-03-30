@@ -13,9 +13,15 @@ export const useLazyLoading = <D>(nodeRef: MutableRefObject<HTMLDivElement|null>
     const [isOver, setIsOver] = useState(false);
 
     const ignoreRequests = useRef<number[]>([]);
-    const generatorId = useGeneratorId();
+    const generatorRequestId = useGeneratorId();
 
-
+    /*
+        The statement is required to load data from server, if The IntersectionObserver can't be launched!
+        When the user's monitor has a large height and a first part of data is not able to fill it completely,
+        The statement will trigger a next request to extract data from next page.
+        It will continue sending requests, until the monitor of user is completely filled of information.
+        The further requests will be called by IntersectionObserver.
+    */
     if(page > 0 && !isLoading && nodeRef.current?.dataset.loading !== 'true' && !isOver) {
 
         setTimeout( () => {
@@ -34,10 +40,13 @@ export const useLazyLoading = <D>(nodeRef: MutableRefObject<HTMLDivElement|null>
 
     }
 
+
     const observer = useRef(new IntersectionObserver( (entries) => {
 
         if(!entries[0].isIntersecting || (entries[0].target as HTMLDivElement).dataset.loading === 'true') return;
 
+        // Here, we can't get value from isLoading state,
+        // but we can store the value in data attributes and get it anywhere.
         (entries[0].target as HTMLDivElement).dataset.loading = 'true';
 
         setPage(prevPage => prevPage + 1);
@@ -55,6 +64,7 @@ export const useLazyLoading = <D>(nodeRef: MutableRefObject<HTMLDivElement|null>
         setPage(0);
         setData([]);
         setIsOver(false);
+        setIsLoading(false);
 
         if(!nodeRef.current) throw new Error('The element wasn\'t found');
 
@@ -76,11 +86,12 @@ export const useLazyLoading = <D>(nodeRef: MutableRefObject<HTMLDivElement|null>
 
     }, [nodeRef]);
 
+    // Main part of code, that makes requests.
     useEffect( () => {
 
         if(page === 0) return;
 
-        const requestId = generatorId();
+        const requestId = generatorRequestId();
 
         (async function() {
 
@@ -97,6 +108,7 @@ export const useLazyLoading = <D>(nodeRef: MutableRefObject<HTMLDivElement|null>
 
             (nodeRef.current as HTMLDivElement).dataset.loading = 'false';
 
+            // Last page detection
             if(response.length < limit) {
 
                 observer.current.disconnect();

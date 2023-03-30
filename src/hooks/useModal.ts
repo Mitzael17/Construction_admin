@@ -1,6 +1,6 @@
 import {Dispatch, SetStateAction, useContext} from "react";
-import {modalChangeContext, modalContext} from "../context/modalContext";
+import {ModalChangeContext, ModalContext} from "../context/ModalContext";
 import {ModalContextValues} from "../types/contexts/ModalContextValues";
 
 export const useModal = (): [ModalContextValues, Dispatch<SetStateAction<ModalContextValues>>] =>
-    [useContext(modalContext), useContext(modalChangeContext)];
+    [useContext(ModalContext), useContext(ModalChangeContext)];

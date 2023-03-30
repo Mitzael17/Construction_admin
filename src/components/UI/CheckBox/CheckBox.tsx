@@ -10,11 +10,11 @@ const CheckBox = memo(({onChange, name = '', placeholder = '', checked = false}:
 
         if(nodeRef.current) nodeRef.current.checked = checked;
 
-    }, [checked]);
+    });
 
     return (
-        <label className='flex flex-a-c pointer-cursor'>
-            <div onClick={ event => event.stopPropagation()} className={classes.checkbox}>
+        <label onClick={ event => event.stopPropagation()} className='flex flex-a-c pointer-cursor'>
+            <div className={classes.checkbox}>
                 <input ref={nodeRef} onChange={onChange} type="checkbox" name={name} />
                 <span></span>
             </div>

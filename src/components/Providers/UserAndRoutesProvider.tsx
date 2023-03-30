@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction, useEffect, useState} from 'react';
-import {userChangeContext, userContext} from "../../context/userContext";
+import {UserChangeContext, UserContext} from "../../context/UserContext";
 import {$getUser} from "../../api/usersAPI";
 import {deleteCookie, getCookie} from "../../utils/cookie";
 import jwtDecode from "jwt-decode";
@@ -9,7 +9,7 @@ import {OwnUserAccount} from "../../types/API/usersAPI";
 import defaultImageProfile from "../../assets/defaultProfile.png";
 import {$getRoutesAndSidebar} from "../../api/routeAPI";
 import {RouteResponse} from "../../types/API/routes";
-import { routesContext } from '../../context/routesContext';
+import { RoutesContext } from '../../context/RoutesContext';
 
 
 const UserAndRoutesProvider = ({children}: {children: any}) => {
@@ -59,21 +59,20 @@ const UserAndRoutesProvider = ({children}: {children: any}) => {
 
         }
 
-        setContextUserData();
-        setContextRouteData();
+        Promise.all([setContextUserData(), setContextRouteData()]);
 
     }, [])
 
     return (
         <>
             {!userData || !routeData ? <Loading /> : (
-                <userContext.Provider value={userData}>
-                    <userChangeContext.Provider value={setUserData as Dispatch<SetStateAction<OwnUserAccount>>}>
-                        <routesContext.Provider value={routeData}>
+                <UserContext.Provider value={userData}>
+                    <UserChangeContext.Provider value={setUserData as Dispatch<SetStateAction<OwnUserAccount>>}>
+                        <RoutesContext.Provider value={routeData}>
                             {children}
-                        </routesContext.Provider>
-                    </userChangeContext.Provider>
-                </userContext.Provider>
+                        </RoutesContext.Provider>
+                    </UserChangeContext.Provider>
+                </UserContext.Provider>
             )}
         </>
     );
