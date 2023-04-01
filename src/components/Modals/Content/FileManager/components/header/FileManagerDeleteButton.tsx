@@ -1,7 +1,7 @@
 import React from 'react';
 import {$deleteFiles} from "../../../../../../api/filesAPI";
 import DeleteIcon from "../../../../../Icons/KalaiIcons/DeleteIcon";
-import {useFileManager} from "../../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
 import {Statuses} from "../../../../../../types/API";
 
 const FileManagerDeleteButton = () => {

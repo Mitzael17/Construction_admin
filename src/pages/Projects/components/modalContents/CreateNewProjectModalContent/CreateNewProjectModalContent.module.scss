@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  gap: 15px;
+  @media screen and (max-width: 450px) {
+    flex-direction: column;
+  }
+}
+
+.item {
+  width: 100%;
+}

@@ -15,8 +15,8 @@ const SearchBox = memo((
     }: SearchBoxProps) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
-    const chosenId = Array.isArray(chosenValue) ? chosenValue.map( item => item.id) : [chosenValue.id];
 
+    const chosenId = Array.isArray(chosenValue) ? chosenValue.map( item => item.id) : [chosenValue.id];
 
     const [searchValue, setSearchValue, items, isLoading] = useListForeignKeys({table});
 
@@ -43,7 +43,6 @@ const SearchBox = memo((
                             <li
                                 onClick={() => {
 
-
                                     if(!Array.isArray(chosenValue)) {
 
                                         //@ts-ignore
@@ -56,7 +55,11 @@ const SearchBox = memo((
                                     //@ts-ignore
                                     setChosenValue((prev: BaseData[]) => {
 
-                                        if(prev.find( value => value.id === item.id)) return prev.filter(value => value.id !== item.id);
+                                        if(prev.find( value => value.id === item.id)) {
+
+                                            return prev.filter(value => value.id !== item.id);
+
+                                        }
 
                                         return [...prev, item];
 
@@ -78,6 +81,7 @@ const SearchBox = memo((
 
     function handleKeyDown(event: KeyboardEvent) {
 
+        // Prevent sending main form
         if(event.code === 'Enter') return false;
 
     }

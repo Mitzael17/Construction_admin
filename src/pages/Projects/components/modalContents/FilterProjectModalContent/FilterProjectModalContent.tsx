@@ -1,14 +1,15 @@
 import React from 'react';
-import {FilterProjectProps} from "../../../../types/components/ModalsComponents";
-import SearchBox from "../../../../components/UI/SearchBox/SearchBox";
-import ChosenValuesList from "../../../../components/Lists/ChosenValuesList/ChosenValuesList";
+import {FilterProjectProps} from "../../../../../types/components/ModalsComponents";
+import SearchBox from "../../../../../components/UI/SearchBox/SearchBox";
+import ChosenValuesList from "../../../../../components/Lists/ChosenValuesList/ChosenValuesList";
+import classes from "./FilterProjectModalContent.module.scss";
 
 const FilterProjectModalContent = ({clients, statuses, setStatus, setClient, service, setService}: FilterProjectProps) => {
 
     return (
         <div>
-            <div className='flex'>
-                <div className='w-100 mr-15px'>
+            <div className={classes.container}>
+                <div className={classes.item}>
                     <SearchBox
                         placeholder='Search client...'
                         setChosenValue={setClient}
@@ -19,7 +20,7 @@ const FilterProjectModalContent = ({clients, statuses, setStatus, setClient, ser
                         <ChosenValuesList value={clients} setValue={setClient} />
                     </div>
                 </div>
-                <div className='w-100 mr-15px'>
+                <div className={classes.item}>
                     <SearchBox
                         placeholder='Search status...'
                         setChosenValue={setStatus}
@@ -30,7 +31,7 @@ const FilterProjectModalContent = ({clients, statuses, setStatus, setClient, ser
                         <ChosenValuesList value={statuses} setValue={setStatus} />
                     </div>
                 </div>
-                <div className='w-100'>
+                <div className={classes.item}>
                     <SearchBox
                         placeholder='Search service...'
                         setChosenValue={setService}

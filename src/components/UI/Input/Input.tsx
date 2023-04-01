@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import classes from './Input.module.scss';
 import {InputProps} from "../../../types/components/UIComponents";
-import {useTheme} from "../../../hooks/useTheme";
+import {useTheme} from "../../../hooks/contextHooks/useTheme";
 import {Themes} from "../../../types/contexts/Themes";
 
 const Input = memo(({value, setValue, placeholder, type = 'text'}: InputProps) => {

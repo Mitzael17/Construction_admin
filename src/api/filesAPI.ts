@@ -1,25 +1,16 @@
 import {CheckNames, FilesResponse, UploadFilesResponse} from "../types/API/files";
-import {$authAPI} from "./index";
+import {$authAPI, $baseDeleteRequest, $baseGetRequest, $basePostRequest, handlerErrorToken} from "./index";
 import {EndPoints, ErrorResponse, PostResponse} from "../types/API";
 
 export const $getFiles = async (dir = ''): Promise<FilesResponse | ErrorResponse> => {
 
-    const {data}: {data: FilesResponse} = await $authAPI.get(EndPoints.files, {params: {
-        dir: dir
-    }});
-
-    return data;
+    return await $baseGetRequest(EndPoints.files, {dir});
 
 }
 
-export const $checkFileNames = async (names: string[], dir = ''): Promise<CheckNames> => {
+export const $checkFileNames = async (check_names: string[], dir = ''): Promise<CheckNames> => {
 
-    const {data}: {data: CheckNames} = await $authAPI.get(EndPoints.files, {params: {
-        check_names: names,
-        dir: dir
-    }})
-
-    return data;
+    return await $baseGetRequest(EndPoints.files, {check_names, dir});
 
 }
 
@@ -44,7 +35,7 @@ export const $uploadFiles = async (files: FileList|File[], directory = '', auto_
         headers: {
             'Content-Type': 'multipart/form-data'
         }
-    });
+    }).catch(handlerErrorToken);
 
     return data;
 
@@ -52,20 +43,12 @@ export const $uploadFiles = async (files: FileList|File[], directory = '', auto_
 
 export const $createFolder = async (new_directory: string): Promise<PostResponse> => {
 
-    const {data} = await $authAPI.post(EndPoints.files, {new_directory});
-
-    return data;
+    return await $basePostRequest(EndPoints.files, {new_directory});
 
 }
 
 export const $deleteFiles = async (files: string[]): Promise<PostResponse> => {
 
-    const {data} = await $authAPI.delete(EndPoints.files, {
-       data: {
-           files: files
-       }
-    })
-
-    return data;
+    return await $baseDeleteRequest(EndPoints.files, {files});
 
 }

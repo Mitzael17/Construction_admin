@@ -1,5 +1,5 @@
 import React, {FormEvent, useMemo, useRef, useState} from 'react';
-import {useUser} from "../../../hooks/useUser";
+import {useUser} from "../../../hooks/contextHooks/useUser";
 import Input from "../../UI/Input/Input";
 import InputPassword from "../../UI/Input/InputPassword";
 import {$checkUserName, $login, $updateUser} from "../../../api/usersAPI";
@@ -8,7 +8,7 @@ import Loading from "../../Visual/Loading";
 import {PostResponse, Statuses} from "../../../types/API";
 import StatusResponse from "../../Visual/StatusResponse";
 import FileManager from "./FileManager/FileManager";
-import {useModal} from "../../../hooks/useModal";
+import {useModal} from "../../../hooks/contextHooks/useModal";
 import {useFilterDuplicatedData} from "../../../hooks/useFilterDuplicatedData";
 import ProfileLogo from "../../ProfileLogo";
 import Error from "../../Messages/Error";

@@ -1,5 +1,5 @@
 import React, {FormEvent, useState} from 'react';
-import {useFileManager} from "../../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
 import TinyInput from "../../../../../UI/Input/TinyInput";
 import SearchIcon from "../../../../../Icons/KalaiIcons/SearchIcon";
 

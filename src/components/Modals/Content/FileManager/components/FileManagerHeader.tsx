@@ -6,7 +6,7 @@ import FileManagerAddFolderButton from "./header/FileManagerAddFolderButton";
 import FileManagerDeleteButton from "./header/FileManagerDeleteButton";
 import FileManagerSearch from "./header/FileManagerSearch";
 import FileManagerBreadCrumbs from "./header/FileManagerBreadCrumbs";
-import {useFileManager} from "../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../hooks/contextHooks/useFileManager";
 
 const FileManagerHeader = () => {
 
@@ -21,7 +21,9 @@ const FileManagerHeader = () => {
                 <FileManagerAddFolderButton />
                 <FileManagerDeleteButton />
             </div>
-            <FileManagerSearch />
+            <div className={classes.searchContainer}>
+                <FileManagerSearch />
+            </div>
         </div>
         {arrDirectories.length > 0 && <FileManagerBreadCrumbs />}
         </>

@@ -17,6 +17,7 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
 
         const timer = setTimeout( async () => {
 
+            // The array contains values, which the hook must validate
             const arrToCheck: UseValidation[] = [];
 
             copyData.current.forEach( (obj, index) => {

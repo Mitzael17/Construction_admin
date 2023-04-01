@@ -1,8 +1,8 @@
 import React, {useEffect, useRef} from 'react';
 import TinyInput from "../../../components/UI/Input/TinyInput";
 import {useSortProjects} from "../hooks/useSortProjects";
-import {useSearch} from "../../../hooks/useSearch";
-import {useListItems} from "../../../hooks/useListItems";
+import {useSearch} from "../../../hooks/contextHooks/useSearch";
+import {useListItems} from "../../../hooks/contextHooks/useListItems";
 import {useFiltersProjects} from "../hooks/useFiltersProjects";
 import {useComponentDidMount} from "../../../hooks/useComponentDidMount";
 import ProjectsAdd from "../components/headerComponents/ProjectsAdd";
@@ -49,16 +49,14 @@ const ProjectsHeader = () => {
 
     return (
         <>
-            <div className="main__header flex flex-wrap flex-a-c w-100 mt-20px mb-10px pl-20px pr-20px pt-10px pb-10px">
-                <div className='flex mr-20px'>
+            <div className="main__header mainHeader">
                     <div className="kalaiIcon-container flex relative">
                         <ProjectsAdd />
                         <ProjectsFilter />
                         <ProjectsSort />
                         <ProjectsDelete />
                     </div>
-                </div>
-                <div className='w-350px ml-auto'>
+                <div className='mainHeader__search'>
                     <TinyInput placeholder='Search...' value={search} setValue={setSearch} />
                 </div>
             </div>

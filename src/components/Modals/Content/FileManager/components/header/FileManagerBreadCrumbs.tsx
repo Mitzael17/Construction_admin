@@ -1,5 +1,5 @@
 import React from 'react';
-import {useFileManager} from "../../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
 import classes from '../../FileManager.module.scss';
 
 const FileManagerBreadCrumbs = () => {

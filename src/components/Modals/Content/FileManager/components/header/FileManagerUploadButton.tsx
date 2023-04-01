@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useRef} from 'react';
 import UploadFileIcon from "../../../../../Icons/KalaiIcons/UploadFileIcon";
-import {useFileManager} from "../../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
 
 const FileManagerUploadButton = () => {
 

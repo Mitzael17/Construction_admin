@@ -1,0 +1,66 @@
+@import "./src/styles/assets/vars.scss";
+
+.burger {
+  display: none;
+
+  &.active {
+
+    &:before,
+    &:after {
+      top: 50%;
+      transition: .3s top, .2s transform .3s;
+    }
+
+    &:before {
+      transform: rotate(45deg);
+    }
+
+    &:after {
+      transform: rotate(-45deg);
+    }
+
+    span {
+      transform: scaleX(0);
+    }
+
+  }
+
+  @media screen and (max-width: $sidebarResponse) {
+    display: block;
+    width: 30px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+
+    &:before,
+    span,
+    &:after {
+      width: 100%;
+      background: var(--burgerColor);
+      height: 2px;
+      position: absolute;
+      left: 0;
+    }
+
+    &:before,
+    &:after {
+      content: '';
+      transition: .3s transform, .2s top .3s;
+    }
+
+    &:before {
+      top: 0;
+    }
+
+    span {
+      top: 50%;
+      transition: .2s transform .3s;
+    }
+
+    &:after {
+      top: 100%;
+    }
+
+  }
+
+}

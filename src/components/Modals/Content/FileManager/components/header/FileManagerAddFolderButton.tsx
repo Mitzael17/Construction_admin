@@ -3,7 +3,7 @@ import AddFolderIcon from "../../../../../Icons/KalaiIcons/AddFolderIcon";
 import TinyInput from "../../../../../UI/Input/TinyInput";
 import {$checkFileNames, $createFolder} from "../../../../../../api/filesAPI";
 import {Statuses} from "../../../../../../types/API";
-import {useFileManager} from "../../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
 import CheckIcon from "../../../../../Icons/KalaiIcons/CheckIcon";
 import classes from "../../FileManager.module.scss";
 import Loading from "../../../../../Visual/Loading";

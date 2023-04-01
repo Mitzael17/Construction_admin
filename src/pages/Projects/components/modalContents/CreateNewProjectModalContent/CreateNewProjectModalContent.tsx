@@ -1,18 +1,19 @@
 import React, {FormEvent, useEffect, useMemo, useState} from 'react';
-import Input from "../../../../components/UI/Input/Input";
-import Button from "../../../../components/UI/Button/Button";
-import {BaseData, PostResponse, Statuses} from "../../../../types/API";
-import SearchBox from "../../../../components/UI/SearchBox/SearchBox";
-import Loading from "../../../../components/Visual/Loading";
-import StatusResponse from "../../../../components/Visual/StatusResponse";
-import {$createProject} from "../../../../api/projectsAPI";
-import {ProjectCreateParameters, ProjectStatuses} from "../../../../types/API/projects";
-import {useValidation} from "../../../../hooks/useValidation";
-import Error from "../../../../components/Messages/Error";
-import {hasError} from "../../../../utils/hasError";
-import {useModal} from "../../../../hooks/useModal";
-import {ListItem} from "../../../../types/components/ListsComponents";
-import {dateToFormat} from "../../../../utils/formatDate";
+import Input from "../../../../../components/UI/Input/Input";
+import Button from "../../../../../components/UI/Button/Button";
+import {BaseData, PostResponse, Statuses} from "../../../../../types/API";
+import SearchBox from "../../../../../components/UI/SearchBox/SearchBox";
+import Loading from "../../../../../components/Visual/Loading";
+import StatusResponse from "../../../../../components/Visual/StatusResponse";
+import {$createProject} from "../../../../../api/projectsAPI";
+import {ProjectCreateParameters, ProjectStatuses} from "../../../../../types/API/projects";
+import {useValidation} from "../../../../../hooks/useValidation";
+import Error from "../../../../../components/Messages/Error";
+import {hasError} from "../../../../../utils/hasError";
+import {useModal} from "../../../../../hooks/contextHooks/useModal";
+import {ListItem} from "../../../../../types/components/ListsComponents";
+import {dateToFormat} from "../../../../../utils/formatDate";
+import classes from "./CreateNewProjectModalContent.module.scss";
 
 const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListItem) => void}) => {
 
@@ -21,10 +22,11 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
     const [isLoading, setIsLoading] = useState(false);
     const [response, setResponse] = useState<null|PostResponse>(null);
 
-
+    // Form values
     const [name, setName] = useState('');
     const [chosenClient, setChosenClient] = useState<BaseData>({} as BaseData);
     const [chosenService, setChosenService] = useState<BaseData>({} as BaseData);
+
 
     const validationOptions = useMemo( () => ([
         {
@@ -59,6 +61,7 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
 
     const [errors, isLoadingValidation] = useValidation(validationOptions);
 
+    // Check errors
     const nameError = hasError(errors, 'name');
     const clientError = hasError(errors, 'client_id');
     const serviceError = hasError(errors, 'service_id');
@@ -67,25 +70,25 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
 
     useEffect(() => {
 
-        if(response) {
+        if(!response) return;
 
-            setModalData(prevData => ({
-                ...prevData,
-                class: undefined,
-            }));
-            setResponse(null);
-        }
+        setModalData(prevData => ({
+            ...prevData,
+            class: undefined,
+        }));
+        setResponse(null);
+
 
     }, [chosenClient, chosenService, name]);
 
     return (
-        <form onSubmit={handleSubmit} action='#' className='defaultForm'>
+        <form onSubmit={handleSubmit} action='Projects/components/modalContents#' className='defaultForm'>
             <div className={nameError ? 'error-input' : ''}>
                 <Input placeholder='Project name' value={name} setValue={setName} />
                 <Error value={!!nameError}>{nameError ? nameError.message : ''}</Error>
             </div>
-            <div className='flex'>
-                <div className='w-100 mr-10px'>
+            <div className={classes.container}>
+                <div className={classes.item}>
                     <SearchBox
                         setChosenValue={setChosenClient}
                         chosenValue={chosenClient}
@@ -94,7 +97,7 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
                     />
                     <Error value={!!clientError}>{clientError ? clientError.message : ''}</Error>
                 </div>
-                <div className='w-100 ml-10px'>
+                <div className={classes.item}>
                     <SearchBox
                         setChosenValue={setChosenService}
                         placeholder='Search service...'
@@ -138,6 +141,7 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
 
         setIsLoading(false);
         setResponse(response);
+
         setModalData(prevData => ({
             ...prevData,
             class: `${response.status}-background`

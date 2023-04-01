@@ -1,4 +1,4 @@
-import {$API, $authAPI} from "./index";
+import {$API, $baseGetRequest, $basePostRequest} from "./index";
 import {setCookie} from "../utils/cookie";
 import {
     LoginResponse,
@@ -28,37 +28,27 @@ export const $login = async (name: string, password: string): Promise<LoginRespo
 
 export const $getUser = async (id: number): Promise<OwnUserAccount|UserAccountResponse> => {
 
-    const {data} = await $authAPI.get(`${EndPoints.admins}/${id}`);
-
-    return data;
+    return await $baseGetRequest(`${EndPoints.admins}/${id}`);
 
 }
 
 
 export const $updateUser = async (id: number, args: UserUpdateData): Promise<ErrorResponse|SuccessResponse> => {
 
-    const {data} = await $authAPI.post(`${EndPoints.admins}/${id}`, {...args});
-
-    return data;
+    return await $basePostRequest(`${EndPoints.admins}/${id}`, args);
 
 }
 
 
 export const $createUser = async (args: UserCreateData): Promise<ErrorResponse|SuccessResponse> => {
 
-    const {data} = await $authAPI.post(EndPoints.admins, {...args});
-
-    return data;
+    return await $basePostRequest(EndPoints.admins, args);
 
 }
 
 
 export const $checkUserName = async (name: string): Promise<ErrorResponse|SuccessResponse> => {
 
-    const {data} = await $authAPI.get(EndPoints.admins, {
-        params: {check_name: name}
-    })
-
-    return data;
+    return await $baseGetRequest(EndPoints.admins, {check_name: name});
 
 }

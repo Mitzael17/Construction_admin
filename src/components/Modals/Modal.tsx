@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {ModalProps} from "../../types/components/ModalsComponents";
 import ModalWindow from "./ModalWindow";
 import ModalProvider from "../Providers/ModalProvider";
-const Modal = ({value, title, setValue, children, zIndex = 100}: ModalProps) => {
+const Modal = memo(({value, title, setValue, children, zIndex = 100}: ModalProps) => {
 
     return (
         <ModalProvider>
@@ -10,6 +10,6 @@ const Modal = ({value, title, setValue, children, zIndex = 100}: ModalProps) => 
         </ModalProvider>
     );
 
-};
+});
 
 export default Modal;

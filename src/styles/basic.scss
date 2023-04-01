@@ -3,8 +3,10 @@
 
 // styles of size
 
-.w-100 {
-  width: 100%;
+@for $index from 1 through 20 {
+  .w-#{$index * 5} {
+    width: $index * 5%;
+  }
 }
 
 .h-100 {
@@ -27,6 +29,22 @@
 
   .h-#{$index * 50}px {
     height: $index * 50 + px;
+  }
+
+  .max-w-#{$index * 50}px {
+    max-width: $index * 50 + px;
+  }
+
+  .max-h-#{$index * 50}px {
+    max-height: $index * 50 + px;
+  }
+
+  .min-w-#{$index * 50}px {
+    min-width: $index * 50 + px;
+  }
+
+  .min-h-#{$index * 50}px {
+    min-height: $index * 50 + px;
   }
 
 }
@@ -110,6 +128,10 @@
 
 .flex-j-c {
   justify-content: center;
+}
+
+.flex-j-sb {
+  justify-content: space-between;
 }
 
 .flex-a-c {

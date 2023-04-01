@@ -5,8 +5,8 @@ import {ReducerTypes} from "../../../../types";
 import {PostResponse, Statuses} from "../../../../types/API";
 import Modal from "../../../../components/Modals/Modal";
 import StatusResponse from "../../../../components/Visual/StatusResponse";
-import {useCheckedItems} from "../../../../hooks/useCheckedItems";
-import {useListItems} from "../../../../hooks/useListItems";
+import {useCheckedItems} from "../../../../hooks/contextHooks/useCheckedItems";
+import {useListItems} from "../../../../hooks/contextHooks/useListItems";
 import Loading from "../../../../components/Visual/Loading";
 import {createPortal} from "react-dom";
 
@@ -14,11 +14,12 @@ const ProjectsDelete = memo(() => {
 
     const [deleteLoading, setDeleteLoading] = useState(false);
     const deleteResponse = useRef<PostResponse>();
+
     const [showModal, setShowModal] = useState(false);
 
     const buttonRef = useRef<HTMLDivElement>(null);
 
-    //Context values
+    // Context values
     const [checkedProjects, dispatchCheckedProjects] = useCheckedItems();
     const [, {setItems: setProjects}] = useListItems();
 
@@ -54,13 +55,16 @@ const ProjectsDelete = memo(() => {
         if(response.status === Statuses.success) {
 
             setProjects(prevState => prevState.filter(item => checkedProjects.indexOf(`${item.id}`) === -1));
+
             return;
 
         }
 
-        const filteredProjects = response.arr_id !== undefined ? checkedProjects.filter( id => (response.arr_id as number[]).indexOf(+id) === -1) : checkedProjects;
+        const removedProjects = response.arr_id !== undefined
+            ? checkedProjects.filter( id => (response.arr_id as number[]).indexOf(+id) === -1)
+            : checkedProjects;
 
-        setProjects(prevState => prevState.filter(item => filteredProjects.indexOf(`${item.id}`) === -1));
+        setProjects(prevState => prevState.filter(item => removedProjects.indexOf(`${item.id}`) === -1));
 
         deleteResponse.current = response;
         setShowModal(true);

@@ -1,3 +1,14 @@
 @import "assets/vars.scss";
 @import "assets/mixins.scss";
 
+
+.mainHeader {
+
+  &__search {
+    width: 350px;
+    @media screen and (max-width: $mainHeaderResponse) {
+      width: 244px;
+    }
+  }
+
+}

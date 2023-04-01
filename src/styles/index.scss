@@ -16,6 +16,7 @@
 @import "modules/deleteIcon.scss";
 @import "modules/groupTransitions.scss";
 @import "modules/projectStatuses.scss";
+@import "modules/list.scss";
 
 @import "login.scss";
 @import "projects.scss";
@@ -43,12 +44,14 @@ html {
   @include scrollBar();
 }
 
+
 body {
   font-family: OpenSans, serif;
   font-weight: 400;
   background: var(--mainColor);
   color: var(--textColor);
 }
+
 
 svg {
   stroke: var(--textColor);
@@ -61,6 +64,7 @@ h1 {
   font-weight: 600;
   line-height: 1.25;
 }
+
 
 .label-paddings {
   label {
@@ -80,6 +84,8 @@ h2 {
 #root {
   @include vh100;
   display: flex;
+  position: relative;
+  overflow: hidden;
 }
 
 
@@ -96,6 +102,7 @@ h2 {
   align-items: center;
   gap: 10px;
   position: relative;
+  flex-wrap: wrap;
 
   &:before {
     content: '';
@@ -140,6 +147,22 @@ h2 {
 
   &__header {
     color: var(--textColor);
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 20px 0;
+    gap: 15px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+    @media screen and (max-width: $mainHeaderResponse) {
+
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+
+    }
+
   }
 
   &__content {
@@ -238,18 +261,43 @@ h2 {
   background: var(--mainColor);
   flex: 0 0 250px;
   box-sizing: border-box;
-  padding: 20px;
   font-size: 1.2em;
+  max-width: 250px;
   color: var(--textColor);
-  position: relative;
+  word-break: break-all;
 
-  &:after {
-    content: '';
-    @include absolutePosition(100%, 0, -200%);
-    box-shadow: 0 0 10px 1px var(--secondMainColor);
-    width: 1px;
+  @media screen and (max-width: $sidebarResponse) {
+    @include absolutePosition(100%, 0);
+    width: 250px;
+    max-width: 70%;
+    z-index: 90;
     height: 100%;
-    background: var(--secondMainColor);
+    overflow: auto;
+    transform: translateX(0%);
+    transition: .5s transform;
+    &.active {
+      transform: translateX(-100%);
+    }
+  }
+
+  &__wrapper {
+    position: relative;
+    padding: 20px;
+    min-height: 100%;
+    &:after {
+      content: '';
+      @include absolutePosition(100%, 0, -200%);
+      box-shadow: 0 0 10px 1px var(--secondMainColor);
+      width: 1px;
+      height: 100%;
+      background: var(--secondMainColor);
+
+      @media screen and (max-width: $sidebarResponse) {
+        left: 2px;
+      }
+
+    }
+
   }
 
   .active {
@@ -310,42 +358,3 @@ h2 {
 
 
 
-.list {
-  background: var(--mainColor);
-  z-index: 10;
-  @include absolutePosition(50%, calc(100% + $borderSize * 2), -50%, 0);
-  opacity: 0;
-  transition: .5s opacity;
-  pointer-events: none;
-  width: 100%;
-  text-align: center;
-  cursor: default;
-
-  &.active {
-    opacity: 1;
-    pointer-events: all;
-  }
-
-  &__item {
-    padding: 20px;
-    background: var(--mainColor);
-    transition: .5s all;
-    border: $borderSize solid var(--borderColor);
-    cursor: pointer;
-
-    &.active {
-      background: var(--activeBackgroundColor);
-      pointer-events: none;
-      color: var(--activeColor);
-    }
-
-    &:nth-child(even) {
-      border-top: 0;
-    }
-
-    &:hover {
-      background: var(--hoverBackgroundColorOpacity);
-      color: var(--hoverTextColor);
-    }
-  }
-}

@@ -1,10 +1,10 @@
 import React, {memo, useState} from 'react';
 import AddCircleIcon from "../../../../components/Icons/KalaiIcons/AddCircleIcon";
 import Modal from "../../../../components/Modals/Modal";
-import CreateNewProjectModalContent from "../modalContents/CreateNewProjectModalContent";
+import CreateNewProjectModalContent from "../modalContents/CreateNewProjectModalContent/CreateNewProjectModalContent";
 import {ListItem} from "../../../../types/components/ListsComponents";
 import {useSortProjects} from "../../hooks/useSortProjects";
-import {useListItems} from "../../../../hooks/useListItems";
+import {useListItems} from "../../../../hooks/contextHooks/useListItems";
 
 const ProjectsAdd = memo(() => {
 
@@ -28,12 +28,7 @@ const ProjectsAdd = memo(() => {
 
     function addProject(project: ListItem) {
 
-        if(sort === 'newest') {
-
-            setProjects(prevState => [project, ...prevState]);
-            return;
-
-        }
+        if(sort === 'newest') setProjects(prevState => [project, ...prevState]);
 
         if(sort === 'oldest' && isOver) setProjects(prevState => [...prevState, project]);
 

@@ -1,7 +1,7 @@
 import React, {memo, useState} from 'react';
 import FilterIcon from "../../../../components/Icons/KalaiIcons/FilterIcon";
 import Modal from "../../../../components/Modals/Modal";
-import FilterProjectModalContent from "../modalContents/FilterProjectModalContent";
+import FilterProjectModalContent from "../modalContents/FilterProjectModalContent/FilterProjectModalContent";
 import {useFiltersProjects} from "../../hooks/useFiltersProjects";
 
 const ProjectsFilter = memo( () => {
@@ -19,7 +19,7 @@ const ProjectsFilter = memo( () => {
             <div className='kalaiIcon--box' onClick={() => {setShowModal(true)}}>
                 <FilterIcon />
             </div>
-            <Modal title='Filter' value={showModal} setValue={setShowModal}>
+            <Modal title='Filters' value={showModal} setValue={setShowModal}>
                 <FilterProjectModalContent
                     statuses={filterStatuses}
                     clients={filterClients}

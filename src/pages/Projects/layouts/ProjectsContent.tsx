@@ -1,7 +1,7 @@
 import React from 'react';
 import ProjectsList from "../components/ProjectsList";
 import Loading from "../../../components/Visual/Loading";
-import {useListItems} from "../../../hooks/useListItems";
+import {useListItems} from "../../../hooks/contextHooks/useListItems";
 
 const ProjectsContent = () => {
 

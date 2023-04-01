@@ -2,8 +2,8 @@ import React, {ChangeEvent, memo, useMemo} from 'react';
 import ItemsList from "../../../components/Lists/ItemsList/ItemsList";
 import {ProjectStatuses} from "../../../types/API/projects";
 import {ReducerTypes} from "../../../types";
-import {useListItems} from "../../../hooks/useListItems";
-import {useCheckedItems} from "../../../hooks/useCheckedItems";
+import {useListItems} from "../../../hooks/contextHooks/useListItems";
+import {useCheckedItems} from "../../../hooks/contextHooks/useCheckedItems";
 
 
 

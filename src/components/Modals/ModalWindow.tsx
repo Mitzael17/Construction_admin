@@ -3,8 +3,8 @@ import classes from "./Modals.module.scss";
 import {ModalProps} from "../../types/components/ModalsComponents";
 import {CSSTransition} from "react-transition-group";
 import {createPortal} from "react-dom";
-import {useModal} from "../../hooks/useModal";
-import {useTheme} from "../../hooks/useTheme";
+import {useModal} from "../../hooks/contextHooks/useModal";
+import {useTheme} from "../../hooks/contextHooks/useTheme";
 import {Themes} from "../../types/contexts/Themes";
 
 const ModalWindow = memo(({value, title, setValue, children, zIndex = 100}: ModalProps) => {
@@ -17,8 +17,13 @@ const ModalWindow = memo(({value, title, setValue, children, zIndex = 100}: Moda
     // The ref is necessary to block an accident click on the back area
     const blockedClick = useRef(false);
 
-    if(value) document.documentElement.classList.add('blocked-scroll');
-    else document.documentElement.classList.remove('blocked-scroll');
+    useEffect(() => {
+
+        if(value) document.documentElement.classList.add('blocked-scroll');
+        else document.documentElement.classList.remove('blocked-scroll');
+
+    }, [value]);
+
 
     useEffect( () => {
         setModalData({title});

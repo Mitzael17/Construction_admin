@@ -1,7 +1,7 @@
 import React from 'react';
 import BendArrowLeftIcon from "../../../../../Icons/KalaiIcons/BendArrowLeftIcon";
-import {useFileManager} from "../../../../../../hooks/useFileManager";
-import {useModal} from "../../../../../../hooks/useModal";
+import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
+import {useModal} from "../../../../../../hooks/contextHooks/useModal";
 
 const FileManagerBackButton = () => {
 

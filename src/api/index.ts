@@ -40,9 +40,46 @@ $API.interceptors.request.use(interceptor);
 
 export const $search = async (parameters: SearchParameters&{value:string}): Promise<BaseData[]|ErrorResponse> => {
 
-    const {data} = await $authAPI.get(EndPoints.search, {
-        params: parameters
-    })
+    return await $baseGetRequest(EndPoints.search, parameters);
+
+}
+
+
+export async function $baseGetRequest<T, P extends Object>(url: string, params?: P): Promise<T> {
+
+
+    const {data} = await $authAPI.get(url, {
+        params
+    }).catch(handlerErrorToken);
 
     return data;
+
+}
+
+export async function $basePostRequest<T, P extends Object>(url: string, params?: P): Promise<T> {
+
+    const {data} = await $authAPI.post(url, params).catch(handlerErrorToken);
+
+    return data;
+
+}
+
+
+export async function $baseDeleteRequest<T, P extends Object>(url: string, params?: P): Promise<T> {
+
+    const {data} = await $authAPI.delete(url, {
+        data: params
+    }).catch(handlerErrorToken);
+
+    return data;
+
+}
+
+
+export function handlerErrorToken(response: any) {
+
+        if(response.request.status === 403) location.reload();
+
+        return response;
+
 }

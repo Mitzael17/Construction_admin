@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {useFileManager} from "../../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
 import classes from "../../FileManager.module.scss";
 import {FilePreview, FileReducerAction} from "../../../../../../types/components/ModalsComponents";
 import fileImage from "../../../../../../assets/icons/File.svg";

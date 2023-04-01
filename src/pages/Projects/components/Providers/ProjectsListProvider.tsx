@@ -5,7 +5,7 @@ import {$getProjects} from "../../../../api/projectsAPI";
 import {ListItem} from "../../../../types/components/ListsComponents";
 import {PROJECTS_ROUTE} from "../../../../data/paths";
 import {useSortProjects} from "../../hooks/useSortProjects";
-import {useSearch} from "../../../../hooks/useSearch";
+import {useSearch} from "../../../../hooks/contextHooks/useSearch";
 import {useFiltersProjects} from "../../hooks/useFiltersProjects";
 
 const ProjectsListProvider = ({children}: {children: JSX.Element}) => {

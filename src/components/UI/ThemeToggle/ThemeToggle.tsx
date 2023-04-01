@@ -1,5 +1,5 @@
 import React from 'react';
-import {useTheme} from "../../../hooks/useTheme";
+import {useTheme} from "../../../hooks/contextHooks/useTheme";
 import {Themes} from "../../../types/contexts/Themes";
 import classes from "./ThemeToggle.module.scss";
 

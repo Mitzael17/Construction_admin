@@ -1,11 +1,11 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import classes from "../FileManager.module.scss";
 import Loading from "../../../../Visual/Loading";
-import {useFileManager} from "../../../../../hooks/useFileManager";
+import {useFileManager} from "../../../../../hooks/contextHooks/useFileManager";
 import {FileManagerProps} from "../../../../../types/components/ModalsComponents";
 import FileManagerDirectories from "./content/FileManagerDirectories";
 import FileManagerFiles from "./content/FileManagerFiles";
-import {useModal} from "../../../../../hooks/useModal";
+import {useModal} from "../../../../../hooks/contextHooks/useModal";
 
 const FileManagerContent = ({setFile}: Pick<FileManagerProps, 'setFile'>) => {
 
