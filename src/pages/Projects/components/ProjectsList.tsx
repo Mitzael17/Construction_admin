@@ -2,8 +2,8 @@ import React, {ChangeEvent, memo, useMemo} from 'react';
 import ItemsList from "../../../components/Lists/ItemsList/ItemsList";
 import {ProjectStatuses} from "../../../types/API/projects";
 import {ReducerTypes} from "../../../types";
-import {useListItems} from "../../../hooks/contextHooks/useListItems";
-import {useCheckedItems} from "../../../hooks/contextHooks/useCheckedItems";
+import {useListItemsContext} from "../../../hooks/contextHooks/useListItemsContext";
+import {useCheckedItemsContext} from "../../../hooks/contextHooks/useCheckedItemsContext";
 
 
 
@@ -17,8 +17,8 @@ const ProjectsList = memo(() => {
     ]), []);
 
 
-    const [{items: projects}] = useListItems();
-    const [checkedProjects, dispatchCheckedProjects] = useCheckedItems();
+    const [{items: projects}] = useListItemsContext();
+    const [checkedProjects, dispatchCheckedProjects] = useCheckedItemsContext();
 
     const handlerChecked =(event: ChangeEvent<HTMLInputElement>) => {
 

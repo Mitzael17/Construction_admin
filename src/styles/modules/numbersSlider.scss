@@ -1,0 +1,30 @@
+.numbersSlider {
+  width: 50px;
+  margin: auto;
+  height: 150px;
+
+  .swiper-slide {
+
+    div {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: $borderSize solid var(--borderColor);
+      background: var(--mainColor);
+      transform: scale(0.8);
+      transition: .5s transform;
+    }
+
+
+    &.swiper-slide-active {
+      div {
+        transform: scale(1);
+      }
+    }
+
+  }
+
+}
+

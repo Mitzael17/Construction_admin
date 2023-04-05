@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from "./Burger.module.scss"
-import {useBurger} from "../../../hooks/contextHooks/useBurger";
+import {useBurgerContext} from "../../../hooks/contextHooks/useBurgerContext";
 const Burger = () => {
 
-    const [isActive, setIsActive] = useBurger();
+    const [isActive, setIsActive] = useBurgerContext();
 
     return (
         <div

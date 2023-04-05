@@ -1,7 +1,6 @@
 import {Dispatch, SetStateAction} from "react";
 import {BaseData} from "../../../types/API";
 
-export type SortProjectsValues = 'newest'|'oldest';
 
 export interface FiltersProjectsContextValues {
 

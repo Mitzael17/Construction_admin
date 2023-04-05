@@ -1,14 +1,16 @@
-import React, {memo} from 'react';
-import {ButtonProps} from "../../../types/components/UIComponents";
+import React, {ButtonHTMLAttributes, memo} from 'react';
 import classes from "./Button.module.scss";
+import {useThemeContext} from "../../../hooks/contextHooks/useThemeContext";
 import {Themes} from "../../../types/contexts/Themes";
 
-const TinyButton = memo(({children, type = 'button', theme = 'dark', ...props}: ButtonProps) => {
+const TinyButton = memo(({children, type = 'button', ...props}: ButtonHTMLAttributes<any>) => {
+
+    const [theme] = useThemeContext();
 
     return (
         <button
             type={type}
-            className={`${classes[theme]} ${classes.button} ${classes.tiny} ${theme === Themes.dark ? classes.dark : classes.light}`}
+            className={`${classes.button} ${classes.tiny} ${theme === Themes.dark ? classes.dark : classes.light}`}
             {...props}
         >
             <span>{children}</span>

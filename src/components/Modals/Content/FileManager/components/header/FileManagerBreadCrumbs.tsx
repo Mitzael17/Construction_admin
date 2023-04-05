@@ -1,10 +1,10 @@
 import React from 'react';
-import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../../hooks/contextHooks/useFileManagerContext";
 import classes from '../../FileManager.module.scss';
 
 const FileManagerBreadCrumbs = () => {
 
-    const [{arrDirectories}, setFileManagerData] = useFileManager();
+    const [{arrDirectories}, setFileManagerData] = useFileManagerContext();
 
     return (
         <ul className={classes.breadCrumbs}>

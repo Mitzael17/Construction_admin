@@ -1,7 +1,9 @@
 import React, {memo, useRef} from 'react';
 import SortIcon from "../../../../components/Icons/KalaiIcons/SortIcon";
 import {useOutClick} from "../../../../hooks/useOutClick";
-import {useSortProjects} from "../../hooks/useSortProjects";
+import {useSortContext} from "../../../../hooks/contextHooks/useSortContext";
+import SortList from "../../../../components/Lists/SortList/SortList";
+import {DefaultSorts} from "../../../../types/contexts/SortContext";
 
 const ProjectsSort = memo(() => {
 
@@ -9,7 +11,7 @@ const ProjectsSort = memo(() => {
     const [showSortList, setShowSortList] = useOutClick(sortListRef);
 
     // Context values
-    const [sort, setSort] = useSortProjects();
+    const [sort, setSort] = useSortContext();
 
     return (
         <div
@@ -19,10 +21,12 @@ const ProjectsSort = memo(() => {
                 setShowSortList(prev => !prev);
             }}>
             <SortIcon />
-            <ul className={`list ${showSortList ? 'active' : ''}`}>
-                <li className={`list__item ${sort === 'newest' ? 'active' : ''}`} onClick={() => {setSort('newest')}}>Newest</li>
-                <li className={`list__item ${sort === 'oldest' ? 'active' : ''}`} onClick={() => {setSort('oldest')}}>Oldest</li>
-            </ul>
+            <SortList
+                currentSort={sort}
+                setCurrentSort={setSort}
+                sorts={Object.values(DefaultSorts)}
+                isOpen={showSortList}
+            />
         </div>
     );
 

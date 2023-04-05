@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ProfileLogo from "../components/ProfileLogo";
-import {useUser} from "../hooks/contextHooks/useUser";
+import {useUserContext} from "../hooks/contextHooks/useUserContext";
 import LogoutIcon from "../components/Icons/LogoutIcon";
 import SettingsIcon from "../components/Icons/SettingsIcon";
 import {deleteCookie} from "../utils/cookie";
@@ -11,7 +11,7 @@ import Burger from "../components/UI/Burger/Burger";
 
 const Navbar = () => {
 
-    const [userData] = useUser();
+    const [userData] = useUserContext();
     const [showSettingsModal, setShowSettingsModal] = useState(false);
 
 

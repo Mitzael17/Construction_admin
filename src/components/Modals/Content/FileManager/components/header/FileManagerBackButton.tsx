@@ -1,12 +1,12 @@
 import React from 'react';
 import BendArrowLeftIcon from "../../../../../Icons/KalaiIcons/BendArrowLeftIcon";
-import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
-import {useModal} from "../../../../../../hooks/contextHooks/useModal";
+import {useFileManagerContext} from "../../../../../../hooks/contextHooks/useFileManagerContext";
+import {useModalContext} from "../../../../../../hooks/contextHooks/useModalContext";
 
 const FileManagerBackButton = () => {
 
-    const [fileManagerData, setFileManagerData] = useFileManager();
-    const [, setModalData] = useModal();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
+    const [, setModalData] = useModalContext();
 
     return (
         <div onClick={handlerClick} className='kalaiIcon--box'>

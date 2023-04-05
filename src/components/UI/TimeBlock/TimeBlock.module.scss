@@ -1,0 +1,23 @@
+@import "./src/styles/assets/mixins";
+
+.container {
+
+  & > div {
+
+    &:not(:last-child) {
+
+      position: relative;
+
+      &:after {
+        content: ':';
+        position: absolute;
+        @include absolutePosition(calc(100% + 15px), 50%, -50%, -50%);
+        font-size: 1.5em;
+      }
+
+    }
+
+  }
+
+
+}

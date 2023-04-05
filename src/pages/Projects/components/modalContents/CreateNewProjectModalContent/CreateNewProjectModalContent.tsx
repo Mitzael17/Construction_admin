@@ -10,14 +10,14 @@ import {ProjectCreateParameters, ProjectStatuses} from "../../../../../types/API
 import {useValidation} from "../../../../../hooks/useValidation";
 import Error from "../../../../../components/Messages/Error";
 import {hasError} from "../../../../../utils/hasError";
-import {useModal} from "../../../../../hooks/contextHooks/useModal";
+import {useModalContext} from "../../../../../hooks/contextHooks/useModalContext";
 import {ListItem} from "../../../../../types/components/ListsComponents";
-import {dateToFormat} from "../../../../../utils/formatDate";
+import {dateToFormat} from "../../../../../utils/date";
 import classes from "./CreateNewProjectModalContent.module.scss";
 
 const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListItem) => void}) => {
 
-    const [, setModalData] = useModal();
+    const [, setModalData] = useModalContext();
 
     const [isLoading, setIsLoading] = useState(false);
     const [response, setResponse] = useState<null|PostResponse>(null);
@@ -133,7 +133,7 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
             id: 0,
             title: name,
             subtitle:  <><div>Client: {chosenClient.name}</div><div className='mt-5px mb-10px'>Status: {ProjectStatuses.inProcess}</div></>,
-            date: dateToFormat(date, 'Y-m-d'),
+            date: `Date: ${dateToFormat(date, 'Y-m-d')}`,
             status: ProjectStatuses.inProcess
         };
 

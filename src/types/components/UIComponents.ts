@@ -1,21 +1,16 @@
 import {StateProps} from "./index";
-import {ChangeEventHandler, Dispatch, MouseEventHandler, SetStateAction} from "react";
+import {
+    ChangeEventHandler,
+    Dispatch,
+    MouseEventHandler,
+    SetStateAction
+} from "react";
 import {BaseData} from "../API";
 
-export interface InputProps extends StateProps<string>{
+export interface InputProps extends StateProps<string>  {
 
     placeholder: string,
     type?: 'password' | 'text',
-
-}
-
-export interface ButtonProps {
-
-    children: any,
-    type?: 'button' | 'submit',
-    onClick?: MouseEventHandler,
-    disabled?: boolean,
-    theme?: 'light'|'dark';
 
 }
 
@@ -50,3 +45,16 @@ export interface SearchBoxInterface<T extends BaseData|BaseData[]> {
 
 
 export type SearchBoxProps = SearchBoxInterface<BaseData> | SearchBoxInterface<BaseData[]>;
+
+
+export interface CalendarProps {
+
+    initialDate?: Date,
+    chooseTime?: boolean,
+    date: Date,
+    setDate: Dispatch<SetStateAction<Date>>
+
+}
+
+
+export type TimeBlockProps = Pick<CalendarProps, 'date'|'setDate'>;

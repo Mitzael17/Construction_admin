@@ -1,5 +1,5 @@
 import {CheckBoxProps} from "./UIComponents";
-import {RefObject} from "react";
+import {Dispatch, RefObject, SetStateAction} from "react";
 
 export interface ListProps {
 
@@ -31,5 +31,15 @@ export interface ListItemsItemProps {
     item: ListItemWithNode
     onChecked?: ListProps['onChecked'],
     status?: string
+
+}
+
+
+export interface SortListProps {
+
+    currentSort: string,
+    setCurrentSort: Dispatch<SetStateAction<string>>,
+    sorts: string[],
+    isOpen: boolean
 
 }

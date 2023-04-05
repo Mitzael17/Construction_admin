@@ -2,7 +2,7 @@ import React, {memo, useState} from 'react';
 import FilterIcon from "../../../../components/Icons/KalaiIcons/FilterIcon";
 import Modal from "../../../../components/Modals/Modal";
 import FilterProjectModalContent from "../modalContents/FilterProjectModalContent/FilterProjectModalContent";
-import {useFiltersProjects} from "../../hooks/useFiltersProjects";
+import {useFiltersProjectsContext} from "../../hooks/useFiltersProjectsContext";
 
 const ProjectsFilter = memo( () => {
 
@@ -12,7 +12,7 @@ const ProjectsFilter = memo( () => {
     const [
         {filterServices, filterClients, filterStatuses},
         {setFilterStatuses, setFilterServices, setFilterClients}
-    ] = useFiltersProjects();
+    ] = useFiltersProjectsContext();
 
     return (
         <>

@@ -1,12 +1,11 @@
-import React, {memo} from 'react';
-import {ButtonProps} from "../../../types/components/UIComponents";
+import React, {ButtonHTMLAttributes, memo} from 'react';
 import classes from "./Button.module.scss";
-import {useTheme} from "../../../hooks/contextHooks/useTheme";
+import {useThemeContext} from "../../../hooks/contextHooks/useThemeContext";
 import {Themes} from "../../../types/contexts/Themes";
 
-const Button = memo(({children, type = 'button', ...props}: ButtonProps) => {
+const Button = memo(({children, type = 'button', ...props}: ButtonHTMLAttributes<any>) => {
 
-    const [theme] = useTheme();
+    const [theme] = useThemeContext();
 
     return (
         <button

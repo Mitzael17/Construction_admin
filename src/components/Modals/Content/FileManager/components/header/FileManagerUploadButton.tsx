@@ -1,10 +1,10 @@
 import React, {ChangeEvent, useEffect, useRef} from 'react';
 import UploadFileIcon from "../../../../../Icons/KalaiIcons/UploadFileIcon";
-import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../../hooks/contextHooks/useFileManagerContext";
 
 const FileManagerUploadButton = () => {
 
-    const [fileManagerData, setFileManagerData] = useFileManager();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
 
     const inputFileRef = useRef<null|HTMLInputElement>(null);
 

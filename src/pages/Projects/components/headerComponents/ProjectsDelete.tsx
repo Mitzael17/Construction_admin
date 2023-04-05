@@ -5,8 +5,8 @@ import {ReducerTypes} from "../../../../types";
 import {PostResponse, Statuses} from "../../../../types/API";
 import Modal from "../../../../components/Modals/Modal";
 import StatusResponse from "../../../../components/Visual/StatusResponse";
-import {useCheckedItems} from "../../../../hooks/contextHooks/useCheckedItems";
-import {useListItems} from "../../../../hooks/contextHooks/useListItems";
+import {useCheckedItemsContext} from "../../../../hooks/contextHooks/useCheckedItemsContext";
+import {useListItemsContext} from "../../../../hooks/contextHooks/useListItemsContext";
 import Loading from "../../../../components/Visual/Loading";
 import {createPortal} from "react-dom";
 
@@ -20,8 +20,8 @@ const ProjectsDelete = memo(() => {
     const buttonRef = useRef<HTMLDivElement>(null);
 
     // Context values
-    const [checkedProjects, dispatchCheckedProjects] = useCheckedItems();
-    const [, {setItems: setProjects}] = useListItems();
+    const [checkedProjects, dispatchCheckedProjects] = useCheckedItemsContext();
+    const [, {setItems: setProjects}] = useListItemsContext();
 
 
     return (

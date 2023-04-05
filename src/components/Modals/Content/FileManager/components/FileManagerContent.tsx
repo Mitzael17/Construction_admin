@@ -1,16 +1,16 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
 import classes from "../FileManager.module.scss";
 import Loading from "../../../../Visual/Loading";
-import {useFileManager} from "../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../hooks/contextHooks/useFileManagerContext";
 import {FileManagerProps} from "../../../../../types/components/ModalsComponents";
 import FileManagerDirectories from "./content/FileManagerDirectories";
 import FileManagerFiles from "./content/FileManagerFiles";
-import {useModal} from "../../../../../hooks/contextHooks/useModal";
+import {useModalContext} from "../../../../../hooks/contextHooks/useModalContext";
 
 const FileManagerContent = ({setFile}: Pick<FileManagerProps, 'setFile'>) => {
 
-    const [fileManagerData, setFileManagerData] = useFileManager();
-    const [, setModalData] = useModal();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
+    const [, setModalData] = useModalContext();
 
     const [isHover, setIsHover] = useState(false);
     const hoverCounter = useRef(0);

@@ -3,16 +3,16 @@ import {FilesResponse} from "../../../../types/API/files";
 import {$getFiles} from "../../../../api/filesAPI";
 import {ErrorResponse} from "../../../../types/API";
 import {FileManagerProps} from "../../../../types/components/ModalsComponents";
-import {useModal} from "../../../../hooks/contextHooks/useModal";
-import {useFileManager} from "../../../../hooks/contextHooks/useFileManager";
+import {useModalContext} from "../../../../hooks/contextHooks/useModalContext";
+import {useFileManagerContext} from "../../../../hooks/contextHooks/useFileManagerContext";
 import FileManagerHeader from "./components/FileManagerHeader";
 import FileManagerContent from "./components/FileManagerContent";
 import FileManagerUpload from "./components/content/FileManagerUpload";
 
 const FileManagerWindow = memo(({setFile}: Omit<FileManagerProps, 'setVisible'|'prevTitle'>) => {
 
-    const [, setModalData] = useModal();
-    const [fileManagerData, setFileManagerData] = useFileManager();
+    const [, setModalData] = useModalContext();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
 
     const directory = fileManagerData.arrDirectories.join('/') + '/';
 

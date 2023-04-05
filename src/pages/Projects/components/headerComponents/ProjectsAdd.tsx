@@ -3,16 +3,17 @@ import AddCircleIcon from "../../../../components/Icons/KalaiIcons/AddCircleIcon
 import Modal from "../../../../components/Modals/Modal";
 import CreateNewProjectModalContent from "../modalContents/CreateNewProjectModalContent/CreateNewProjectModalContent";
 import {ListItem} from "../../../../types/components/ListsComponents";
-import {useSortProjects} from "../../hooks/useSortProjects";
-import {useListItems} from "../../../../hooks/contextHooks/useListItems";
+import {useListItemsContext} from "../../../../hooks/contextHooks/useListItemsContext";
+import {useSortContext} from "../../../../hooks/contextHooks/useSortContext";
+import {DefaultSorts} from "../../../../types/contexts/SortContext";
 
 const ProjectsAdd = memo(() => {
 
     const [showModal, setShowModal] = useState(false);
 
     //context values
-    const [sort] = useSortProjects();
-    const [{isOver}, {setItems: setProjects}] = useListItems();
+    const [sort] = useSortContext();
+    const [{isOver}, {setItems: setProjects}] = useListItemsContext();
 
     return (
         <>
@@ -28,9 +29,9 @@ const ProjectsAdd = memo(() => {
 
     function addProject(project: ListItem) {
 
-        if(sort === 'newest') setProjects(prevState => [project, ...prevState]);
+        if(sort === DefaultSorts.new) setProjects(prevState => [project, ...prevState]);
 
-        if(sort === 'oldest' && isOver) setProjects(prevState => [...prevState, project]);
+        if(sort === DefaultSorts.old && isOver) setProjects(prevState => [...prevState, project]);
 
     }
 

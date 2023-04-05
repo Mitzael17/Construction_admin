@@ -1,12 +1,12 @@
 import React from 'react';
 import {$deleteFiles} from "../../../../../../api/filesAPI";
 import DeleteIcon from "../../../../../Icons/KalaiIcons/DeleteIcon";
-import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../../hooks/contextHooks/useFileManagerContext";
 import {Statuses} from "../../../../../../types/API";
 
 const FileManagerDeleteButton = () => {
 
-    const [fileManagerData, setFileManagerData] = useFileManager();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
     const directory = fileManagerData.arrDirectories.join('/')  + '/';
 
     return (

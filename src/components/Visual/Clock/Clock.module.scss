@@ -1,0 +1,85 @@
+@import "./src/styles/assets/vars";
+@import "./src/styles/assets/mixins";
+
+.clock {
+  width: 100%;
+  border: $borderSize solid var(--borderColor);
+  margin: auto;
+  padding-top: 100%;
+  border-radius: 50%;
+  position: relative;
+  transform: rotate(-90deg);
+
+  &:before {
+    content: '';
+    @include absolutePosition(50%, 50%, -50%, -50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--borderColor);
+  }
+
+}
+
+
+.marks {
+  span {
+    width: 100%;
+    height: 2px;
+    @include absolutePosition(50%, 50%);
+    transform-origin: center center;
+
+    &:before {
+      content: '';
+      @include absolutePosition(5%, 0px);
+      background: var(--borderColor);
+      width: 10%;
+      height: 2px;
+    }
+
+    @for $index from 1 through 12 {
+
+      &:nth-child(#{$index}) {
+        transform: translate(-50%, -50%) rotate(30 * $index + deg);
+      }
+
+    }
+
+  }
+
+}
+
+
+.narrows {
+
+  span {
+    display: block;
+    transform-origin: left;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transition: .5s all;
+  }
+
+}
+
+
+.seconds {
+  width: 45%;
+  height: 2px;
+  background: var(--borderColor);
+}
+
+
+.minutes {
+  width: 30%;
+  height: 2px;
+  background: var(--borderColor);
+}
+
+
+.hours {
+  width: 20%;
+  height: 4px;
+  background: var(--borderColor);
+}

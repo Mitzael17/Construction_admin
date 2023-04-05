@@ -1,13 +1,14 @@
 import React from 'react';
-import SortProjectsProvider from "./SortProjectsProvider";
 import SearchProvider from "../../../../components/Providers/SearchProvider";
 import FiltersProjectsProvider from "./FiltersProjectsProvider";
 import CheckedItemsProvider from "../../../../components/Providers/CheckedItemsProvider";
 import ProjectsListProvider from "./ProjectsListProvider";
+import SortProvider from "../../../../components/Providers/SortProvider";
+import {DefaultSorts} from "../../../../types/contexts/SortContext";
 
 const MainProjectsProvider = ({children}: {children: JSX.Element}) => {
     return (
-        <SortProjectsProvider>
+        <SortProvider defaultValue={DefaultSorts.new}>
             <SearchProvider>
                 <FiltersProjectsProvider>
                     <CheckedItemsProvider>
@@ -17,7 +18,7 @@ const MainProjectsProvider = ({children}: {children: JSX.Element}) => {
                     </CheckedItemsProvider>
                 </FiltersProjectsProvider>
             </SearchProvider>
-        </SortProjectsProvider>
+        </SortProvider>
     );
 };
 

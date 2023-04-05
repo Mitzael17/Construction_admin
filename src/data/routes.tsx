@@ -1,6 +1,7 @@
-import {CLIENTS_ROUTE, MESSAGES_ROUTE, PROJECTS_ROUTE} from "./paths";
+import {CLIENTS_ROUTE, LOGS_ROUTE, MESSAGES_ROUTE, PROJECTS_ROUTE} from "./paths";
 import Project from "../pages/Project/Project";
 import ProjectsPage from "../pages/Projects/ProjectsPage";
+import LogsPage from "../pages/Logs/LogsPage";
 
 export const routes = [
     {
@@ -23,4 +24,9 @@ export const routes = [
         element: <div>Not ready! (clients)</div>,
         name_path: 'clients'
     },
+    {
+        path: LOGS_ROUTE,
+        element: <LogsPage />,
+        name_path: 'logs'
+    }
 ];

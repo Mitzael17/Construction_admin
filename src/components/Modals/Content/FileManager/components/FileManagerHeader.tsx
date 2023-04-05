@@ -6,11 +6,11 @@ import FileManagerAddFolderButton from "./header/FileManagerAddFolderButton";
 import FileManagerDeleteButton from "./header/FileManagerDeleteButton";
 import FileManagerSearch from "./header/FileManagerSearch";
 import FileManagerBreadCrumbs from "./header/FileManagerBreadCrumbs";
-import {useFileManager} from "../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../hooks/contextHooks/useFileManagerContext";
 
 const FileManagerHeader = () => {
 
-    const [{arrDirectories}] = useFileManager();
+    const [{arrDirectories}] = useFileManagerContext();
 
     return (
         <>

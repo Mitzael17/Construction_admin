@@ -9,7 +9,7 @@ export enum Sorts {
     oldest = 'oldest'
 }
 
-export enum EndPoints {
+export const enum EndPoints {
 
     files = '/files',
     clients = '/clients',
@@ -19,7 +19,7 @@ export enum EndPoints {
     login = '/login',
     services = '/services',
     search = '/search',
-
+    logs = '/logs',
 }
 
 interface Response<T> {
@@ -84,13 +84,13 @@ export interface SearchParameters {
 }
 
 
-export interface DefaultGetListParameters<Sort extends string = string> {
+export interface DefaultGetListParameters {
 
     search?: string,
-    sort?: Sort,
+    sort?: string,
     limit?: number,
     page?: number
 
 }
 
-export type ProjectSorts = Sorts.newest|Sorts.oldest;
+//export type ProjectSorts = Sorts.newest|Sorts.oldest;

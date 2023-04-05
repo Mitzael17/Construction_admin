@@ -18,3 +18,20 @@ export function dateToFormat(date: Date, format: FormatDatePattern): string {
     });
 
 }
+
+
+export function getDay(date: Date) {
+
+    let weekDay = date.getDay();
+
+    if(weekDay === 0) return 6;
+
+    return weekDay - 1;
+
+}
+
+export function getLastDay(date: Date) {
+
+    return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+
+}

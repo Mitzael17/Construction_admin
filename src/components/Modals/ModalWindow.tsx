@@ -3,16 +3,16 @@ import classes from "./Modals.module.scss";
 import {ModalProps} from "../../types/components/ModalsComponents";
 import {CSSTransition} from "react-transition-group";
 import {createPortal} from "react-dom";
-import {useModal} from "../../hooks/contextHooks/useModal";
-import {useTheme} from "../../hooks/contextHooks/useTheme";
+import {useModalContext} from "../../hooks/contextHooks/useModalContext";
+import {useThemeContext} from "../../hooks/contextHooks/useThemeContext";
 import {Themes} from "../../types/contexts/Themes";
 
 const ModalWindow = memo(({value, title, setValue, children, zIndex = 100}: ModalProps) => {
 
     const nodeRef = useRef(null);
 
-    const [theme] = useTheme();
-    const [modalData, setModalData] = useModal();
+    const [theme] = useThemeContext();
+    const [modalData, setModalData] = useModalContext();
 
     // The ref is necessary to block an accident click on the back area
     const blockedClick = useRef(false);

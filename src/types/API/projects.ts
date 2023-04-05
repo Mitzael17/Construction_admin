@@ -1,5 +1,4 @@
 import {BaseData, DefaultGetListParameters} from "./index";
-import {SortProjectsValues} from "../../pages/Projects/types";
 
 export enum ProjectStatuses {
 
@@ -10,7 +9,6 @@ export enum ProjectStatuses {
 
 }
 
-export type ProjectStatus = 'in process'|'finished without a project page'|'finished'|'cancelled';
 
 export interface ProjectCreateParameters {
 
@@ -34,7 +32,7 @@ export interface ProjectsListItem extends BaseData {
 export type ProjectsList = ProjectsListItem[];
 
 
-export interface ProjectsListParameters extends DefaultGetListParameters<SortProjectsValues> {
+export interface ProjectsListParameters extends DefaultGetListParameters {
 
     service_id?: number|number[],
     client_id?: number|number[],

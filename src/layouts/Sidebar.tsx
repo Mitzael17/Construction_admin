@@ -1,17 +1,17 @@
 import React from 'react';
-import {useInternalRoutes} from "../hooks/contextHooks/useInternalRoutes";
+import {useInternalRoutesContext} from "../hooks/contextHooks/useInternalRoutesContext";
 import {sidebarData} from "../data/sidebarData";
 import {SidebarLink, SidebarStructure} from "../types/components/LayoutsComponents";
 import {NavLink} from "react-router-dom";
 import Spoiler from "../components/UI/Spoiler/Spoiler";
 import Cube3D from "../components/Visual/Cube3D/Cube3D";
-import {useBurger} from "../hooks/contextHooks/useBurger";
+import {useBurgerContext} from "../hooks/contextHooks/useBurgerContext";
 
 const Sidebar = () => {
 
-    const links = useInternalRoutes().sidebar;
+    const links = useInternalRoutesContext().sidebar;
 
-    const [isOpen, setIsOpen] = useBurger();
+    const [isOpen, setIsOpen] = useBurgerContext();
 
     const structure: SidebarStructure = [];
 

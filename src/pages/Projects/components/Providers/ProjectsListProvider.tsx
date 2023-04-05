@@ -4,18 +4,18 @@ import {ProjectsListParameters} from "../../../../types/API/projects";
 import {$getProjects} from "../../../../api/projectsAPI";
 import {ListItem} from "../../../../types/components/ListsComponents";
 import {PROJECTS_ROUTE} from "../../../../data/paths";
-import {useSortProjects} from "../../hooks/useSortProjects";
-import {useSearch} from "../../../../hooks/contextHooks/useSearch";
-import {useFiltersProjects} from "../../hooks/useFiltersProjects";
+import {useSearchContext} from "../../../../hooks/contextHooks/useSearchContext";
+import {useFiltersProjectsContext} from "../../hooks/useFiltersProjectsContext";
+import {useSortContext} from "../../../../hooks/contextHooks/useSortContext";
 
 const ProjectsListProvider = ({children}: {children: JSX.Element}) => {
 
     const limit = 50;
 
-    const [sort] = useSortProjects();
-    const [search] = useSearch();
+    const [sort] = useSortContext();
+    const [search] = useSearchContext();
 
-    const [{filterStatuses, filterClients, filterServices}] = useFiltersProjects();
+    const [{filterStatuses, filterClients, filterServices}] = useFiltersProjectsContext();
 
     return (
         <ListItemsProvider limitLoadingItems={limit} callback={callbackLoading}>
@@ -45,7 +45,7 @@ const ProjectsListProvider = ({children}: {children: JSX.Element}) => {
                 id: item.id,
                 title: item.name,
                 subtitle: <><div>Client: {item.client}</div><div className='mt-5px mb-10px'>Status: {item.status}</div></>,
-                date: item.creation_date,
+                date: `Date: ${item.creation_date}`,
                 status: item.status,
                 link: PROJECTS_ROUTE + item.id
             }

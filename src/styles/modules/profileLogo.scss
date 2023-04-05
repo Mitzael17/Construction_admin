@@ -6,6 +6,7 @@
   @include imageContainer();
   border-radius: 50%;
   background: var(--mainColor);
+  padding-top: calc(100% - $borderSize * 2);
 
   img {
     object-fit: cover;

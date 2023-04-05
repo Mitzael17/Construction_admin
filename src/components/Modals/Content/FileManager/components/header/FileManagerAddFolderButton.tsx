@@ -3,14 +3,14 @@ import AddFolderIcon from "../../../../../Icons/KalaiIcons/AddFolderIcon";
 import TinyInput from "../../../../../UI/Input/TinyInput";
 import {$checkFileNames, $createFolder} from "../../../../../../api/filesAPI";
 import {Statuses} from "../../../../../../types/API";
-import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../../hooks/contextHooks/useFileManagerContext";
 import CheckIcon from "../../../../../Icons/KalaiIcons/CheckIcon";
 import classes from "../../FileManager.module.scss";
 import Loading from "../../../../../Visual/Loading";
 
 const FileManagerAddFolderButton = () => {
 
-    const [fileManagerData, setFileManagerData] = useFileManager();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
 
     const directory = fileManagerData.arrDirectories.join('/')  + '/';
 

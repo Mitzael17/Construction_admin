@@ -1,11 +1,11 @@
 import React from 'react';
-import {useTheme} from "../../../hooks/contextHooks/useTheme";
+import {useThemeContext} from "../../../hooks/contextHooks/useThemeContext";
 import {Themes} from "../../../types/contexts/Themes";
 import classes from "./ThemeToggle.module.scss";
 
 const ThemeToggle = () => {
 
-    const [theme, setTheme] = useTheme();
+    const [theme, setTheme] = useThemeContext();
 
     const themeClass = theme === Themes.dark ? 'dark' : 'light';
 

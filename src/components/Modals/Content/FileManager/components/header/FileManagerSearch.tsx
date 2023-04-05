@@ -1,11 +1,11 @@
 import React, {FormEvent, useState} from 'react';
-import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../../hooks/contextHooks/useFileManagerContext";
 import TinyInput from "../../../../../UI/Input/TinyInput";
 import SearchIcon from "../../../../../Icons/KalaiIcons/SearchIcon";
 
 const FileManagerSearch = () => {
 
-    const [fileManagerData, setFileManagerData] = useFileManager();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
     const [searchValue, setSearchValue] = useState('');
 
     return (

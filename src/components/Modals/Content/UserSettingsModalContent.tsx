@@ -1,5 +1,5 @@
 import React, {FormEvent, useMemo, useRef, useState} from 'react';
-import {useUser} from "../../../hooks/contextHooks/useUser";
+import {useUserContext} from "../../../hooks/contextHooks/useUserContext";
 import Input from "../../UI/Input/Input";
 import InputPassword from "../../UI/Input/InputPassword";
 import {$checkUserName, $login, $updateUser} from "../../../api/usersAPI";
@@ -8,7 +8,7 @@ import Loading from "../../Visual/Loading";
 import {PostResponse, Statuses} from "../../../types/API";
 import StatusResponse from "../../Visual/StatusResponse";
 import FileManager from "./FileManager/FileManager";
-import {useModal} from "../../../hooks/contextHooks/useModal";
+import {useModalContext} from "../../../hooks/contextHooks/useModalContext";
 import {useFilterDuplicatedData} from "../../../hooks/useFilterDuplicatedData";
 import ProfileLogo from "../../ProfileLogo";
 import Error from "../../Messages/Error";
@@ -20,8 +20,8 @@ import {hasError} from "../../../utils/hasError";
 const UserSettingsModalContent = () => {
 
     // Context data
-    const [userData, setUserData] = useUser();
-    const [modalData, setModalData] = useModal();
+    const [userData, setUserData] = useUserContext();
+    const [modalData, setModalData] = useModalContext();
 
     // Saving an initial title of the modal window
     const title = useRef(modalData['title']);

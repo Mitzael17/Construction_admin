@@ -3,12 +3,12 @@ import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Navbar from "../layouts/Navbar";
 import {routes as allRoutes} from "../data/routes";
 import Sidebar from "../layouts/Sidebar";
-import {useInternalRoutes} from "../hooks/contextHooks/useInternalRoutes";
+import {useInternalRoutesContext} from "../hooks/contextHooks/useInternalRoutesContext";
 import BurgerProvider from "./Providers/BurgerProvider";
 
 const AppRouter = () => {
 
-    const availableRoutes = useInternalRoutes().routes;
+    const availableRoutes = useInternalRoutesContext().routes;
     const routes = allRoutes.filter( route => availableRoutes.indexOf(route.name_path) !== -1);
 
     return (

@@ -1,5 +1,5 @@
 import React, {useEffect, useReducer, useState} from 'react';
-import {useFileManager} from "../../../../../../hooks/contextHooks/useFileManager";
+import {useFileManagerContext} from "../../../../../../hooks/contextHooks/useFileManagerContext";
 import classes from "../../FileManager.module.scss";
 import {FilePreview, FileReducerAction} from "../../../../../../types/components/ModalsComponents";
 import fileImage from "../../../../../../assets/icons/File.svg";
@@ -13,7 +13,7 @@ import {renameFile} from "../../../../../../utils/files";
 
 const FileManagerUpload = () => {
 
-    const [fileManagerData, setFileManagerData] = useFileManager();
+    const [fileManagerData, setFileManagerData] = useFileManagerContext();
 
     if(!fileManagerData.uploadedFiles) throw new Error('Files weren\'t provided');
 
@@ -166,6 +166,7 @@ const FileManagerUpload = () => {
                     <CheckBox
                         placeholder='Auto rename mode'
                         onChange={ event => { setAutoRenameMode(event.target.checked); }}
+                        checked={autoRenameMode}
                     />
                 </div>
                 <div>
