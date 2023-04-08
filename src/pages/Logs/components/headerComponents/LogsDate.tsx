@@ -7,7 +7,6 @@ const LogsDate = memo(() => {
 
     const [showDateModal, setShowDateModal] = useState(false);
 
-
     return (
         <>
             <div
@@ -18,7 +17,7 @@ const LogsDate = memo(() => {
                 <CalendarIcon />
             </div>
             <Modal value={showDateModal} setValue={setShowDateModal} title='Date range'>
-                <DateRangeModalContent />
+                <DateRangeModalContent chooseTime={true} />
             </Modal>
         </>
 

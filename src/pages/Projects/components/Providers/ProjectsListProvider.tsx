@@ -44,7 +44,11 @@ const ProjectsListProvider = ({children}: {children: JSX.Element}) => {
             return {
                 id: item.id,
                 title: item.name,
-                subtitle: <><div>Client: {item.client}</div><div className='mt-5px mb-10px'>Status: {item.status}</div></>,
+                subtitle: <>
+                    <div>Client: {item.client}</div>
+                    <div className='mt-5px'>Service: {item.service}</div>
+                    <div className='mt-5px mb-15px'>Status: {item.status}</div>
+                </>,
                 date: `Date: ${item.creation_date}`,
                 status: item.status,
                 link: PROJECTS_ROUTE + item.id

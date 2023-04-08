@@ -1,4 +1,4 @@
-export interface ObjectAnyStructure<T> {
+export interface ObjectSameTypeValues<T> {
     [name: string]: T[keyof T]
 }
 

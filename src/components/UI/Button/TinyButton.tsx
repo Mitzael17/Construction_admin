@@ -3,7 +3,7 @@ import classes from "./Button.module.scss";
 import {useThemeContext} from "../../../hooks/contextHooks/useThemeContext";
 import {Themes} from "../../../types/contexts/Themes";
 
-const TinyButton = memo(({children, type = 'button', ...props}: ButtonHTMLAttributes<any>) => {
+const TinyButton = memo(({children, type = 'button', ...props}: Omit<ButtonHTMLAttributes<any>, 'className'>) => {
 
     const [theme] = useThemeContext();
 

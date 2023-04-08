@@ -1,32 +1,32 @@
-import React, {memo, useRef, useState} from 'react';
+import React, {memo} from 'react';
 import {SelectProps} from "../../../types/components/UIComponents";
 import classes from "./Select.module.scss";
 import ChevronDownIcon from "../../Icons/KalaiIcons/ChevronDownIcon";
+import {useHeightTransition} from "../../../hooks/useHeightTransition";
 
 const Select = memo(({items, setValue, value}: SelectProps) => {
 
-    const [isShow, setIsShow] = useState(false);
-    const listRef = useRef({} as HTMLDivElement);
+    const [isOpen, setIsOpen, listRef] = useHeightTransition();
 
     if(value) {
         items = items.filter( item => item.id !== value.id);
     }
 
     return (
-        <div className={`${classes.container} ${isShow ?  classes.active: ''}`}>
+        <div className={`${classes.container} ${isOpen ?  classes.active: ''}`}>
             <div
-                onClick={handleClick}
+                onClick={() => setIsOpen(!isOpen)}
                 className={classes.title}
             >
                 {value.name} <ChevronDownIcon />
             </div>
-            <div onTransitionEnd={handleTransitionEnd} ref={listRef} className={classes.wrapper}>
+            <div ref={listRef}>
                 <ul className={classes.list}>
                     {items.map( item => (
-                        <li onClick={(event) => {
+                        <li onClick={ () => {
 
                             setValue(item);
-                            handleClick(event);
+                            setIsOpen(!isOpen);
 
                         }} className={classes.item} key={item.id}>
                             {item.name}
@@ -37,33 +37,6 @@ const Select = memo(({items, setValue, value}: SelectProps) => {
         </div>
     );
 
-    function handleClick(event: React.MouseEvent<HTMLDivElement|HTMLLIElement>) {
-
-        if(isShow) {
-
-            setIsShow(false);
-            listRef.current.style.height = listRef.current.offsetHeight + 'px';
-
-            setTimeout(() => {
-                listRef.current.style.height = '0px';
-            }, 20);
-
-        }
-        else {
-
-            setIsShow(true);
-            listRef.current.style.height = listRef.current.scrollHeight + 'px';
-
-        }
-
-    }
-    function handleTransitionEnd(event: React.TransitionEvent<HTMLDivElement>) {
-
-        if(!isShow || event.propertyName !== 'height') return;
-
-        listRef.current.style.height = 'auto';
-
-    }
 
 });
 

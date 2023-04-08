@@ -1,13 +1,8 @@
-import {StateProps} from "./index";
-import {
-    ChangeEventHandler,
-    Dispatch,
-    MouseEventHandler,
-    SetStateAction
-} from "react";
+import {StateCallbackProps} from "./index";
+import {ChangeEventHandler, Dispatch, MouseEventHandler, SetStateAction} from "react";
 import {BaseData} from "../API";
 
-export interface InputProps extends StateProps<string>  {
+export interface InputProps extends StateCallbackProps<string>  {
 
     placeholder: string,
     type?: 'password' | 'text',
@@ -30,7 +25,7 @@ export interface CheckBoxProps {
 }
 
 
-export interface SelectProps extends StateProps<BaseData> {
+export interface SelectProps extends StateCallbackProps<BaseData> {
     items: BaseData[]
 }
 
@@ -56,5 +51,9 @@ export interface CalendarProps {
 
 }
 
+export const enum DefaultDates {
+    from = '1900-01-01 00:00:00',
+    to = '3000-01-01 00:00:00'
+}
 
-export type TimeBlockProps = Pick<CalendarProps, 'date'|'setDate'>;
+

@@ -1,13 +1,13 @@
 import {Dispatch, SetStateAction, useEffect, useState} from "react";
 import {isEqual} from "../utils/isEqual";
-import {ObjectAnyStructure} from "../types";
+import {ObjectSameTypeValues} from "../types";
 
-export const useFilterDuplicatedData = <T>(initialData: T, newData: T): [ObjectAnyStructure<T>, Dispatch<SetStateAction<T>>] => {
+export const useFilterDuplicatedData = <T>(initialData: T, newData: T): [ObjectSameTypeValues<T>, Dispatch<SetStateAction<T>>] => {
 
-    const [data, setData] = useState<ObjectAnyStructure<T>>({});
+    const [data, setData] = useState<ObjectSameTypeValues<T>>({});
     const [initialDataState, setInitialDataState]= useState(initialData);
 
-    let buffer: ObjectAnyStructure<T> = {};
+    let buffer: ObjectSameTypeValues<T> = {};
 
     useEffect( () => {
 

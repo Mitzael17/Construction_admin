@@ -3,7 +3,7 @@ import {useDateContext} from "../../../hooks/contextHooks/useDateContext";
 import {dateToFormat} from "../../../utils/date";
 import Calendar from "../../UI/Calendar/Calendar";
 
-const DateRangeModalContent = memo(() => {
+const DateRangeModalContent = memo(({chooseTime = false}: {chooseTime?: boolean}) => {
 
     const [{dateTo, dateFrom}, {setDateTo, setDateFrom}] = useDateContext();
 
@@ -14,8 +14,8 @@ const DateRangeModalContent = memo(() => {
                 <div>To: {dateToFormat(dateTo, 'Y-m-d h:i:s')}</div>
             </div>
             <div className='flex gap-15px flex-j-c flex-wrap'>
-                <Calendar date={dateFrom} chooseTime={true} setDate={setDateFrom} />
-                <Calendar date={dateTo} chooseTime={true} setDate={setDateTo} />
+                <Calendar date={dateFrom} chooseTime={chooseTime} setDate={setDateFrom} />
+                <Calendar date={dateTo} chooseTime={chooseTime} setDate={setDateTo} />
             </div>
         </>
     );

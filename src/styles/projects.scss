@@ -2,11 +2,11 @@
 @import "assets/mixins.scss";
 
 
-.mainHeader {
+.mainProjectsHeader {
 
   &__search {
     width: 350px;
-    @media screen and (max-width: $mainHeaderResponse) {
+    @media screen and (max-width: $mainProjectHeaderResponse) {
       width: 244px;
     }
   }

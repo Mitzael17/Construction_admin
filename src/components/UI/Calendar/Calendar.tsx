@@ -3,7 +3,7 @@ import classes from "./Calendar.module.scss";
 import {CalendarProps} from "../../../types/components/UIComponents";
 import {useGeneratorId} from "../../../hooks/useGeneratorId";
 import TinyButton from "../Button/TinyButton";
-import TimeBlock from "../TimeBlock/TimeBlock";
+import TimeBlock from "../../Blocks/TimeBlock/TimeBlock";
 import {dateToFormat, getDay, getLastDay} from "../../../utils/date";
 
 const Calendar = memo(({date, setDate, initialDate = new Date(), chooseTime = false}: CalendarProps) => {

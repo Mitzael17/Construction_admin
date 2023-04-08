@@ -132,7 +132,11 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
         const newProject: ListItem = {
             id: 0,
             title: name,
-            subtitle:  <><div>Client: {chosenClient.name}</div><div className='mt-5px mb-10px'>Status: {ProjectStatuses.inProcess}</div></>,
+            subtitle:  <>
+                <div>Client: {chosenClient.name}</div>
+                <div className='mt-5px'>Service: {chosenService.name}</div>
+                <div className='mt-5px mb-15px'>Status: {ProjectStatuses.inProcess}</div>
+            </>,
             date: `Date: ${dateToFormat(date, 'Y-m-d')}`,
             status: ProjectStatuses.inProcess
         };

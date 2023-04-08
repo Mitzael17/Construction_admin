@@ -1,6 +1,14 @@
+import {dateToFormat} from "./date";
+
 export function isEqual(firstValue: any, secondValue: any): boolean {
 
     if(typeof firstValue !== 'object') return firstValue === secondValue;
+
+    if(firstValue instanceof Date && secondValue instanceof Date) {
+
+        return dateToFormat(firstValue, 'Y-m-d h:i:s') === dateToFormat(secondValue, 'Y-m-d h:i:s');
+
+    }
 
     if(Object.keys(firstValue).length !== Object.keys(secondValue).length) return false;
 

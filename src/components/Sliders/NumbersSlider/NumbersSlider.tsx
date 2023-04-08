@@ -8,8 +8,7 @@ import 'swiper/css';
 SwiperCore.use([Mousewheel]);
 
 
-const NumbersSlider = memo(({quantity, initialSlide, onChange = undefined}: NumbersSliderProps) => {
-
+const NumbersSlider = memo(({quantity, initialSlide = 0, onChange = undefined}: NumbersSliderProps) => {
 
     return (
         <Swiper
@@ -22,17 +21,26 @@ const NumbersSlider = memo(({quantity, initialSlide, onChange = undefined}: Numb
             initialSlide={initialSlide}
             grabCursor={true}
             speed={500}
-            onRealIndexChange={onChange}
         >
             {
                 getNumbers(quantity).map( number => (
-                    <SwiperSlide key={number}>
+                    <SwiperSlide onTransitionEnd={event => {
+
+                        if(
+                            onChange === undefined ||
+                            !(event.currentTarget as HTMLDivElement).classList.contains('swiper-slide-active')
+                        ) return;
+
+                        onChange(+number);
+
+                    }} key={number}>
                         <div>{number}</div>
                     </SwiperSlide>
                 ))
             }
         </Swiper>
     );
+
 });
 
 export default NumbersSlider;

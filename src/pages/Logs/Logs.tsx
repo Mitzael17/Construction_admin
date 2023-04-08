@@ -1,43 +1,38 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import LogsHeader from "./layouts/LogsHeader";
 import LogsContent from "./layouts/LogsContent";
 import {useListItemsContext} from "../../hooks/contextHooks/useListItemsContext";
-import {useSearchContext} from "../../hooks/contextHooks/useSearchContext";
 import {useDateContext} from "../../hooks/contextHooks/useDateContext";
 import {dateToFormat} from "../../utils/date";
 import {useSortContext} from "../../hooks/contextHooks/useSortContext";
+import FiltersBlock from "../../components/Blocks/FiltersBlock/FiltersBlock";
+import {FiltersBlockItem} from "../../types/components/Blocks";
+import {DefaultDates} from "../../types/components/UIComponents";
+
 
 const Logs = () => {
 
-    const [search] = useSearchContext();
-
     const [, {resetItems: resetLogs}] = useListItemsContext();
-    const prevSearch = useRef(search);
-
-    const [{dateTo, dateFrom}] = useDateContext();
+    const [sort] = useSortContext();
+    const [{dateTo, dateFrom}, {setDateTo, setDateFrom}] = useDateContext();
 
     const dateToInFormat = dateToFormat(dateTo, 'Y-m-d h:i:s');
     const dateFromInFormat = dateToFormat(dateFrom, 'Y-m-d h:i:s');
 
-    const [sort] = useSortContext();
-
-    useEffect( () => {
-
-        if(search === prevSearch.current) return;
-
-        const timer = setTimeout( () => {
-
-            prevSearch.current = search;
-
-            resetLogs();
-
-        }, 500);
-
-        return () => {
-            clearTimeout(timer);
-        };
-
-    }, [search])
+    const filtersBlockData: FiltersBlockItem[] = useMemo( () => [
+        {
+            displayedValue: `Date from: ${dateFromInFormat}`,
+            setValue: setDateFrom,
+            valueToSet: new Date(DefaultDates.from),
+            value: dateFrom
+        },
+        {
+            displayedValue: `Date to: ${dateToInFormat}`,
+            setValue: setDateTo,
+            valueToSet: new Date(DefaultDates.to),
+            value: dateTo,
+        }
+    ], [dateFromInFormat, dateToInFormat]);
 
     useEffect( () => {
 
@@ -45,9 +40,11 @@ const Logs = () => {
 
     }, [dateToInFormat, dateFromInFormat, sort]);
 
+
     return (
         <div className='main'>
             <LogsHeader />
+            <FiltersBlock values={filtersBlockData} />
             <LogsContent />
         </div>
     );

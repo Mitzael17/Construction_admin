@@ -1,9 +1,9 @@
 import React, {createRef, memo} from 'react';
 import {BaseData} from "../../../types/API";
-import {StateProps} from "../../../types/components";
+import {StateCallbackProps} from "../../../types/components";
 import {CSSTransition, TransitionGroup} from "react-transition-group";
 
-const ChosenValuesList = memo(({value, setValue}: StateProps<BaseData[]>) => {
+const ChosenValuesList = memo(({value, setValue}: StateCallbackProps<BaseData[]>) => {
 
     // NodeRef for CSSTransition
     const items = value.map(item => ( {...item, nodeRef: createRef<HTMLLIElement>()} ));

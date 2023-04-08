@@ -1,43 +1,36 @@
 import React, {useCallback, useRef} from 'react';
-import SwiperCore from "swiper";
-import {TimeBlockProps} from "../../../types/components/UIComponents";
 import Clock from "../../Visual/Clock/Clock";
 import NumbersSlider from "../../Sliders/NumbersSlider/NumbersSlider";
 import classes from "./TimeBlock.module.scss";
+import {TimeBlockProps} from "../../../types/components/Blocks";
 
 const TimeBlock = ({date = new Date(), setDate}: TimeBlockProps) => {
 
-    const changeHours = useCallback( (swiper: SwiperCore) => {
+    const changeHours = useCallback( (index: number) => {
 
         setDate(prevDate => {
 
-            if(swiper.realIndex === undefined) return prevDate;
-
-            return new Date(prevDate.getFullYear(), prevDate.getMonth(), prevDate.getDate(), swiper.realIndex, prevDate.getMinutes(), prevDate.getSeconds());
+            return new Date(prevDate.getFullYear(), prevDate.getMonth(), prevDate.getDate(), index, prevDate.getMinutes(), prevDate.getSeconds());
 
         });
 
     }, []);
 
-    const changeMinutes = useCallback( (swiper: SwiperCore) => {
+    const changeMinutes = useCallback( (index: number) => {
 
         setDate(prevDate => {
 
-            if(swiper.realIndex === undefined) return prevDate;
-
-            return new Date(prevDate.getFullYear(), prevDate.getMonth(), prevDate.getDate(), prevDate.getHours(), swiper.realIndex, prevDate.getSeconds());
+            return new Date(prevDate.getFullYear(), prevDate.getMonth(), prevDate.getDate(), prevDate.getHours(), index, prevDate.getSeconds());
 
         });
 
     }, []);
 
-    const changeSeconds = useCallback( (swiper: SwiperCore) => {
+    const changeSeconds = useCallback( (index: number) => {
 
         setDate(prevDate => {
 
-            if(swiper.realIndex === undefined) return prevDate;
-
-            return new Date(prevDate.getFullYear(), prevDate.getMonth(), prevDate.getDate(), prevDate.getHours(), prevDate.getMinutes(), swiper.realIndex);
+            return new Date(prevDate.getFullYear(), prevDate.getMonth(), prevDate.getDate(), prevDate.getHours(), prevDate.getMinutes(), index);
 
         });
 

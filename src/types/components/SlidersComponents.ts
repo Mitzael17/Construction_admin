@@ -1,9 +1,8 @@
-import {SwiperProps} from "swiper/react";
 
 export interface NumbersSliderProps {
     quantity: number,
     initialSlide?: number,
-    onChange?: SwiperProps['onRealIndexChange']
+    onChange?: (index: number) => void
 }
 
 export interface NumbersSlideProps {

@@ -1,4 +1,4 @@
-import {Dispatch, SetStateAction} from "react";
+import React, {Dispatch, SetStateAction} from "react";
 import {BaseData} from "../API";
 
 
@@ -29,9 +29,7 @@ export interface ValidationErrors {
 
 export type UseForeignKeysListReturnValue = [string, Dispatch<SetStateAction<string>>, BaseData[], boolean];
 
-export interface UseSortList {
+export type UseHeightTransitionValue = [boolean, Dispatch<SetStateAction<boolean>>, React.MutableRefObject<HTMLDivElement|null>]
 
-    items: string[]
 
-}
 

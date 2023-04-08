@@ -1,10 +1,10 @@
-import {StateProps} from "./index";
+import {StateCallbackProps} from "./index";
 import {Dispatch, SetStateAction} from "react";
 import {FilesResponse} from "../API/files";
 import {BaseData} from "../API";
 
 
-export interface ModalProps extends StateProps<boolean> {
+export interface ModalProps extends StateCallbackProps<boolean> {
 
     children: JSX.Element | string,
     title: string,
