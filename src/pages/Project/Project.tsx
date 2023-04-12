@@ -1,14 +1,15 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
+import ProjectContent from "./layouts/ProjectContent";
+import ProjectComments from "./layouts/ProjectComments";
 
 const Project = () => {
 
-    const {id} = useParams();
-    
-
     return (
         <div className='main'>
-            hello from project page! Id - {id}
+            <div className="flex gap-30px flex-wrap">
+                <ProjectContent />
+                <ProjectComments />
+            </div>
         </div>
     );
 };

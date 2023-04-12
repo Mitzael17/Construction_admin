@@ -1,12 +1,9 @@
+import {Tables} from "../components/UIComponents";
+
 export enum Statuses {
     success = 'success',
     warning = 'warning',
     error = 'error'
-}
-
-export enum Sorts {
-    newest = 'newest',
-    oldest = 'oldest'
 }
 
 export const enum EndPoints {
@@ -20,6 +17,9 @@ export const enum EndPoints {
     services = '/services',
     search = '/search',
     logs = '/logs',
+    project = '/projects/',
+    client = '/clients/',
+    service = '/service/'
 }
 
 interface Response<T> {
@@ -75,9 +75,11 @@ export interface GetRequestDefaultParameters {
 
 }
 
+
+
 export interface SearchParameters {
 
-    table: string,
+    table: Tables,
     limit?: number,
     field?: string
 

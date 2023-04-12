@@ -43,4 +43,10 @@
   --calendarNarrowBackground: #1fc1ff;
   --calendarNarrowHoverBackground: #fff;
 
+  --cubeAndLineColor: #1fc1ff;
+
+  &.has-errors {
+    --cubeAndLineColor: #ff0000;
+  }
+
 }

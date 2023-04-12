@@ -15,7 +15,7 @@ import Error from "../../Messages/Error";
 import {useValidation} from "../../../hooks/useValidation";
 import {UseValidation} from "../../../types/hooks";
 import {useStateCallback} from "../../../hooks/useStateCallback";
-import {hasError} from "../../../utils/hasError";
+import {getError} from "../../../utils/getError";
 
 const UserSettingsModalContent = () => {
 
@@ -87,8 +87,8 @@ const UserSettingsModalContent = () => {
     const [errors, isLoadingValidation] = useValidation(validationOptions);
 
     // checking for errors
-    const nameError = hasError(errors, 'name');
-    const passwordError = hasError(errors, 'password');
+    const nameError = getError(errors, 'name');
+    const passwordError = getError(errors, 'password');
 
     const isAvailableToSubmit = Object.keys(newUserData).length > 0 && !errors.length && !isLoadingValidation;
 

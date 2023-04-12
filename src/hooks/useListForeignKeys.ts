@@ -3,9 +3,9 @@ import {BaseData, SearchParameters} from "../types/API";
 import {$search} from "../api";
 import {UseForeignKeysListReturnValue} from "../types/hooks";
 
-export const useListForeignKeys = (parameters: SearchParameters): UseForeignKeysListReturnValue => {
+export const useListForeignKeys = (parameters: SearchParameters, initialSearchValue = ''): UseForeignKeysListReturnValue => {
 
-    const [searchValue, setSearchValue] = useState('');
+    const [searchValue, setSearchValue] = useState(initialSearchValue);
     const [values, setValues] = useState<BaseData[]>([]);
     const [isLoading, setIsLoading] = useState(false);
 

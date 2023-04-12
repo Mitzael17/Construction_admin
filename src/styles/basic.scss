@@ -7,6 +7,15 @@
   .w-#{$index * 5} {
     width: $index * 5%;
   }
+
+  .h-#{$index * 5} {
+    width: $index * 5%;
+  }
+
+  .flex-size-#{$index * 5} {
+    flex-basis: $index * 5%;
+  }
+
 }
 
 .h-100 {
@@ -21,10 +30,17 @@
   height: 25px;
 }
 
-@for $index from 1 through 10 {
+@for $index from 1 through 20 {
 
   .w-#{$index * 50}px {
     width: $index * 50 + px;
+
+    &.media {
+      @media screen and (max-width: $index * 50px + 50px) {
+        width: 100%;
+      }
+    }
+
   }
 
   .h-#{$index * 50}px {
@@ -41,10 +57,28 @@
 
   .min-w-#{$index * 50}px {
     min-width: $index * 50 + px;
+
+    &.media {
+      @media screen and (max-width: $index * 50px + 50px) {
+        min-width: 100%;
+      }
+    }
+
   }
 
   .min-h-#{$index * 50}px {
     min-height: $index * 50 + px;
+  }
+
+  .flex-size-#{$index * 50}px {
+    flex-basis: $index * 50 + px;
+
+    &.media {
+      @media screen and (max-width: $index * 50px + 50px) {
+        flex-basis: 100%;
+      }
+    }
+
   }
 
 }
@@ -134,13 +168,48 @@
   justify-content: space-between;
 }
 
+.flex-j-fe {
+  justify-content: flex-end;
+}
+
+.flex-j-fs {
+  justify-content: flex-start;
+}
+
 .flex-a-c {
   align-items: center;
+}
+
+.flex-a-fe {
+  align-items: flex-end;
+}
+
+.flex-a-fs {
+  align-items: flex-start;
 }
 
 .flex-wrap {
   flex-wrap: wrap;
 }
+
+.flex-column {
+  flex-direction: column;
+}
+
+@for $index from 0 to 2 {
+
+  .flex-grow-#{$index} {
+    flex-grow: $index;
+  }
+
+  .flex-shrink-#{$index} {
+    flex-shrink: $index;
+  }
+
+}
+
+
+
 
 // position styles
 
@@ -199,4 +268,17 @@ $statuses: (success: $successColor, warning: $warningColor, error: $errorColor);
 
 .text-right {
   text-align: right;
+}
+
+.nowrap {
+  white-space: nowrap;
+}
+
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.overflow-hidden {
+  overflow: hidden;
 }

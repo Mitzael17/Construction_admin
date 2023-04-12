@@ -9,6 +9,7 @@ import BurgerProvider from "./Providers/BurgerProvider";
 const AppRouter = () => {
 
     const availableRoutes = useInternalRoutesContext().routes;
+
     const routes = allRoutes.filter( route => availableRoutes.indexOf(route.name_path) !== -1);
 
     return (

@@ -3,6 +3,7 @@ import {FilterProjectProps} from "../../../../../types/components/ModalsComponen
 import SearchBox from "../../../../../components/UI/SearchBox/SearchBox";
 import ChosenValuesList from "../../../../../components/Lists/ChosenValuesList/ChosenValuesList";
 import classes from "./FilterProjectModalContent.module.scss";
+import {Tables} from "../../../../../types/components/UIComponents";
 
 const FilterProjectModalContent = ({clients, statuses, setStatus, setClient, service, setService}: FilterProjectProps) => {
 
@@ -14,7 +15,7 @@ const FilterProjectModalContent = ({clients, statuses, setStatus, setClient, ser
                         placeholder='Search client...'
                         setChosenValue={setClient}
                         chosenValue={clients}
-                        table='clients'
+                        table={Tables.clients}
                     />
                     <div className='mt-15px mb-15px'>
                         <ChosenValuesList value={clients} setValue={setClient} />
@@ -25,7 +26,7 @@ const FilterProjectModalContent = ({clients, statuses, setStatus, setClient, ser
                         placeholder='Search status...'
                         setChosenValue={setStatus}
                         chosenValue={statuses}
-                        table='project_status'
+                        table={Tables.project_statuses}
                     />
                     <div className='mt-15px mb-15px'>
                         <ChosenValuesList value={statuses} setValue={setStatus} />
@@ -36,7 +37,7 @@ const FilterProjectModalContent = ({clients, statuses, setStatus, setClient, ser
                         placeholder='Search service...'
                         setChosenValue={setService}
                         chosenValue={service}
-                        table='services'
+                        table={Tables.services}
                     />
                     <div className='mt-15px mb-15px'>
                         <ChosenValuesList value={service} setValue={setService} />

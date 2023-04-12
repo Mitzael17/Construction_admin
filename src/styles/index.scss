@@ -1,7 +1,10 @@
 @import "assets/reset.scss";
 @import "assets/fonts.scss";
+
 @import "assets/vars.scss";
 @import "assets/mixins.scss";
+@import "assets/functions.scss";
+
 @import "basic.scss";
 
 @import "themes/dark.scss";
@@ -20,6 +23,7 @@
 
 @import "login.scss";
 @import "projects.scss";
+@import "project.scss";
 
 
 .container {
@@ -73,6 +77,17 @@ h1 {
 }
 
 
+.label {
+  font-size: 1em;
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+
+.border {
+  border: $borderSize solid var(--borderColor);
+}
+
 h2 {
   font-size: 2em;
   letter-spacing: 0.01em;
@@ -107,10 +122,11 @@ h2 {
   &:before {
     content: '';
     @include absolutePosition(0, 100%, 0, -100%);
-    box-shadow: 0 0 10px 1px var(--secondMainColor);
+    box-shadow: 0 0 10px 1px var(--cubeAndLineColor);
     width: 100%;
     height: 1px;
-    background: var(--secondMainColor);;
+    background: var(--cubeAndLineColor);
+    transition: .5s all;
   }
 
   &__icon {
@@ -144,13 +160,13 @@ h2 {
   background: var(--textColor);
   min-height: 100%;
   background: var(--mainColor);
-  padding: 10px 20px;
+  padding: 30px 20px;
 
   &__header {
     color: var(--textColor);
     display: flex;
     align-items: center;
-    margin: 20px 0;
+    margin: 0 0 20px;
     gap: 15px;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -286,10 +302,11 @@ h2 {
     &:after {
       content: '';
       @include absolutePosition(100%, 0, -200%);
-      box-shadow: 0 0 10px 1px var(--secondMainColor);
+      box-shadow: 0 0 10px 1px var(--cubeAndLineColor);
       width: 1px;
       height: 100%;
-      background: var(--secondMainColor);
+      transition: .5s all;
+      background: var(--cubeAndLineColor);
 
       @media screen and (max-width: $sidebarResponse) {
         left: 2px;

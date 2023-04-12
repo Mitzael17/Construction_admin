@@ -25,28 +25,27 @@ const UserAndRoutesProvider = ({children}: {children: any}) => {
 
     useEffect(() => {
 
-        const setContextUserData = async () => {
+        const getContextUserData = async () => {
 
             const id = dataToken.data.id;
 
             const data = await $getUser(id);
 
-            if(Object.keys(data).length > 0) {
+            if(Object.keys(data).length === 0) throw new Error('Access denied');
 
-                if(!data.image) data.image = defaultImageProfile;
+            if(!data.image) data.image = defaultImageProfile;
 
-                if(!data.password) {
-                    deleteCookie('token');
-                    throw new Error('Access denied');
-                }
-
-                setUserData(data);
-
+            if(!data.password) {
+                deleteCookie('token');
+                throw new Error('Access denied');
             }
+
+            return data;
+
 
         }
 
-        const setContextRouteData = async () => {
+        const getContextRouteData = async () => {
 
             const data = await $getRoutesAndSidebar();
 
@@ -55,11 +54,17 @@ const UserAndRoutesProvider = ({children}: {children: any}) => {
                 throw new Error('Internal error');
             }
 
-            setRouteData(data);
+            return data;
 
         }
 
-        Promise.all([setContextUserData(), setContextRouteData()]);
+        Promise.all([getContextUserData(), getContextRouteData()])
+            .then( ([uData, rData]) => {
+
+                setUserData(uData);
+                setRouteData(rData);
+
+            } );
 
     }, [])
 

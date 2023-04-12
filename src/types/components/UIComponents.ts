@@ -26,18 +26,28 @@ export interface CheckBoxProps {
 
 
 export interface SelectProps extends StateCallbackProps<BaseData> {
-    items: BaseData[]
+    items: BaseData[],
+    isLoading?: boolean,
+    label?: string
 }
 
 export interface SearchBoxInterface<T extends BaseData|BaseData[]> {
 
     placeholder: string,
     chosenValue: T,
-    setChosenValue: Dispatch<SetStateAction<T>>,
-    table: string
+    setChosenValue: Dispatch<SetStateAction<T>> | ((value: T) => void),
+    table: Tables,
+    initialSearchValue?: string
 
 }
 
+
+export const enum Tables {
+    clients = 'clients',
+    services = 'services',
+    project_statuses = 'project_status',
+    admins = 'admins'
+}
 
 export type SearchBoxProps = SearchBoxInterface<BaseData> | SearchBoxInterface<BaseData[]>;
 

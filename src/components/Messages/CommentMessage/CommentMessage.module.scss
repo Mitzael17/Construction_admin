@@ -1,0 +1,25 @@
+@import "./src/styles/assets/vars";
+@import "./src/styles/assets/mixins";
+
+.message {
+
+  width: 100%;
+  background: var(--mainColor);
+  border: $borderSize solid var(--borderColor);
+  margin-top: 20px;
+  padding: 20px;
+  font-size: 1.2em;
+  line-height: 1.5;
+  border-radius: 5px;
+  position: relative;
+
+}
+
+
+.image {
+
+  width: 40px;
+  height: 40px;
+  @include absolutePosition(100%, 0, -80%, -50%)
+
+}

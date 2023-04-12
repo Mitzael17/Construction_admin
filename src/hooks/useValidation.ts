@@ -22,7 +22,7 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
 
             copyData.current.forEach( (obj, index) => {
 
-                if(!isEqual(obj.value, data[index].value)) {
+                if(!isEqual(obj.value, data[index].value) || errors.find( error => error.name === obj.name) !== undefined) {
                     obj.value = data[index].value;
                     arrToCheck.push(obj);
                 }
@@ -119,6 +119,16 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
 
             copyData.current = [...data];
 
+            if(newErrors.length > 0) {
+
+                document.documentElement.classList.add('has-errors');
+
+            } else {
+
+                document.documentElement.classList.remove('has-errors');
+
+            }
+
             setErrors(newErrors);
 
             setIsLoading(false);
@@ -131,6 +141,14 @@ export const useValidation = (data: UseValidation[]): [errors: ValidationErrors[
         }
 
     }, [data]);
+
+    useEffect( () => {
+
+        return () => {
+            document.documentElement.classList.remove('has-errors');
+        }
+
+    }, []);
 
     return [errors, isLoading];
 

@@ -12,13 +12,14 @@ const SearchBox = memo((
         placeholder,
         chosenValue,
         table,
+        initialSearchValue = ''
     }: SearchBoxProps) => {
 
     const inputRef = useRef<HTMLInputElement>(null);
 
     const chosenId = Array.isArray(chosenValue) ? chosenValue.map( item => item.id) : [chosenValue.id];
 
-    const [searchValue, setSearchValue, items, isLoading] = useListForeignKeys({table});
+    const [searchValue, setSearchValue, items, isLoading] = useListForeignKeys({table, limit: 5}, initialSearchValue);
 
     useEffect( () => {
 

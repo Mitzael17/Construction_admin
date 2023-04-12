@@ -9,11 +9,12 @@ import {$createProject} from "../../../../../api/projectsAPI";
 import {ProjectCreateParameters, ProjectStatuses} from "../../../../../types/API/projects";
 import {useValidation} from "../../../../../hooks/useValidation";
 import Error from "../../../../../components/Messages/Error";
-import {hasError} from "../../../../../utils/hasError";
+import {getError} from "../../../../../utils/getError";
 import {useModalContext} from "../../../../../hooks/contextHooks/useModalContext";
 import {ListItem} from "../../../../../types/components/ListsComponents";
 import {dateToFormat} from "../../../../../utils/date";
 import classes from "./CreateNewProjectModalContent.module.scss";
+import {Tables} from "../../../../../types/components/UIComponents";
 
 const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListItem) => void}) => {
 
@@ -62,9 +63,9 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
     const [errors, isLoadingValidation] = useValidation(validationOptions);
 
     // Check errors
-    const nameError = hasError(errors, 'name');
-    const clientError = hasError(errors, 'client_id');
-    const serviceError = hasError(errors, 'service_id');
+    const nameError = getError(errors, 'name');
+    const clientError = getError(errors, 'client_id');
+    const serviceError = getError(errors, 'service_id');
 
     const isNotAvailableToSubmit = errors.length > 0 || isLoading || isLoadingValidation || hasEmptyField();
 
@@ -93,7 +94,7 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
                         setChosenValue={setChosenClient}
                         chosenValue={chosenClient}
                         placeholder='Search client...'
-                        table='clients'
+                        table={Tables.clients}
                     />
                     <Error value={!!clientError}>{clientError ? clientError.message : ''}</Error>
                 </div>
@@ -102,7 +103,7 @@ const CreateNewProjectModalContent = ({addProject}: {addProject: (project: ListI
                         setChosenValue={setChosenService}
                         placeholder='Search service...'
                         chosenValue={chosenService}
-                        table='services'
+                        table={Tables.services}
                     />
                     <Error value={!!serviceError}>{serviceError ? serviceError.message : ''}</Error>
                 </div>

@@ -38,5 +38,36 @@ export interface ProjectsListParameters extends DefaultGetListParameters {
     client_id?: number|number[],
     status_id?: number|number[],
 
+}
+
+
+export interface Project extends BaseData {
+
+    creation_date: string,
+    end_date: string|null
+    client: BaseData
+    service: BaseData,
+    alias: string|null,
+    status: BaseData
+
+}
+
+export interface ProjectUpdateData extends Partial<Pick<Project, 'name'|'end_date'>> {
+
+    service_id?: number,
+    client_id?: number,
+    project_status_id?: number,
+    new_comments?: Pick<ProjectComment, 'text'>[]
+
+}
+
+
+export interface ProjectComment extends Pick<BaseData, 'id'> {
+
+    text: string,
+    date: string,
+    admin_id: number,
+    admin_name: string,
+    admin_image: string,
 
 }

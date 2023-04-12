@@ -1,0 +1,17 @@
+@import "./src/styles/assets/vars";
+@import "./src/styles/assets/mixins";
+
+.area {
+  @include scrollBar;
+  max-height: 150px;
+  width: 100%;
+  padding: 12px 20px;
+  border-radius: 5px;
+  overflow: auto;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  box-sizing: border-box;
+  border: $borderSize solid var(--borderColor);
+  outline: none;
+  word-break: break-word;
+}

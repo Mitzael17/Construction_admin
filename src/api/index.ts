@@ -20,6 +20,12 @@ const authInterceptor = (config: InternalAxiosRequestConfig) => {
     //config.withCredentials = false;
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
+    config.validateStatus = (status: number) => {
+
+        return (status >= 200 && status < 300) || status == 404;
+
+    }
+
     return config;
 
 }

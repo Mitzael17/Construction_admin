@@ -1,7 +1,7 @@
 import {CLIENTS_ROUTE, LOGS_ROUTE, MESSAGES_ROUTE, PROJECTS_ROUTE} from "./paths";
-import Project from "../pages/Project/Project";
 import ProjectsPage from "../pages/Projects/ProjectsPage";
 import LogsPage from "../pages/Logs/LogsPage";
+import ProjectPage from "../pages/Project/ProjectPage";
 
 export const routes = [
     {
@@ -11,7 +11,7 @@ export const routes = [
     },
     {
         path: PROJECTS_ROUTE + ':id',
-        element: <Project />,
+        element: <ProjectPage />,
         name_path: 'projects_edit',
     },
     {

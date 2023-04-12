@@ -2,7 +2,7 @@ import {dateToFormat} from "./date";
 
 export function isEqual(firstValue: any, secondValue: any): boolean {
 
-    if(typeof firstValue !== 'object') return firstValue === secondValue;
+    if(firstValue === null || secondValue === null || typeof firstValue !== 'object') return firstValue === secondValue;
 
     if(firstValue instanceof Date && secondValue instanceof Date) {
 

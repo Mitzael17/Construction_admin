@@ -40,6 +40,13 @@
 
   --calendarNarrowBackground: #ff8800;
   --calendarNarrowHoverBackground: #ff0090;
+
+  --cubeAndLineColor: #ff8800;
+
+  &.has-errors {
+    --cubeAndLineColor: #ff0000;
+  }
+
 }
 
 //#ff0090;
