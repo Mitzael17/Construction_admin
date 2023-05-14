@@ -41,7 +41,7 @@ export const $updateProject = async (id: number, data: ProjectUpdateData): Promi
 }
 
 
-export const $getComments = async (project_id: number, parameters: Pick<DefaultGetListParameters, 'page'|'limit'>): Promise<ProjectComment[]> => {
+export const $getComments = async (project_id: number, parameters: Pick<DefaultGetListParameters, 'page'|'limit'>&{skipComments: number}): Promise<ProjectComment[]> => {
 
     return await $baseGetRequest(EndPoints.project + project_id, {...parameters, comments: true});
 

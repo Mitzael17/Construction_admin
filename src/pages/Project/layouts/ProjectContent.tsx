@@ -45,6 +45,7 @@ const ProjectContent = () => {
     const [showModal, setShowModal] = useState(false);
     const response = useRef<PostResponse|null>(null);
 
+    // To don't spend time for writing of usual request to server, I decided to use the search hook to get all project statuses from a server
     const [, , statuses, isLoadingStatuses] = useListForeignKeys({table: Tables.project_statuses, limit: 1000});
 
 
@@ -108,8 +109,8 @@ const ProjectContent = () => {
         if(!isAvailableToSubmit) return;
 
         setIsLoading(true);
-        initialProjectData.current = projectData;
 
+        initialProjectData.current = projectData;
 
         const result = await $updateProject(projectData.id, {
             name,
@@ -120,6 +121,7 @@ const ProjectContent = () => {
 
         setShowModal(true);
         setIsLoading(false);
+
         response.current = result;
 
     }

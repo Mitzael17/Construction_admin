@@ -23,3 +23,27 @@
   @include absolutePosition(100%, 0, -80%, -50%)
 
 }
+
+
+.commentButtons {
+
+  display: flex;
+  background: var(--mainColor);
+  @include absolutePosition(calc(100% - 50px), 0, -100%, -40%);
+  transition: .3s all;
+
+  .icon {
+
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+    transition: .3s all;
+
+    &:hover {
+      background: var(--hoverBackgroundColor);
+    }
+
+  }
+
+
+}

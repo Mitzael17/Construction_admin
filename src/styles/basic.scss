@@ -18,6 +18,14 @@
 
 }
 
+.w-100-mobile {
+
+  @media screen and (max-width: $mobileResponse) {
+    width: 100%;
+  }
+
+}
+
 .h-100 {
   height: 100%;
 }
@@ -190,7 +198,15 @@
 
 .flex-wrap {
   flex-wrap: wrap;
+
+  &-mobile {
+    @media screen and (max-width: $mobileResponse) {
+      flex-wrap: wrap;
+    }
+  }
+
 }
+
 
 .flex-column {
   flex-direction: column;

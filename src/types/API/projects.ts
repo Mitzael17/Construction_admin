@@ -71,3 +71,17 @@ export interface ProjectComment extends Pick<BaseData, 'id'> {
     admin_image: string,
 
 }
+
+
+export interface ProjectWebsocketVariationResponse<T, D> {
+
+    type: T,
+    data: D
+
+}
+
+
+export type ProjectWebsocketResponse =
+    ProjectWebsocketVariationResponse<'create', ProjectComment> |
+    ProjectWebsocketVariationResponse<'update', ProjectComment> |
+    ProjectWebsocketVariationResponse<'delete', {id: number}>;

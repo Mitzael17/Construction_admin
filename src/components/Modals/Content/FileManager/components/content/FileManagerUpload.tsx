@@ -107,7 +107,6 @@ const FileManagerUpload = () => {
 
             name = name.replace(new RegExp(`${extension}$`), '');
 
-
             bufferFiles.push({
                 id: index,
                 preview: preview,

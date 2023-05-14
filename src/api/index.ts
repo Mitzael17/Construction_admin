@@ -1,7 +1,7 @@
 import axios from "axios";
 import {URL} from "../data/config";
 import {getCookie} from "../utils/cookie";
-import {InternalAxiosRequestConfig} from "axios/index";
+import {InternalAxiosRequestConfig} from "axios";
 import {BaseData, EndPoints, ErrorResponse, SearchParameters} from "../types/API";
 
 export const $API = axios.create({
@@ -17,7 +17,6 @@ const authInterceptor = (config: InternalAxiosRequestConfig) => {
     const token = getCookie('token');
 
     config.headers.authorization = `Bearer ${token}`;
-    //config.withCredentials = false;
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 
     config.validateStatus = (status: number) => {
@@ -32,7 +31,6 @@ const authInterceptor = (config: InternalAxiosRequestConfig) => {
 
 const interceptor = (config: InternalAxiosRequestConfig) => {
 
-   // config.withCredentials = false;
 
     config.headers['Content-Type'] = 'application/x-www-form-urlencoded';
 

@@ -8,11 +8,11 @@ const ProjectContentHeader = memo(({isAvailableToSubmit, alias, isLoading}: Proj
 
 
     return (
-        <div className='projectContent__header flex'>
-            <div className='w-200px ml-auto'>
+        <div className='projectContent__header gap-20px flex flex-wrap-mobile flex-j-fe'>
+            <div className='min-w-200px w-100-mobile'>
                 <Button>{alias === null ? 'Create page' : 'Edit page'}</Button>
             </div>
-            <div className='w-200px ml-20px'>
+            <div className='min-w-200px w-100-mobile'>
                 <Button type='submit' disabled={!isAvailableToSubmit}>{isLoading ? <Loading showText={false} diameter={20} /> : 'Save'}</Button>
             </div>
         </div>
